@@ -80,7 +80,7 @@
 
         .accordion {
             background-color: #1e293b;
-            color: #fbbf24; /* Altın rengi başlıklar */
+            color: #fbbf24;
             cursor: pointer;
             padding: 18px;
             width: 100%;
@@ -104,7 +104,7 @@
         }
 
         .accordion:after {
-            content: '\002B'; /* Artı işareti */
+            content: '\002B';
             color: white;
             font-weight: bold;
             float: right;
@@ -112,7 +112,7 @@
         }
 
         .active:after {
-            content: "\2212"; /* Eksi işareti */
+            content: "\2212";
         }
 
         .panel {
@@ -125,15 +125,9 @@
             border-radius: 0 0 10px 10px;
         }
         
-        .panel p {
-            margin: 15px 0;
-        }
-
-        /* Liste stilleri */
+        .panel p { margin: 15px 0; }
         ul { list-style: none; padding: 0; margin: 15px 0; }
         ul li { position: relative; padding-left: 25px; margin-bottom: 8px; }
-        
-        /* Liste başındaki ok işareti */
         ul li::before {
             content: '➤';
             color: #fbbf24;
@@ -142,7 +136,7 @@
             font-size: 0.9rem;
         }
 
-        /* --- 5. ŞİRKETLER --- */
+        /* --- 5. ŞİRKETLER VE MODAL (POPUP) STİLİ --- */
         h2 {
             color: #fbbf24;
             font-size: 1.2rem;
@@ -173,6 +167,8 @@
             padding: 15px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            cursor: pointer; /* Tıklanabilir el işareti */
+            position: relative;
         }
 
         .logo-card:hover {
@@ -180,10 +176,68 @@
             box-shadow: 0 10px 20px rgba(251, 191, 36, 0.5);
         }
 
+        /* Üzerine gelince "Oku" yazısı çıksın */
+        .logo-card:active {
+            transform: scale(0.95);
+        }
+
         .logo-card img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+        }
+
+        /* POPUP (MODAL) PENCERE STİLİ */
+        .modal {
+            display: none; /* Başlangıçta gizli */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Arka planı karart */
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #1e293b;
+            margin: 10% auto;
+            padding: 30px;
+            border: 2px solid #fbbf24;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 600px;
+            color: #e2e8f0;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+            animation: fadeIn 0.4s;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close-btn {
+            color: #fbbf24;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: white;
+        }
+
+        .modal-title {
+            color: #fbbf24;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
         }
 
         /* --- 6. İLETİŞİM --- */
@@ -235,7 +289,6 @@
         </div>
 
         <div class="accordion-container">
-            
             <button class="accordion">G-Talks Nedir?</button>
             <div class="panel">
                 <p>
@@ -285,22 +338,29 @@
 
         <div>
             <h2>Konuşmacı Şirketler</h2>
+            <p style="font-size:0.9rem; color:#888;">(Özgeçmiş için logoya tıklayınız)</p>
             <div class="logo-grid">
-                <div class="logo-card">
+                
+                <div class="logo-card" onclick="openModal('modal-atiker')">
                     <img src="atiker.png" alt="Atiker">
                 </div>
-                <div class="logo-card">
-                    <img src="ilko.png" alt="İlko İlaç">
-                </div>
+
             </div>
         </div>
 
         <div>
             <h2>Sponsorlar</h2>
+            <p style="font-size:0.9rem; color:#888;">(Özgeçmiş için logoya tıklayınız)</p>
             <div class="logo-grid">
-                <div class="logo-card">
+                
+                <div class="logo-card" onclick="openModal('modal-uludag')">
                     <img src="uludag.png" alt="Uludağ İçecek">
                 </div>
+
+                <div class="logo-card" onclick="openModal('modal-ilko')">
+                    <img src="ilko.png" alt="İlko İlaç">
+                </div>
+
             </div>
         </div>
 
@@ -315,10 +375,60 @@
         <br><br>
     </div>
 
+    <div id="modal-atiker" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-atiker')">&times;</span>
+            <div class="modal-title">ATİKER – Kurumsal Özgeçmiş</div>
+            <p>
+                Atiker, otomotiv ve enerji teknolojileri alanında faaliyet gösteren, 
+                özellikle LPG sistemleri ve alternatif yakıt teknolojileri konusundaki çalışmalarıyla 
+                Türkiye’nin önde gelen sanayi kuruluşlarından biridir.
+            </p>
+            <p>
+                Yerli üretim gücü, Ar-Ge yatırımları ve sürdürülebilir teknoloji vizyonu ile 
+                Atiker; enerji verimliliği, çevre dostu çözümler ve sanayi-teknoloji entegrasyonu 
+                alanlarında önemli katkılar sunmaktadır.
+            </p>
+        </div>
+    </div>
+
+    <div id="modal-uludag" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-uludag')">&times;</span>
+            <div class="modal-title">ULUDAĞ – Kurumsal Özgeçmiş</div>
+            <p>
+                Uludağ, köklü akademik yapısı, güçlü araştırma altyapısı ve 
+                üniversite–sanayi iş birlikleriyle öne çıkan Türkiye’nin saygın akademik 
+                ve kurumsal markalarından biridir.
+            </p>
+            <p>
+                Bilimsel üretim, teknoloji geliştirme ve toplumsal fayda odaklı projeleriyle 
+                Uludağ; akademi, sektör ve gençleri bir araya getiren öncü bir bilgi ve 
+                etkileşim merkezi konumundadır.
+            </p>
+        </div>
+    </div>
+
+    <div id="modal-ilko" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-ilko')">&times;</span>
+            <div class="modal-title">İLKO İLAÇ – Kurumsal Özgeçmiş</div>
+            <p>
+                İlko İlaç, sağlık ve ilaç sektöründe faaliyet gösteren, bilimsel araştırma, 
+                kalite ve etik üretim anlayışını temel alan yerli bir ilaç firmasıdır.
+            </p>
+            <p>
+                Ar-Ge odaklı yaklaşımı ve insan sağlığını merkeze alan çalışmalarıyla İlko İlaç; 
+                akademi, teknoloji ve sağlık alanlarında sürdürülebilir çözümler üretmeyi hedeflemektedir.
+            </p>
+        </div>
+    </div>
+
+
     <script>
+        // Akordiyon Menü Kodları
         var acc = document.getElementsByClassName("accordion");
         var i;
-
         for (i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function() {
                 this.classList.toggle("active");
@@ -329,6 +439,22 @@
                     panel.style.maxHeight = panel.scrollHeight + "px";
                 } 
             });
+        }
+
+        // Modal (Popup) Açma Kapama Kodları
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        // Pencere dışına tıklanınca kapatma
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
         }
     </script>
 
