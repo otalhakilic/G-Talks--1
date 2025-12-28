@@ -3,244 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GıTalks Konferans Posteri</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>GıTalks</title>
     <style>
-        /* GENEL AYARLAR */
         body {
             margin: 0;
             padding: 0;
-            background-color: #111;
+            background-color: #000; /* Zemin Siyah */
+            font-family: Arial, sans-serif;
+            color: #D4AF37; /* Yazılar Altın Rengi */
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* POSTER KAPSAYICISI */
-        .poster-container {
-            width: 100%;
-            max-width: 600px;
-            height: 900px; /* Dikey A4/Poster oranı */
-            background-color: #000000;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            color: #fff;
-        }
-
-        /* YENİLİKÇİ ARKA PLAN (Tech Grid) */
-        .background-effect {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Altın rengi ince çizgilerle ızgara görünümü */
-            background-image: 
-                linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: 1;
-        }
-        
-        /* Merkezden dışa doğru karartma (Vignette) */
-        .vignette {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 40%, #000000 100%);
-            z-index: 2;
-        }
-
-        /* İÇERİK KATMANI */
-        .content {
-            position: relative;
-            z-index: 10;
-            padding: 40px;
-            text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
         }
 
-        /* LOGO TASARIMI */
-        .main-title {
-            font-family: 'Cinzel', serif;
-            font-size: 4.5rem;
-            font-weight: 700;
-            margin: 0;
+        /* Yenilikçi Arka Plan: Sade bir degrade ve hafif bir doku */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #222 0%, #000 70%);
+            z-index: -1;
+        }
+
+        /* LOGO KISMI (Sadece GıTalks) */
+        .logo {
+            font-size: 6rem;
+            font-weight: bold;
             letter-spacing: 5px;
-            /* Metalik Altın Efekti */
-            background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            margin-bottom: 20px;
+            /* Hafif metalik yansıma efekti */
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0px 0px 10px rgba(212, 175, 55, 0.4);
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            color: #ccc;
-            text-transform: uppercase;
-            margin-top: -10px;
-            margin-bottom: 50px;
-            border-bottom: 1px solid #B38728;
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        /* KONFERANS BÖLÜMLERİ */
-        .topics-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 auto;
-            width: 80%;
-        }
-
-        .topic-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 3px solid #D4AF37;
-            margin-bottom: 15px;
-            padding: 15px;
-            text-align: left;
+        /* EKSİK OLAN KONFERANS BÖLÜMLERİ */
+        .topics {
             display: flex;
-            align-items: center;
-            transition: transform 0.3s;
-        }
-        
-        .topic-item:hover {
-            transform: translateX(10px);
-            background: rgba(212, 175, 55, 0.15);
-        }
-
-        .topic-icon {
-            font-size: 1.5rem;
-            margin-right: 15px;
-            color: #D4AF37;
-        }
-
-        .topic-text {
-            font-size: 1.1rem;
-            font-weight: 500;
+            gap: 30px;
+            font-size: 1.2rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 60px;
+            opacity: 0.9;
         }
 
-        /* TARİH VE YER */
-        .date-location {
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #888;
-        }
-        .date-location span {
-            color: #D4AF37;
-            font-weight: bold;
+        .topics span {
+            border-bottom: 2px solid #D4AF37;
+            padding-bottom: 5px;
         }
 
         /* SPONSOR ALANI */
-        .sponsor-section {
-            position: relative;
-            z-index: 10;
-            background-color: #0a0a0a;
-            padding: 20px 40px;
-            border-top: 1px solid #333;
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
             text-align: center;
         }
 
         .sponsor-title {
             font-size: 0.8rem;
-            color: #555;
-            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #666;
             letter-spacing: 2px;
-            margin-bottom: 15px;
         }
 
-        .logos-container {
+        .sponsors {
             display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            justify-content: center;
+            gap: 40px;
         }
 
-        /* Sponsor Logosu Yer Tutucu (Placeholder) */
-        .sponsor-placeholder {
-            width: 80px;
-            height: 40px;
-            border: 1px dashed #444;
-            border-radius: 5px;
+        /* Sponsorlar için yuvarlak yer tutucular */
+        .sponsor-box {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #D4AF37;
+            border-radius: 50%; /* Yuvarlak logolar */
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #444;
             font-size: 0.7rem;
-            background: rgba(255,255,255,0.02);
-        }
-
-        /* Eğer gerçek resim kullanacaksan bu sınıfı kullan */
-        .sponsor-img {
-            max-height: 40px;
+            color: #D4AF37;
             opacity: 0.7;
-            filter: grayscale(100%); /* Logoları siyah beyaz yapar */
-            transition: 0.3s;
-        }
-        .sponsor-img:hover {
-            opacity: 1;
-            filter: grayscale(0%);
         }
 
     </style>
 </head>
 <body>
 
-    <div class="poster-container">
-        <div class="background-effect"></div>
-        <div class="vignette"></div>
+    <div class="background"></div>
 
-        <div class="content">
-            <h1 class="main-title">GıTALKS</h1>
-            <div class="subtitle">Geleceği Tasarlayan Zirve</div>
+    <div class="logo">GıTalks</div>
 
-            <ul class="topics-list">
-                <li class="topic-item">
-                    <span class="topic-icon">📡</span>
-                    <span class="topic-text">Teknoloji & İnovasyon</span>
-                </li>
-                <li class="topic-item">
-                    <span class="topic-icon">🌾</span>
-                    <span class="topic-text">Sürdürülebilir Tarım</span>
-                </li>
-                <li class="topic-item">
-                    <span class="topic-icon">📈</span>
-                    <span class="topic-text">Ekonomi & Finans</span>
-                </li>
-                <li class="topic-item">
-                    <span class="topic-icon">🤝</span>
-                    <span class="topic-text">Sosyal Etki & Yardım</span>
-                </li>
-            </ul>
+    <div class="topics">
+        <span>Teknoloji</span>
+        <span>Tarım</span>
+        <span>Ekonomi</span>
+        <span>Yardım</span>
+    </div>
 
-            <div class="date-location">
-                <span>KONFERANS SALONU</span> | 2025
-            </div>
-        </div>
-
-        <div class="sponsor-section">
-            <div class="sponsor-title">Katkılarıyla</div>
-            <div class="logos-container">
-                <div class="sponsor-placeholder">LOGO 1</div>
-                <div class="sponsor-placeholder">LOGO 2</div>
-                <div class="sponsor-placeholder">LOGO 3</div>
-                <div class="sponsor-placeholder">LOGO 4</div>
-            </div>
+    <div class="footer">
+        <div class="sponsor-title">SPONSORLAR</div>
+        <div class="sponsors">
+            <div class="sponsor-box">Logo</div>
+            <div class="sponsor-box">Logo</div>
+            <div class="sponsor-box">Logo</div>
         </div>
     </div>
 
