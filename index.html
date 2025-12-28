@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G-Talks Teknoloji Konferansı</title>
     <style>
-        /* --- GENEL SAYFA TASARIMI --- */
+        /* --- 1. GENEL SAYFA TASARIMI --- */
         body {
-            background-color: #0f172a; /* Çok koyu modern mavi/siyah */
-            color: #ffffff;
+            background-color: #0f172a; /* Arka plan: Modern Koyu Lacivert/Siyah */
+            color: #ffffff;            /* Yazı rengi: Beyaz */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
@@ -18,21 +18,26 @@
             min-height: 100vh;
         }
 
-        /* --- ANA KONTEYNER --- */
+        /* Sayfa içeriğini ortalayan kutu */
         .container {
             width: 90%;
-            max-width: 800px;
+            max-width: 800px; /* Genişlik sınırı */
             text-align: center;
             padding: 40px 0;
         }
 
-        /* --- LOGO VE BAŞLIK --- */
+        /* --- 2. LOGO VE BAŞLIK --- */
         .main-logo img {
-            width: 180px;
+            width: 180px;  /* Logo genişliği */
             height: auto;
-            border-radius: 20px; /* Logoyu hafif oval yapar */
-            box-shadow: 0 0 30px rgba(255, 193, 7, 0.3); /* Arkasına altın rengi ışık verir */
             margin-bottom: 20px;
+            /* Logo PNG olduğu için arkası temiz, hafif altın ışık veriyoruz */
+            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.4));
+            transition: transform 0.3s ease;
+        }
+
+        .main-logo img:hover {
+            transform: scale(1.05); /* Üzerine gelince hafif büyür */
         }
 
         h1 {
@@ -42,18 +47,19 @@
         }
 
         .highlight {
-            color: #fbbf24; /* Altın Sarısı */
+            color: #fbbf24; /* Vurgu rengi: Altın Sarısı */
         }
 
-        /* --- BİLGİ KUTUSU (TARİH/KONUM) --- */
+        /* --- 3. BİLGİ KUTUSU (Tarih/Yer) --- */
         .info-box {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05); /* Yarı saydam beyaz */
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 15px;
             margin: 30px auto;
             display: inline-block;
             width: 80%;
+            backdrop-filter: blur(5px); /* Buzlu cam efekti */
         }
 
         .info-item {
@@ -65,7 +71,7 @@
             gap: 10px;
         }
 
-        /* --- BÖLÜM BAŞLIKLARI --- */
+        /* --- 4. BÖLÜM BAŞLIKLARI --- */
         h2 {
             color: #fbbf24;
             font-size: 1.2rem;
@@ -78,16 +84,16 @@
             display: inline-block;
         }
 
-        /* --- LOGO KUTULARI (GRID) --- */
+        /* --- 5. ŞİRKET KARTLARI --- */
         .logo-grid {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Sığmazsa alt satıra geç */
             gap: 20px;
         }
 
         .logo-card {
-            background-color: white;
+            background-color: white; /* Logolar net görünsün diye zemin beyaz */
             width: 200px;
             height: 120px;
             border-radius: 15px;
@@ -99,12 +105,61 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
 
-        /* Mouse üzerine gelince efekt */
+        /* Karta mouse ile gelince efekt */
         .logo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.4); /* Sarı parlama */
+            transform: translateY(-5px); /* Yukarı kalkar */
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.5); /* Sarı parlama */
         }
 
         .logo-card img {
             max-width: 100%;
-            max-height:
+            max-height: 100%;
+            object-fit: contain; /* Resim kutuya sığsın ama bozulmasın */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="main-logo">
+            <img src="gtalks.png" alt="G-Talks Ana Logo">
+        </div>
+
+        <h1>G-Talks <span class="highlight">Teknoloji Konferansı</span></h1>
+
+        <div class="info-box">
+            <div class="info-item">
+                <span>📅</span> 16 Şubat 2026
+            </div>
+            <div class="info-item">
+                <span>📍</span> Konya Gıda ve Tarım Üniversitesi<br>Konferans Salonu
+            </div>
+        </div>
+
+        <div>
+            <h2>Konuşmacı Şirketler</h2>
+            <div class="logo-grid">
+                <div class="logo-card">
+                    <img src="atiker.png" alt="Atiker">
+                </div>
+                <div class="logo-card">
+                    <img src="ilko.png" alt="İlko İlaç">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2>Sponsorlar</h2>
+            <div class="logo-grid">
+                <div class="logo-card">
+                    <img src="uludag.png" alt="Uludağ İçecek">
+                </div>
+            </div>
+        </div>
+
+        <br><br><br> </div>
+
+</body>
+</html>
