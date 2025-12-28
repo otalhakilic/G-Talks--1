@@ -7,8 +7,8 @@
     <style>
         /* --- 1. GENEL AYARLAR --- */
         body {
-            background-color: #0f172a; /* Koyu Lacivert/Siyah Arka Plan */
-            color: #e2e8f0;            /* Yazılar hafif gri-beyaz (göz yormaz) */
+            background-color: #0f172a; /* Koyu Lacivert/Siyah */
+            color: #e2e8f0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
@@ -16,7 +16,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            line-height: 1.6; /* Satır aralarını açtık, daha rahat okunur */
+            line-height: 1.6;
         }
 
         .container {
@@ -50,7 +50,7 @@
             color: #fbbf24; /* Altın Sarısı */
         }
 
-        /* --- 3. BİLGİ KUTUSU (Tarih/Yer) --- */
+        /* --- 3. BİLGİ KUTUSU --- */
         .info-box {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -72,64 +72,94 @@
             color: white;
         }
 
-        /* --- 4. YENİ EKLENEN METİN ALANLARI --- */
-        .content-section {
-            text-align: left; /* Metinleri sola yasladık, okuması kolay olsun */
-            background: rgba(15, 23, 42, 0.5); /* Hafif koyu fon */
-            padding: 20px;
-            margin-bottom: 40px;
-            border-left: 4px solid #fbbf24; /* Sol tarafa şık bir sarı çizgi */
+        /* --- 4. AÇILIR KAPANIR MENÜ (ACCORDION) --- */
+        .accordion-container {
+            text-align: left;
+            margin-top: 30px;
         }
 
-        h2 {
-            color: #fbbf24;
-            font-size: 1.5rem;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-            display: inline-block;
-        }
-
-        h3 {
-            color: white;
-            font-size: 1.2rem;
-            margin-top: 0;
-        }
-
-        p {
-            margin-bottom: 15px;
-        }
-
-        /* Özel Madde İşaretleri */
-        ul {
-            list-style: none; /* Standart noktaları kaldırdık */
-            padding: 0;
-        }
-
-        ul li {
-            position: relative;
-            padding-left: 25px;
+        .accordion {
+            background-color: #1e293b;
+            color: #fbbf24; /* Altın rengi başlıklar */
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+            border-radius: 10px;
             margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(251, 191, 36, 0.2);
         }
 
+        .active, .accordion:hover {
+            background-color: #334155;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+        }
+
+        .accordion:after {
+            content: '\002B'; /* Artı işareti */
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "\2212"; /* Eksi işareti */
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: rgba(0, 0, 0, 0.2);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            margin-bottom: 10px;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .panel p {
+            margin: 15px 0;
+        }
+
+        /* Liste stilleri */
+        ul { list-style: none; padding: 0; margin: 15px 0; }
+        ul li { position: relative; padding-left: 25px; margin-bottom: 8px; }
+        
+        /* Liste başındaki ok işareti */
         ul li::before {
-            content: '➤'; /* Madde işareti olarak ok koyduk */
+            content: '➤';
             color: #fbbf24;
             position: absolute;
             left: 0;
             font-size: 0.9rem;
         }
 
-        /* --- 5. ŞİRKET LOGOLARI --- */
+        /* --- 5. ŞİRKETLER --- */
+        h2 {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
         .logo-grid {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 20px;
-            margin-top: 20px;
         }
 
         .logo-card {
@@ -156,6 +186,33 @@
             object-fit: contain;
         }
 
+        /* --- 6. İLETİŞİM --- */
+        .contact-section {
+            margin-top: 60px;
+            padding: 20px;
+            border-top: 1px solid #333;
+            width: 100%;
+        }
+
+        .mail-button {
+            display: inline-block;
+            background-color: #fbbf24;
+            color: #0f172a;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mail-button:hover {
+            background-color: #f59e0b;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+        }
+
     </style>
 </head>
 <body>
@@ -177,40 +234,52 @@
             </div>
         </div>
 
-        <div class="content-section">
-            <h3>G-Talks Nedir?</h3>
-            <p>
-                G-Talks; gıda, tarım, teknoloji, girişimcilik ve inovasyon alanlarında; 
-                akademi, sektör ve öğrencileri bir araya getiren konferans ve konuşma platformudur.
-            </p>
-            <p>
-                Alanında uzman konuşmacıların güncel gelişmeleri, gelecek vizyonlarını ve gerçek sektör 
-                deneyimlerini paylaştığı ilham verici bir bilgi ve etkileşim alanı sunar.
-            </p>
-            <p>
-                G-Talks, bilgi aktarımının ötesinde; fikir üretimini, disiplinler arası etkileşimi 
-                ve sürdürülebilir gelecek vizyonunu desteklemeyi amaçlar.
-            </p>
-        </div>
-
-        <div class="content-section" style="border-left-color: #fff;"> <h3>G-Talks’in Amacı</h3>
-            <ul>
-                <li>Gıda ve tarım başta olmak üzere farklı sektörleri teknoloji ile birlikte ele almak</li>
-                <li>Öğrenciler ile sektör profesyonellerini aynı platformda buluşturmak</li>
-                <li>İlham veren konuşmalarla vizyon kazandırmak</li>
-                <li>Yeni fikirlerin, projelerin ve iş birliklerinin oluşmasına katkı sağlamak</li>
-            </ul>
+        <div class="accordion-container">
             
-            <br>
+            <button class="accordion">G-Talks Nedir?</button>
+            <div class="panel">
+                <p>
+                    G-Talks; <strong>tarım, teknoloji, akademi ve sosyal fayda (yardım)</strong> alanlarında 
+                    bilgi paylaşımını, yenilikçi düşünceyi ve toplumsal etkiyi merkeze alan 
+                    konferans ve konuşma platformudur.
+                </p>
+                <p>
+                    Akademisyenler, sektör uzmanları, teknoloji geliştiricileri ve sosyal girişimcileri 
+                    aynı sahnede buluşturarak; bilimsel bilgi ile sahadaki gerçek ihtiyaçlar arasında 
+                    köprü kurmayı amaçlar.
+                </p>
+            </div>
 
-            <h3>Kimlere Hitap Eder?</h3>
-            <ul>
-                <li>Üniversite öğrencileri</li>
-                <li>Akademisyenler</li>
-                <li>Sektör profesyonelleri</li>
-                <li>Girişimciler</li>
-                <li>Teknoloji ve inovasyon meraklıları</li>
-            </ul>
+            <button class="accordion">G-Talks’in Temel Odak Alanları</button>
+            <div class="panel">
+                <ul>
+                    <li>🌱 Tarım ve Akıllı Tarım Teknolojileri</li>
+                    <li>💻 Teknoloji ve Dijital Dönüşüm</li>
+                    <li>🎓 Akademik Bilgi ve Bilimsel Yaklaşımlar</li>
+                    <li>🤝 Sosyal Fayda & Yardım Odaklı Projeler</li>
+                </ul>
+            </div>
+
+            <button class="accordion">G-Talks’in Amacı</button>
+            <div class="panel">
+                <ul>
+                    <li>Tarım ve teknoloji alanlarında bilimsel ve yenilikçi yaklaşımları yaygınlaştırmak</li>
+                    <li>Akademi ile saha uygulamalarını aynı platformda buluşturmak</li>
+                    <li>Toplumsal fayda üreten projelere fikir, görünürlük ve etki alanı kazandırmak</li>
+                    <li>Gençlere vizyon, ilham ve yön kazandırmak</li>
+                </ul>
+            </div>
+
+            <button class="accordion">G-Talks Kimlere Hitap Eder?</button>
+            <div class="panel">
+                <ul>
+                    <li>Üniversite öğrencileri</li>
+                    <li>Akademisyenler</li>
+                    <li>Tarım ve teknoloji sektör profesyonelleri</li>
+                    <li>Sosyal sorumluluk ve yardım projeleri yürüten kurumlar</li>
+                    <li>Geleceğe katkı sunmak isteyen herkes</li>
+                </ul>
+            </div>
         </div>
 
 
@@ -235,8 +304,33 @@
             </div>
         </div>
 
-        <br><br><br>
+        <div class="contact-section">
+            <h2>İletişim</h2>
+            <p>Soru, görüş ve önerileriniz için bize ulaşın:</p>
+            <a href="mailto:gitalks.official@gmail.com" class="mail-button">
+                ✉️ gitalks.official@gmail.com
+            </a>
+        </div>
+
+        <br><br>
     </div>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                } 
+            });
+        }
+    </script>
 
 </body>
 </html>
