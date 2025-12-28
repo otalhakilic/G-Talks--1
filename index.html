@@ -219,11 +219,32 @@
             justify-content: center;
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
             transition: transform 0.3s;
+            cursor: pointer; /* Tıklanabilir olduğunu göster */
+            position: relative;
         }
         
         .sponsor-img-box:hover {
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Tıklayın uyarısı */
+        .sponsor-img-box::after {
+            content: 'BİLGİ İÇİN TIKLA';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: #D4AF37;
+            opacity: 0;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .sponsor-img-box:hover::after {
+            opacity: 1;
+            bottom: -30px;
         }
 
         .sponsor-img-box img {
@@ -232,10 +253,62 @@
             object-fit: contain;
         }
 
+        /* --- MODAL (POP-UP) PENCERE --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.85); /* Arka plan karartma */
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: #111;
+            margin: 10% auto; 
+            padding: 30px;
+            border: 2px solid #D4AF37;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            color: #ecf0f1;
+            position: relative;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+            text-align: left;
+        }
+
+        .close-btn {
+            color: #D4AF37;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        .modal-title {
+            color: #D4AF37;
+            margin-top: 0;
+            font-size: 2rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
         @media (max-width: 600px) {
             h1 { font-size: 2.5rem; }
             .time-box { width: 50px; padding: 10px; }
             .time-box span { font-size: 1.4rem; }
+            .modal-content { width: 90%; margin: 20% auto; }
         }
     </style>
 </head>
@@ -307,18 +380,18 @@
 
     <div id="sponsors-tab" class="tab-content">
         <h2>Değerli Sponsorlarımız</h2>
-        <p>G-Talks 2026'ya katkılarından dolayı teşekkür ederiz.</p>
+        <p>Logoların üzerine tıklayarak şirket hakkında bilgi alabilirsiniz.</p>
         
         <div class="sponsor-grid">
-            <div class="sponsor-img-box">
+            <div class="sponsor-img-box" onclick="openBio('uludag')">
                 <img src="uludag.png" alt="Uludağ Logo" onerror="this.style.display='none'; this.parentElement.innerText='Uludağ'">
             </div>
 
-            <div class="sponsor-img-box">
+            <div class="sponsor-img-box" onclick="openBio('ilko')">
                 <img src="ilko.png" alt="İlko İlaç Logo" onerror="this.style.display='none'; this.parentElement.innerText='İlko İlaç'">
             </div>
 
-            <div class="sponsor-img-box">
+            <div class="sponsor-img-box" onclick="openBio('atiker')">
                 <img src="atiker.png" alt="Atiker Logo" onerror="this.style.display='none'; this.parentElement.innerText='Atiker'">
             </div>
         </div>
@@ -332,7 +405,60 @@
         </div>
     </div>
 
+    <div id="bioModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeBio()">&times;</span>
+            <h2 id="modal-title" class="modal-title">Şirket Adı</h2>
+            <div id="modal-text">
+                Buraya özgeçmiş gelecek...
+            </div>
+        </div>
+    </div>
+
     <script>
+        // --- SPONSOR BİLGİLERİ (VERİTABANI) ---
+        const sponsorData = {
+            'uludag': {
+                title: 'Uludağ İçecek',
+                text: '1930 yılından bu yana Türkiye\'nin meşrubat sektöründeki öncü markası olan Uludağ İçecek, yenilikçi ürünleri ve kalitesiyle tanınmaktadır. "Efsane Gazoz" sloganıyla hafızalara kazınan marka, G-Talks etkinliğinin ana içecek sponsorudur.'
+            },
+            'ilko': {
+                title: 'İLKO İlaç',
+                text: '50 yılı aşkın tecrübesiyle Türk ilaç sanayisinin köklü kuruluşlarından biri olan İLKO İlaç, Konya\'daki modern üretim tesislerinde Ar-Ge ve biyoteknoloji üzerine yaptığı yatırımlarla sağlık sektörüne yön vermektedir.'
+            },
+            'atiker': {
+                title: 'Atiker Yazılım & Teknoloji',
+                text: 'Konya merkezli bir dünya markası olan Atiker, otomotiv sektöründeki liderliğinin yanı sıra, geliştirdiği yerli ERP yazılımları, akıllı tarım çözümleri ve teknoloji yatırımlarıyla dijital dönüşümün öncülerindendir.'
+            }
+        };
+
+        // --- MODAL FONKSİYONLARI ---
+        function openBio(sponsorKey) {
+            const modal = document.getElementById("bioModal");
+            const title = document.getElementById("modal-title");
+            const text = document.getElementById("modal-text");
+            const data = sponsorData[sponsorKey];
+
+            if (data) {
+                title.innerText = data.title;
+                text.innerHTML = `<p>${data.text}</p>`;
+                modal.style.display = "block";
+            }
+        }
+
+        function closeBio() {
+            document.getElementById("bioModal").style.display = "none";
+        }
+
+        // Modal dışına tıklayınca kapatma
+        window.onclick = function(event) {
+            const modal = document.getElementById("bioModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // --- SEKMELERİ YÖNETME ---
         function openTab(tabName) {
             var i;
             var x = document.getElementsByClassName("tab-content");
@@ -349,6 +475,7 @@
             if(activeBtn) activeBtn.classList.add("active");
         }
 
+        // --- GERİ SAYIM ---
         var countDownDate = new Date("Feb 16, 2026 09:00:00").getTime();
 
         var x = setInterval(function() {
