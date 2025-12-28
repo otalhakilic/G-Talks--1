@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>G-Talks Teknoloji Konferansı</title>
+    <title>GıTalks Teknoloji Konferansı</title>
     <style>
-        /* --- 1. GENEL AYARLAR (AÇIK TEMA) --- */
+        /* --- 1. GENEL AYARLAR (DARK MODE - SIYAH & ALTIN) --- */
         body {
-            /* Kırık beyaz ve altın sarısı karışık gradient arka plan */
-            background: linear-gradient(135deg, #fdfbf7 0%, #fff8e1 100%);
-            color: #1e293b; /* Yazılar koyu gri/lacivert (okunabilirlik için) */
+            /* Tam siyah arka plan */
+            background-color: #050505;
+            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
+            color: #ecf0f1; /* Okunabilirlik için açık gri/beyaz yazı */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
@@ -26,13 +27,13 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #1e293b; /* Menü koyu kalsın ki kontrast olsun */
-            border-bottom: 3px solid #fbbf24;
+            background-color: rgba(0, 0, 0, 0.95); /* Yarı saydam siyah */
+            border-bottom: 2px solid #D4AF37; /* Altın Çizgi */
             display: flex;
             justify-content: center;
             padding: 15px 0;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
         }
 
         .nav-links {
@@ -46,19 +47,20 @@
         .nav-btn {
             background: none;
             border: none;
-            color: white;
+            color: #888;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: color 0.3s;
+            transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
             padding: 10px;
         }
 
         .nav-btn:hover, .nav-btn.active {
-            color: #fbbf24; /* Altın sarısı */
-            border-bottom: 2px solid #fbbf24;
+            color: #D4AF37; /* Aktif olunca Altın */
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            border-bottom: 1px solid #D4AF37;
         }
 
         /* --- 3. SEKMELER --- */
@@ -67,137 +69,175 @@
             width: 90%;
             max-width: 800px;
             text-align: center;
-            animation: fadeIn 0.6s;
+            animation: fadeIn 0.8s;
             padding-bottom: 50px;
         }
 
         #home-tab { display: block; }
 
         @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(15px);}
+            from {opacity: 0; transform: translateY(20px);}
             to {opacity: 1; transform: translateY(0);}
         }
 
         /* --- 4. TASARIM ÖGELERİ --- */
-        .main-logo img {
-            width: 180px;
-            margin-bottom: 10px;
-            /* Logo koyu zemin için tasarlanmışsa gölge ekleyelim */
-            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2)); 
-        }
-
         /* Başlıklar */
         h1 { 
-            font-size: 3rem; 
-            margin: 5px 0; 
-            color: #1e293b; 
+            font-size: 3.5rem; 
+            margin: 10px 0; 
+            color: #D4AF37; /* Altın */
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
+            text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.3);
         }
         
         .sub-header {
-            font-size: 1.8rem;
-            color: #b45309; /* Koyu altın/turuncu tonu */
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #333;
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
         .guest-info {
-            font-size: 1.3rem;
-            color: #555;
+            font-size: 1.2rem;
+            color: #aaa;
             margin-bottom: 30px;
-            font-style: italic;
         }
 
         h2 { 
-            color: #b45309; 
-            border-bottom: 2px solid #fbbf24; 
+            color: #D4AF37; 
+            border-bottom: 2px solid #D4AF37; 
             display: inline-block; 
             padding-bottom: 5px; 
             margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        /* --- GERİ SAYIM SAYACI (COUNTDOWN) --- */
+        /* --- GERİ SAYIM SAYACI --- */
         .countdown-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             margin: 30px auto;
             flex-wrap: wrap;
         }
 
         .time-box {
-            background: #1e293b;
-            color: #fbbf24;
+            background: #111;
+            border: 1px solid #333;
+            color: #D4AF37;
             padding: 15px;
-            border-radius: 10px;
-            width: 80px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            width: 70px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
         }
 
         .time-box span {
             display: block;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
         }
 
         .time-box label {
-            font-size: 0.8rem;
-            color: #e2e8f0;
+            font-size: 0.7rem;
+            color: #fff;
             text-transform: uppercase;
         }
 
-        /* --- KARTLAR VE KUTULAR --- */
+        /* --- KUTULAR (INFO BOX) --- */
         .info-box {
-            background: rgba(255, 255, 255, 0.8);
-            border: 2px solid #fbbf24;
-            padding: 25px;
-            border-radius: 15px;
+            background: rgba(20, 20, 20, 0.8); /* Koyu transparan zemin */
+            border: 1px solid #D4AF37;
+            padding: 30px;
+            border-radius: 10px;
             margin: 30px auto;
             width: 80%;
-            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.15);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
         }
 
+        /* --- KONFERANS KARTLARI --- */
         .conf-card {
-            background: white;
-            border: 1px solid #ddd;
-            border-left: 5px solid #fbbf24;
-            border-radius: 10px;
+            background: #111;
+            border: 1px solid #333;
+            border-left: 4px solid #D4AF37;
+            border-radius: 5px;
             padding: 20px;
             text-align: left;
             margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             transition: 0.3s;
         }
-        .conf-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .conf-card:hover { 
+            transform: translateX(10px); 
+            border-color: #D4AF37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); 
+        }
+
+        .conf-card h3 {
+            color: #D4AF37;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
 
         /* --- İLETİŞİM ALANI --- */
         .contact-home {
             margin-top: 40px;
             padding: 20px;
-            background-color: #1e293b;
-            color: white;
-            border-radius: 15px;
+            border: 1px solid #333;
+            background-color: #0a0a0a;
+            color: #ccc;
+            border-radius: 10px;
             display: inline-block;
             min-width: 300px;
         }
         .contact-home a {
-            color: #fbbf24;
+            color: #D4AF37;
             text-decoration: none;
-            font-size: 1.2rem;
             font-weight: bold;
         }
 
-        /* --- MODAL --- */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
-        .modal-content { background-color: white; margin: 15% auto; padding: 30px; border: 3px solid #fbbf24; width: 80%; max-width: 500px; border-radius: 15px; text-align: left; color: #333; position: relative;}
-        .close-btn { color: #b45309; float: right; font-size: 28px; cursor: pointer; font-weight: bold;}
+        /* --- SPONSOR GÖRSELLERİ --- */
+        .sponsor-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .sponsor-img-box {
+            background: #fff; /* Logolar net görünsün diye beyaz zemin */
+            padding: 20px;
+            border-radius: 10px;
+            width: 180px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+        
+        .sponsor-img-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .sponsor-img-box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
 
         /* Mobil Uyum */
         @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .time-box { width: 60px; padding: 10px; }
-            .time-box span { font-size: 1.5rem; }
+            h1 { font-size: 2.5rem; }
+            .time-box { width: 50px; padding: 10px; }
+            .time-box span { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -206,30 +246,29 @@
     <nav class="navbar">
         <ul class="nav-links">
             <li><button class="nav-btn active" onclick="openTab('home-tab')">Anasayfa</button></li>
-            <li><button class="nav-btn" onclick="openTab('about-tab')">Hakkında</button></li>
-            <li><button class="nav-btn" onclick="openTab('conferences-tab')">Konferanslar</button></li>
+            <li><button class="nav-btn" onclick="openTab('conferences-tab')">Program</button></li>
             <li><button class="nav-btn" onclick="openTab('sponsors-tab')">Sponsorlar</button></li>
+            <li><button class="nav-btn" onclick="openTab('about-tab')">Hakkında</button></li>
         </ul>
     </nav>
 
     <div id="home-tab" class="tab-content">
         <div class="main-logo">
-            <img src="gtalks.png" alt="G-Talks Logo" onerror="this.style.display='none'">
-            <h1 style="margin-top:0;">G-Talks</h1>
+            <h1>GıTalks</h1>
         </div>
         
-        <div class="sub-header">TEKNOLOJİ KONFERANSI</div>
-        <div class="guest-info">Konuklar: <span style="font-weight:bold; color:#b45309;">Atiker</span></div>
+        <div class="sub-header">GELECEĞİ TASARLAYAN ZİRVE</div>
+        <div class="guest-info">Ana Konuk: <span style="font-weight:bold; color:#D4AF37;">Atiker</span></div>
 
         <div class="info-box">
-            <h3 style="margin-top:0; color:#1e293b;">Büyük Buluşmaya Kalan Süre</h3>
+            <h3 style="margin-top:0; color:#fff;">Büyük Buluşmaya Kalan Süre</h3>
             <div class="countdown-container" id="countdown">
                 <div class="time-box"><span id="days">00</span><label>GÜN</label></div>
                 <div class="time-box"><span id="hours">00</span><label>SAAT</label></div>
                 <div class="time-box"><span id="minutes">00</span><label>DAKİKA</label></div>
                 <div class="time-box"><span id="seconds">00</span><label>SANİYE</label></div>
             </div>
-            <p>📅 16 Şubat 2026 - KGTÜ Konferans Salonu</p>
+            <p style="color:#D4AF37; font-weight:bold;">📅 16 Şubat 2026 - KGTÜ Konferans Salonu</p>
         </div>
 
         <div class="contact-home">
@@ -239,38 +278,59 @@
         </div>
     </div>
 
-    <div id="about-tab" class="tab-content">
-        <h2>G-Talks Hakkında</h2>
-        <div class="info-box" style="text-align: left;">
-            <p><strong>G-Talks;</strong> tarım, teknoloji ve akademi dünyasını bir araya getiren yenilikçi bir platformdur.</p>
-            <p>Amacımız öğrencilere vizyon kazandırmak ve sektörel gelişmeleri kampüsümüze taşımaktır.</p>
-        </div>
-    </div>
-
     <div id="conferences-tab" class="tab-content">
         <h2>Konferans Programı</h2>
+        <p style="color:#888; margin-bottom:30px;">Dört ana başlıkta sektörün liderleriyle buluşuyoruz.</p>
+        
         <div class="conf-card">
-            <h3 style="color:#b45309; margin:0;">💻 Teknoloji Oturumu</h3>
-            <p><strong>Tarih:</strong> 16 Şubat 2026</p>
-            <p><strong>Konuk:</strong> Atiker</p>
-            <p>Atiker'in teknoloji ve Ar-Ge birimleri ile geleceğin teknolojilerini konuşacağız.</p>
+            <h3>💻 TEKNOLOJİ</h3>
+            <p><strong>Konuk:</strong> Atiker Yazılım & Ar-Ge Ekibi</p>
+            <p>Yapay zeka, dijital dönüşüm ve geleceğin yazılım teknolojileri üzerine derinlemesine bir sohbet.</p>
         </div>
+
         <div class="conf-card">
-            <h3 style="color:#b45309; margin:0;">🌱 Tarım Oturumu</h3>
-            <p><em>Yakında açıklanacak...</em></p>
+            <h3>🌾 TARIM</h3>
+            <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
+            <p>Sürdürülebilir tarım teknikleri, akıllı tarım uygulamaları ve gıda güvenliği.</p>
+        </div>
+
+        <div class="conf-card">
+            <h3>📈 EKONOMİ</h3>
+            <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
+            <p>Küresel piyasalar, girişimcilik ekosistemi ve tarım ekonomisinin geleceği.</p>
+        </div>
+
+        <div class="conf-card">
+            <h3>🤝 YARDIM & SOSYAL ETKİ</h3>
+            <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
+            <p>Sosyal sorumluluk projeleri ve toplumsal fayda odaklı çalışmalar.</p>
         </div>
     </div>
 
     <div id="sponsors-tab" class="tab-content">
-        <h2>Sponsorlarımız</h2>
-        <p>Destekleri için teşekkür ederiz.</p>
-        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
-            <div style="background:white; padding:20px; border-radius:10px; border:1px solid #ccc; width:150px;">
-                <strong>ULUDAĞ</strong>
+        <h2>Değerli Sponsorlarımız</h2>
+        <p>GıTalks 2026'ya katkılarından dolayı teşekkür ederiz.</p>
+        
+        <div class="sponsor-grid">
+            <div class="sponsor-img-box">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Uludag_Logo.svg/1200px-Uludag_Logo.svg.png" alt="Uludağ Logo">
             </div>
-            <div style="background:white; padding:20px; border-radius:10px; border:1px solid #ccc; width:150px;">
-                <strong>İLKO İLAÇ</strong>
+
+            <div class="sponsor-img-box">
+                <img src="https://www.ilko.com.tr/images/logo.png" alt="İlko İlaç Logo" onerror="this.src='https://via.placeholder.com/150x50?text=ILKO+ILAC'">
             </div>
+
+            <div class="sponsor-img-box">
+                <img src="https://via.placeholder.com/150x50?text=SPONSOR+3" alt="Sponsor Yeri">
+            </div>
+        </div>
+    </div>
+
+    <div id="about-tab" class="tab-content">
+        <h2>GıTalks Hakkında</h2>
+        <div class="info-box" style="text-align: left; background:transparent; border:none; box-shadow:none;">
+            <p><strong>GıTalks;</strong> tarım, teknoloji ve ekonomi dünyasını üniversite gençliği ile bir araya getiren yenilikçi bir konferans serisidir.</p>
+            <p>Konya Gıda ve Tarım Üniversitesi İletişim ve Tanıtım Topluluğu tarafından düzenlenen bu etkinlik, öğrencilere vizyon kazandırmayı ve sektörel ağlarını genişletmeyi hedefler.</p>
         </div>
     </div>
 
@@ -288,7 +348,9 @@
                 buttons[i].classList.remove("active");
             }
             document.getElementById(tabName).style.display = "block";
-            event.currentTarget.classList.add("active");
+            // Tıklanan butonu aktif yap (event target bulma)
+            var activeBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabName));
+            if(activeBtn) activeBtn.classList.add("active");
         }
 
         // --- GERİ SAYIM SAYACI (COUNTDOWN) ---
@@ -299,22 +361,23 @@
             var now = new Date().getTime();
             var distance = countDownDate - now;
 
-            // Zaman hesaplamaları
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // HTML elementlerine yazdırma
-            document.getElementById("days").innerHTML = days;
-            document.getElementById("hours").innerHTML = hours;
-            document.getElementById("minutes").innerHTML = minutes;
-            document.getElementById("seconds").innerHTML = seconds;
+            // Eğer elementler varsa yazdır
+            if(document.getElementById("days")) {
+                document.getElementById("days").innerHTML = days;
+                document.getElementById("hours").innerHTML = hours;
+                document.getElementById("minutes").innerHTML = minutes;
+                document.getElementById("seconds").innerHTML = seconds;
+            }
 
-            // Süre dolarsa yazılacak metin
+            // Süre dolarsa
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("countdown").innerHTML = "ETKİNLİK BAŞLADI!";
+                document.getElementById("countdown").innerHTML = "<h2 style='color:#D4AF37;'>ETKİNLİK BAŞLADI!</h2>";
             }
         }, 1000);
     </script>
