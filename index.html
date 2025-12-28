@@ -7,10 +7,9 @@
     <style>
         /* --- 1. GENEL AYARLAR (DARK MODE - SIYAH & ALTIN) --- */
         body {
-            /* Tam siyah arka plan */
             background-color: #050505;
             background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
-            color: #ecf0f1; /* Okunabilirlik için açık gri/beyaz yazı */
+            color: #ecf0f1;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
@@ -27,8 +26,8 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.95); /* Yarı saydam siyah */
-            border-bottom: 2px solid #D4AF37; /* Altın Çizgi */
+            background-color: rgba(0, 0, 0, 0.95);
+            border-bottom: 2px solid #D4AF37;
             display: flex;
             justify-content: center;
             padding: 15px 0;
@@ -58,7 +57,7 @@
         }
 
         .nav-btn:hover, .nav-btn.active {
-            color: #D4AF37; /* Aktif olunca Altın */
+            color: #D4AF37;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
             border-bottom: 1px solid #D4AF37;
         }
@@ -81,11 +80,10 @@
         }
 
         /* --- 4. TASARIM ÖGELERİ --- */
-        /* Başlıklar */
         h1 { 
             font-size: 3.5rem; 
             margin: 10px 0; 
-            color: #D4AF37; /* Altın */
+            color: #D4AF37;
             text-transform: uppercase;
             letter-spacing: 4px;
             text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.3);
@@ -151,7 +149,7 @@
 
         /* --- KUTULAR (INFO BOX) --- */
         .info-box {
-            background: rgba(20, 20, 20, 0.8); /* Koyu transparan zemin */
+            background: rgba(20, 20, 20, 0.8);
             border: 1px solid #D4AF37;
             padding: 30px;
             border-radius: 10px;
@@ -211,7 +209,7 @@
         }
 
         .sponsor-img-box {
-            background: #fff; /* Logolar net görünsün diye beyaz zemin */
+            background: #fff; 
             padding: 20px;
             border-radius: 10px;
             width: 180px;
@@ -231,9 +229,9 @@
         .sponsor-img-box img {
             max-width: 100%;
             max-height: 100%;
+            object-fit: contain;
         }
 
-        /* Mobil Uyum */
         @media (max-width: 600px) {
             h1 { font-size: 2.5rem; }
             .time-box { width: 50px; padding: 10px; }
@@ -258,7 +256,7 @@
         </div>
         
         <div class="sub-header">GELECEĞİ TASARLAYAN ZİRVE</div>
-        <div class="guest-info">Ana Konuk: <span style="font-weight:bold; color:#D4AF37;">Atiker</span></div>
+        <div class="guest-info">Ana Konuk: <span style="font-weight:bold; color:#D4AF37;">Yakında Açıklanacak</span></div>
 
         <div class="info-box">
             <h3 style="margin-top:0; color:#fff;">Büyük Buluşmaya Kalan Süre</h3>
@@ -284,7 +282,7 @@
         
         <div class="conf-card">
             <h3>💻 TEKNOLOJİ</h3>
-            <p><strong>Konuk:</strong> Atiker Yazılım & Ar-Ge Ekibi</p>
+            <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
             <p>Yapay zeka, dijital dönüşüm ve geleceğin yazılım teknolojileri üzerine derinlemesine bir sohbet.</p>
         </div>
 
@@ -313,15 +311,15 @@
         
         <div class="sponsor-grid">
             <div class="sponsor-img-box">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Uludag_Logo.svg/1200px-Uludag_Logo.svg.png" alt="Uludağ Logo">
+                <img src="uludag.png" alt="Uludağ Logo" onerror="this.style.display='none'; this.parentElement.innerText='Uludağ'">
             </div>
 
             <div class="sponsor-img-box">
-                <img src="https://www.ilko.com.tr/images/logo.png" alt="İlko İlaç Logo" onerror="this.src='https://via.placeholder.com/150x50?text=ILKO+ILAC'">
+                <img src="ilko.png" alt="İlko İlaç Logo" onerror="this.style.display='none'; this.parentElement.innerText='İlko İlaç'">
             </div>
 
             <div class="sponsor-img-box">
-                <img src="https://via.placeholder.com/150x50?text=SPONSOR+3" alt="Sponsor Yeri">
+                <img src="atiker.png" alt="Atiker Logo" onerror="this.style.display='none'; this.parentElement.innerText='Atiker'">
             </div>
         </div>
     </div>
@@ -335,7 +333,6 @@
     </div>
 
     <script>
-        // --- SEKMELERİ YÖNETME ---
         function openTab(tabName) {
             var i;
             var x = document.getElementsByClassName("tab-content");
@@ -348,13 +345,10 @@
                 buttons[i].classList.remove("active");
             }
             document.getElementById(tabName).style.display = "block";
-            // Tıklanan butonu aktif yap (event target bulma)
             var activeBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabName));
             if(activeBtn) activeBtn.classList.add("active");
         }
 
-        // --- GERİ SAYIM SAYACI (COUNTDOWN) ---
-        // Hedef tarih: 16 Şubat 2026 Saat 09:00
         var countDownDate = new Date("Feb 16, 2026 09:00:00").getTime();
 
         var x = setInterval(function() {
@@ -366,7 +360,6 @@
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Eğer elementler varsa yazdır
             if(document.getElementById("days")) {
                 document.getElementById("days").innerHTML = days;
                 document.getElementById("hours").innerHTML = hours;
@@ -374,7 +367,6 @@
                 document.getElementById("seconds").innerHTML = seconds;
             }
 
-            // Süre dolarsa
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("countdown").innerHTML = "<h2 style='color:#D4AF37;'>ETKİNLİK BAŞLADI!</h2>";
