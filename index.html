@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="google-site-verification" content="YTTE2TyaEqML92d6-Eczr-EYIwRjhkKZQ-bWKQgP3HE" />
+
     <title>G-Talks Teknoloji Konferansı</title>
     <style>
         /* --- 1. GENEL AYARLAR (DARK MODE - SIYAH & ALTIN) --- */
@@ -219,7 +222,7 @@
             justify-content: center;
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
             transition: transform 0.3s;
-            cursor: pointer; /* Tıklanabilir olduğunu göster */
+            cursor: pointer;
             position: relative;
         }
         
@@ -227,8 +230,7 @@
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
-        
-        /* Tıklayın uyarısı */
+
         .sponsor-img-box::after {
             content: 'BİLGİ İÇİN TIKLA';
             position: absolute;
@@ -263,7 +265,7 @@
             width: 100%; 
             height: 100%; 
             overflow: auto; 
-            background-color: rgba(0,0,0,0.85); /* Arka plan karartma */
+            background-color: rgba(0,0,0,0.85);
             backdrop-filter: blur(5px);
             animation: fadeIn 0.3s;
         }
@@ -416,7 +418,7 @@
     </div>
 
     <script>
-        // --- SPONSOR BİLGİLERİ (VERİTABANI) ---
+        // --- SPONSOR VERİLERİ ---
         const sponsorData = {
             'uludag': {
                 title: 'Uludağ İçecek',
@@ -450,7 +452,6 @@
             document.getElementById("bioModal").style.display = "none";
         }
 
-        // Modal dışına tıklayınca kapatma
         window.onclick = function(event) {
             const modal = document.getElementById("bioModal");
             if (event.target == modal) {
@@ -458,7 +459,7 @@
             }
         }
 
-        // --- SEKMELERİ YÖNETME ---
+        // --- SEKMELER ---
         function openTab(tabName) {
             var i;
             var x = document.getElementsByClassName("tab-content");
