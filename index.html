@@ -11,22 +11,7 @@
 
     <meta property="og:title" content="GıTalks | Geleceği Tasarlayan Zirve">
     <meta property="og:description" content="Teknoloji, Akademi ve İnovasyonun kalbi burada atıyor. 16 Şubat 2026'da buluşuyoruz.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/username/repo/main/afis.jpg">
-    <meta property="og:url" content="https://gtalks.org">
     <meta property="og:type" content="website">
-
-    <link rel="icon" href="https://raw.githubusercontent.com/username/repo/main/favicon.png" type="image/png">
-
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self'; 
-        img-src 'self' data: https:; 
-        style-src 'self' 'unsafe-inline'; 
-        script-src 'self' 'unsafe-inline'; 
-        base-uri 'self';
-        frame-ancestors 'none';
-    ">
-    
-    <meta name="google-site-verification" content="YTTE2TyaEqML92d6-Eczr-EYIwRjhkKZQ-bWKQgP3HE" />
 
     <title>GıTalks | Global Teknoloji Zirvesi</title>
     <style>
@@ -74,7 +59,6 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
-        /* Hamburger Buton (Sağa Kaydırıldı) */
         .hamburger-container {
             display: flex;
             align-items: center;
@@ -83,7 +67,6 @@
             height: 42px;
             border: 1px solid var(--gold);
             border-radius: 4px;
-            /* Soldan boşluk vererek sağa kaydırdık */
             margin-left: 10px; 
             margin-right: auto;
             cursor: pointer;
@@ -124,7 +107,6 @@
             text-shadow: 0 0 20px var(--gold-dim);
         }
 
-        /* Sağ taraf dengesi için görünmez boşluk */
         .navbar-spacer { width: 52px; } 
 
         /* --- SIDEBAR --- */
@@ -310,7 +292,7 @@
             text-transform: uppercase; letter-spacing: 1px;
         }
 
-        /* --- MİNİ SAYAÇ (MASAÜSTÜ) --- */
+        /* --- MİNİ SAYAÇ --- */
         .mini-countdown { 
             display: flex; gap: 10px; margin-top: 20px; background: #000; 
             padding: 10px 20px; border-radius: 4px; border: 1px solid #333; width: fit-content; 
@@ -326,60 +308,44 @@
         .contact-home a { color: var(--gold); text-decoration: none; font-weight: bold; font-size: 1.3rem; transition: 0.3s; }
         .contact-home a:hover { color: #fff; text-shadow: 0 0 15px var(--gold); }
 
+        /* --- SPONSORLAR --- */
         .sponsor-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 40px; }
         .sponsor-img-box {
             background: #fff; padding: 20px; border-radius: 4px; width: 220px; height: 110px;
             display: flex; align-items: center; justify-content: center; filter: grayscale(100%); 
             transition: all 0.4s ease; cursor: pointer; opacity: 0.7; border: 1px solid #333;
+            text-align: center; color: #000; font-weight: bold;
         }
         .sponsor-img-box:hover { filter: grayscale(0%); transform: scale(1.03); opacity: 1; border-color: var(--gold); }
         .sponsor-img-box img { max-width: 85%; max-height: 85%; object-fit: contain; }
 
         .text-content-box { text-align: left; line-height: 1.8; color: #ccc; font-size: 1rem; }
         .text-content-box strong { color: #fff; }
-        .text-content-box ul li { margin-bottom: 10px; }
         
+        /* --- MODAL (POPUP) --- */
         .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(10px); }
-        .modal-content { background-color: #0a0a0a; margin: 8% auto; padding: 40px; border: 1px solid var(--gold); width: 85%; max-width: 800px; color: #ecf0f1; position: relative; text-align: left; }
-        .close-btn { color: #666; float: right; font-size: 35px; cursor: pointer; }
+        .modal-content { 
+            background-color: #0a0a0a; margin: 10% auto; padding: 40px; 
+            border: 1px solid var(--gold); width: 85%; max-width: 600px; 
+            color: #ecf0f1; position: relative; text-align: left; border-radius: 8px;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+        }
+        .close-btn { color: #666; float: right; font-size: 35px; cursor: pointer; line-height: 20px; }
         .close-btn:hover { color: var(--gold); }
         .modal-link { color: var(--gold); text-decoration: none; cursor: pointer; border-bottom: 1px dotted var(--gold); font-size: 0.9rem; }
 
-        /* --- MOBİL UYUMLULUK (SAYAÇ DÜZELTMELERİ DAHİL) --- */
+        /* --- MOBİL UYUMLULUK --- */
         @media (max-width: 600px) {
             h1 { font-size: 2.5rem; margin-top: 15px; letter-spacing: 2px; }
             .info-box { padding: 25px 15px; }
 
-            /* ANA SAYAÇ MOBİL: Esnek Kutu Yapısı */
-            .countdown-container { 
-                gap: 5px; 
-            }
-            .time-box { 
-                flex: 1; /* Kutular eşit dağılsın */
-                width: auto; 
-                min-width: 0; /* İçeriğin taşmasını önler */
-                padding: 10px 2px; 
-            }
-            .time-box span { 
-                font-size: 1.4rem; 
-                margin-bottom: 2px;
-            }
-            .time-box label {
-                font-size: 0.5rem;
-            }
+            .countdown-container { gap: 5px; }
+            .time-box { flex: 1; width: auto; min-width: 0; padding: 10px 2px; }
+            .time-box span { font-size: 1.4rem; margin-bottom: 2px; }
+            .time-box label { font-size: 0.5rem; }
 
-            /* MİNİ SAYAÇ MOBİL */
-            .mini-countdown {
-                padding: 10px 5px;
-                gap: 5px;
-                margin-top: 15px;
-                width: 100%;
-                justify-content: space-between;
-            }
-            .mini-time { 
-                flex: 1;
-                min-width: 0;
-            }
+            .mini-countdown { padding: 10px 5px; gap: 5px; margin-top: 15px; width: 100%; justify-content: space-between; }
+            .mini-time { flex: 1; min-width: 0; }
             .mini-time span { font-size: 1rem; }
             .mini-time label { font-size: 0.45rem; }
 
@@ -389,7 +355,7 @@
             .hamburger-btn { font-size: 1.4rem; }
 
             .sidebar { width: 0; }
-            .modal-content { width: 90%; margin: 20% auto; padding: 20px; }
+            .modal-content { width: 90%; margin: 30% auto; padding: 25px; }
             .sponsor-img-box { width: 100%; max-width: 250px; }
             .footer-links { display: flex; flex-direction: column; gap: 12px; }
         }
@@ -485,15 +451,16 @@
 
     <div id="sponsors-tab" class="tab-content">
         <h2>Çözüm Ortaklarımız</h2>
+        <p style="font-size:0.9rem; color:#888;">(Detaylar için logolara tıklayınız)</p>
         <div class="sponsor-grid">
-            <div class="sponsor-img-box" data-sponsor="uludag">
-                <img src="uludag.png" alt="Uludağ İçecek" onerror="this.style.display='none'; this.parentElement.innerText='Uludağ İçecek'">
-            </div>
             <div class="sponsor-img-box" data-sponsor="ilko">
-                <img src="ilko.png" alt="İlko İlaç" onerror="this.style.display='none'; this.parentElement.innerText='İlko İlaç'">
+                <img src="ilko.png" alt="İLKO İLAÇ" onerror="this.style.display='none'; this.parentElement.innerText='İLKO İLAÇ'">
             </div>
             <div class="sponsor-img-box" data-sponsor="atiker">
-                <img src="atiker.png" alt="Atiker Yazılım" onerror="this.style.display='none'; this.parentElement.innerText='Atiker Yazılım'">
+                <img src="atiker.png" alt="ATİKER YAZILIM" onerror="this.style.display='none'; this.parentElement.innerText='ATİKER YAZILIM'">
+            </div>
+            <div class="sponsor-img-box" data-sponsor="uludag">
+                <img src="uludag.png" alt="ULUDAĞ İÇECEK" onerror="this.style.display='none'; this.parentElement.innerText='ULUDAĞ İÇECEK'">
             </div>
         </div>
     </div>
@@ -568,14 +535,15 @@
     <div id="bioModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" data-close="bioModal">&times;</span>
-            <h2 id="modal-title">Sponsor</h2>
-            <div id="modal-text" class="text-content-box">...</div>
+            <h2 id="modal-title" style="color:var(--gold); border-bottom:1px solid #333; padding-bottom:10px;"></h2>
+            <div id="modal-text" class="text-content-box" style="margin-top:20px;"></div>
         </div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             
+            // --- 1. MENÜ VE TAB İŞLEMLERİ (ORİJİNAL KOD) ---
             const sidebar = document.getElementById("mySidebar");
             const overlay = document.getElementById("menuOverlay");
             
@@ -611,15 +579,11 @@
 
             document.getElementById("mainLogo").addEventListener("click", function() { switchTab('home-tab'); });
 
-            // Link Handlers
-            document.getElementById('linkPrivacy').addEventListener('click', function(e) { e.preventDefault(); switchTab('privacy-tab'); });
-            document.getElementById('linkConsent').addEventListener('click', function(e) { e.preventDefault(); switchTab('consent-tab'); });
-            
             document.querySelectorAll('.footer-links .modal-link[data-tab]').forEach(link => {
                 link.addEventListener('click', function(e) { e.preventDefault(); switchTab(this.getAttribute('data-tab')); });
             });
 
-            // Modals
+            // --- 2. MODAL İŞLEMLERİ ---
             document.querySelectorAll('[data-modal]').forEach(trigger => {
                 trigger.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -635,7 +599,7 @@
                 if (event.target.classList.contains('modal')) event.target.style.display = 'none';
             });
 
-            // Cookies
+            // --- 3. ÇEREZ (COOKIE) ---
             const cookieBanner = document.getElementById("cookieBanner");
             if (!localStorage.getItem("cookieConsent")) cookieBanner.style.display = "block";
             
@@ -648,13 +612,23 @@
                 cookieBanner.style.display = "none";
             });
 
-            // Sponsors
+            // --- 4. SPONSOR ÖZGEÇMİŞLERİ (YENİ EKLENDİ) ---
             const bioModal = document.getElementById("bioModal");
             const sponsorData = {
-                'uludag': {title: 'Uludağ İçecek', text: 'Uludağ İçecek, Türkiye’nin önde gelen içecek üreticilerinden biridir. Başta gazlı içecekler ve maden suları olmak üzere geniş bir ürün yelpazesi sunar. Uludağ İçecek, kalite, inovasyon ve sürdürülebilir üretim anlayışıyla sektörde lider konumdadır.'},
-                'ilko': {title: 'İlko İlaç', text: 'İlko İlaç, Türkiye’de farmasötik ürünlerin üretimi ve dağıtımı alanında faaliyet gösteren öncü firmalardan biridir. İlaç sektöründe kalite standartlarına uygun üretim yapan şirket, sağlık alanında güvenilir çözümler sunmaktadır.'},
-                'atiker': {title: 'Atiker', text: 'Atiker, otomotiv sektöründe LPG ve CNG sistemlerinin üretimi ve satışını gerçekleştiren köklü bir şirkettir. Yenilikçi teknoloji ve Ar-Ge yatırımlarıyla sektörde öncü konumda yer alır.'}
+                'ilko': {
+                    title: 'İlko İlaç', 
+                    text: 'Türkiye’de ilaç üretimi ve dağıtımı yapan öncü firmalardan biridir. Çeşitli terapötik alanlarda, özellikle kardiyoloji, merkezi sinir sistemi ve nadir hastalıklar için kaliteli ilaç çözümleri sunar.'
+                },
+                'atiker': {
+                    title: 'Atiker Yazılım', 
+                    text: 'İşletmelere ERP, dijital dönüşüm ve özel yazılım çözümleri sağlayan teknoloji şirketidir. Yenilikçi yaklaşımlarıyla iş süreçlerini optimize eder ve dijital dönüşümü destekler.'
+                },
+                'uludag': {
+                    title: 'Uludağ İçecek', 
+                    text: 'Türkiye’nin en tanınmış içecek üreticilerinden biridir. Gazlı içecekler, maden suları ve meyve aromalı ürünleriyle geniş bir portföy sunar; kalite ve sürdürülebilir üretim anlayışıyla sektörde lider konumdadır.'
+                }
             };
+
             document.querySelectorAll('.sponsor-img-box').forEach(box => {
                 box.addEventListener('click', function() {
                     const key = this.getAttribute('data-sponsor');
@@ -666,37 +640,44 @@
                 });
             });
 
-            // Countdown
+            // --- 5. SAYAÇ SİSTEMİ (ONARILDI) ---
             const countDownDate = new Date("Feb 16, 2026 09:00:00").getTime();
+            
             function updateCountdowns() {
                 const now = new Date().getTime();
                 const distance = countDownDate - now;
 
                 if (distance < 0) {
-                    document.getElementById("countdown").innerHTML = "ETKİNLİK BAŞLADI!";
-                    if(document.getElementById("tech-countdown")) document.getElementById("tech-countdown").innerHTML = "BAŞLADI";
+                    if(document.getElementById("countdown")) document.getElementById("countdown").innerHTML = "<div style='color:var(--gold); font-size:2rem;'>ZİRVE BAŞLADI!</div>";
+                    if(document.getElementById("tech-countdown")) document.getElementById("tech-countdown").innerHTML = "<span>BAŞLADI</span>";
                     return;
                 }
+
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+                // Ana Sayaç Güncelleme
                 if(document.getElementById("days")) {
-                    document.getElementById("days").innerText = days;
-                    document.getElementById("hours").innerText = hours;
-                    document.getElementById("minutes").innerText = minutes;
-                    document.getElementById("seconds").innerText = seconds;
+                    document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+                    document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+                    document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+                    document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
                 }
+                
+                // Mini Sayaç Güncelleme (Etkinlikler Sayfasındaki)
                 if(document.getElementById("t-days")) {
-                    document.getElementById("t-days").innerText = days;
-                    document.getElementById("t-hours").innerText = hours;
-                    document.getElementById("t-min").innerText = minutes;
-                    document.getElementById("t-sec").innerText = seconds;
+                    document.getElementById("t-days").innerText = days < 10 ? "0" + days : days;
+                    document.getElementById("t-hours").innerText = hours < 10 ? "0" + hours : hours;
+                    document.getElementById("t-min").innerText = minutes < 10 ? "0" + minutes : minutes;
+                    document.getElementById("t-sec").innerText = seconds < 10 ? "0" + seconds : seconds;
                 }
             }
+            
+            // Saniyelik döngü
             setInterval(updateCountdowns, 1000);
-            updateCountdowns();
+            updateCountdowns(); // Sayfa açılır açılmaz bir kez çalıştır
         });
     </script>
 </body>
