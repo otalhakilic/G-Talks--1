@@ -30,7 +30,7 @@
 
     <title>GıTalks | Global Teknoloji Zirvesi</title>
     <style>
-        /* --- 1. GENEL AYARLAR (PREMIUM) --- */
+        /* --- 1. GENEL AYARLAR --- */
         :root {
             --gold: #D4AF37;
             --gold-dim: #aa8c2c;
@@ -74,6 +74,7 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
+        /* Hamburger Buton (Sağa Kaydırıldı) */
         .hamburger-container {
             display: flex;
             align-items: center;
@@ -81,7 +82,9 @@
             width: 42px;
             height: 42px;
             border: 1px solid var(--gold);
-            border-radius: 2px;
+            border-radius: 4px;
+            /* Soldan boşluk vererek sağa kaydırdık */
+            margin-left: 10px; 
             margin-right: auto;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -121,7 +124,8 @@
             text-shadow: 0 0 20px var(--gold-dim);
         }
 
-        .navbar-spacer { width: 42px; }
+        /* Sağ taraf dengesi için görünmez boşluk */
+        .navbar-spacer { width: 52px; } 
 
         /* --- SIDEBAR --- */
         .sidebar {
@@ -201,7 +205,6 @@
             to {opacity: 1; transform: translateY(0);}
         }
 
-        /* --- TIPOGRAFİ --- */
         h1 { 
             font-size: clamp(3rem, 8vw, 5rem); 
             margin: 20px 0 10px 0; 
@@ -311,7 +314,7 @@
         .mini-countdown { 
             display: flex; gap: 10px; margin-top: 20px; background: #000; 
             padding: 10px 20px; border-radius: 4px; border: 1px solid #333; width: fit-content; 
-            flex-wrap: nowrap; /* Asla kaymasın */
+            flex-wrap: nowrap;
         }
         .mini-time { 
             display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 40px; 
@@ -347,40 +350,38 @@
             h1 { font-size: 2.5rem; margin-top: 15px; letter-spacing: 2px; }
             .info-box { padding: 25px 15px; }
 
-            /* ANA SAYAÇ MOBİL */
+            /* ANA SAYAÇ MOBİL: Esnek Kutu Yapısı */
             .countdown-container { 
-                gap: 5px; /* Boşluk minimuma indi */
+                gap: 5px; 
             }
             .time-box { 
-                width: 60px; /* Kutu küçüldü */
-                padding: 10px 5px; 
-                min-width: auto;
+                flex: 1; /* Kutular eşit dağılsın */
+                width: auto; 
+                min-width: 0; /* İçeriğin taşmasını önler */
+                padding: 10px 2px; 
             }
             .time-box span { 
-                font-size: 1.4rem; /* Rakam küçüldü */
+                font-size: 1.4rem; 
                 margin-bottom: 2px;
             }
             .time-box label {
                 font-size: 0.5rem;
             }
 
-            /* MİNİ SAYAÇ MOBİL (Teknoloji Kartı) */
+            /* MİNİ SAYAÇ MOBİL */
             .mini-countdown {
-                padding: 8px 10px;
+                padding: 10px 5px;
                 gap: 5px;
                 margin-top: 15px;
-                width: 100%; /* Kart genişliğine yayıl */
-                justify-content: space-around; /* Ortala */
+                width: 100%;
+                justify-content: space-between;
             }
-            .mini-time {
-                min-width: 30px;
+            .mini-time { 
+                flex: 1;
+                min-width: 0;
             }
-            .mini-time span {
-                font-size: 1rem;
-            }
-            .mini-time label {
-                font-size: 0.45rem;
-            }
+            .mini-time span { font-size: 1rem; }
+            .mini-time label { font-size: 0.45rem; }
 
             .navbar { padding: 0 15px; height: 60px; } 
             .navbar-logo { font-size: 1.3rem; }
@@ -650,9 +651,9 @@
             // Sponsors
             const bioModal = document.getElementById("bioModal");
             const sponsorData = {
-                'uludag': {title: 'Uludağ İçecek', text: 'Uludağ İçecek, Türkiye’nin önde gelen içecek üreticilerinden biridir. Kalite ve inovasyon odaklıdır.'},
-                'ilko': {title: 'İlko İlaç', text: 'İlko İlaç, Türkiye’de farmasötik ürünlerin üretimi ve dağıtımı alanında öncüdür.'},
-                'atiker': {title: 'Atiker', text: 'Atiker, otomotiv sektöründe LPG ve CNG sistemlerinin lider üreticisidir.'}
+                'uludag': {title: 'Uludağ İçecek', text: 'Uludağ İçecek, Türkiye’nin önde gelen içecek üreticilerinden biridir. Başta gazlı içecekler ve maden suları olmak üzere geniş bir ürün yelpazesi sunar. Uludağ İçecek, kalite, inovasyon ve sürdürülebilir üretim anlayışıyla sektörde lider konumdadır.'},
+                'ilko': {title: 'İlko İlaç', text: 'İlko İlaç, Türkiye’de farmasötik ürünlerin üretimi ve dağıtımı alanında faaliyet gösteren öncü firmalardan biridir. İlaç sektöründe kalite standartlarına uygun üretim yapan şirket, sağlık alanında güvenilir çözümler sunmaktadır.'},
+                'atiker': {title: 'Atiker', text: 'Atiker, otomotiv sektöründe LPG ve CNG sistemlerinin üretimi ve satışını gerçekleştiren köklü bir şirkettir. Yenilikçi teknoloji ve Ar-Ge yatırımlarıyla sektörde öncü konumda yer alır.'}
             };
             document.querySelectorAll('.sponsor-img-box').forEach(box => {
                 box.addEventListener('click', function() {
