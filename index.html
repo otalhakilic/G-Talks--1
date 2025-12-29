@@ -53,7 +53,7 @@
             padding-top: 70px; /* Navbar yüksekliği */
         }
 
-        /* --- 2. NAVBAR (DÜZELTİLDİ - Flexbox ile Tam Ortalama) --- */
+        /* --- 2. NAVBAR (DÜZELTİLDİ) --- */
         .navbar {
             position: fixed;
             top: 0;
@@ -63,7 +63,8 @@
             border-bottom: 1px solid var(--gold);
             display: flex;
             align-items: center;
-            justify-content: space-between; /* İki uca yasla */
+            /* Space-between: Hamburger solda, Logo ortada (margin auto ile) */
+            justify-content: space-between; 
             padding: 0 20px;
             z-index: 1000;
             backdrop-filter: blur(10px);
@@ -75,18 +76,17 @@
             background: none;
             border: none;
             color: var(--gold);
-            font-size: 2rem; /* Mobilde daha rahat tıklanması için büyüttüm */
+            font-size: 2rem;
             cursor: pointer;
             padding: 0;
             transition: 0.3s;
             width: 40px; /* Sabit genişlik */
             text-align: left;
+            z-index: 1002;
         }
         .hamburger-btn:hover { color: #fff; text-shadow: 0 0 10px var(--gold); }
 
         .navbar-logo {
-            flex: 1; /* Kalan tüm alanı kapla */
-            text-align: center; /* Ortala */
             font-size: 1.6rem;
             font-weight: bold;
             color: var(--gold);
@@ -94,21 +94,21 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: 0.3s;
+            /* Ortalamak için mutlak konumlandırma */
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
         }
         .navbar-logo:hover {
             color: #fff;
             text-shadow: 0 0 10px var(--gold);
         }
 
-        /* Dengeleyici Boşluk (Sağ taraf için) */
-        .navbar-spacer {
-            width: 40px; /* Hamburger buton genişliği kadar */
-        }
-
         /* --- YAN MENÜ (SIDEBAR) --- */
         .sidebar {
             height: 100%;
-            width: 0;
+            width: 0; /* JS ile açılacak */
             position: fixed;
             z-index: 2000;
             top: 0;
@@ -122,9 +122,9 @@
         }
 
         .sidebar a {
-            padding: 20px 30px; /* Mobilde daha geniş tıklama alanı */
+            padding: 15px 30px;
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #888;
             display: block;
             transition: 0.3s;
@@ -142,9 +142,9 @@
 
         .sidebar .closebtn {
             position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 40px;
+            top: 15px;
+            right: 20px;
+            font-size: 36px;
             border-bottom: none;
             color: #fff;
             padding: 0;
@@ -154,7 +154,7 @@
             margin-top: 40px;
             border-top: 1px solid #333;
         }
-        .sidebar-legal a { font-size: 0.9rem; color: #555; padding: 15px 30px; }
+        .sidebar-legal a { font-size: 0.85rem; color: #555; padding: 12px 30px; }
 
         #menuOverlay {
             display: none;
@@ -269,28 +269,19 @@
         .modal-link { color: var(--gold); text-decoration: none; cursor: pointer; font-weight: bold; border-bottom: 1px dotted var(--gold); transition: 0.2s; }
         .modal-link:hover { color: #fff; border-bottom: 1px solid #fff; }
 
-        /* MOBİL UYUMLULUK (RESPONSIVE) */
         @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; letter-spacing: 2px; margin-top: 20px; }
-            .sub-header { font-size: 1rem; }
-            .info-box { padding: 20px; }
-            
-            /* Sayaç mobilde daha küçük */
-            .countdown-container { gap: 10px; }
+            h1 { font-size: 2.5rem; letter-spacing: 2px; }
             .time-box { width: 50px; padding: 10px; }
             .time-box span { font-size: 1.4rem; }
-            
-            /* Navbar ve Menü Düzeltmeleri */
-            .navbar { padding: 0 15px; height: 60px; }
-            .navbar-logo { font-size: 1.3rem; }
-            .hamburger-btn { font-size: 1.6rem; }
-            
-            .modal-content { width: 85%; margin: 20% auto; padding: 25px; }
+            .modal-content { width: 90%; margin: 15% auto; padding: 20px; }
             .sponsor-img-box { width: 100%; max-width: 250px; }
+            /* Mobil Düzeltmeler */
+            .navbar { height: 60px; padding: 0 15px; } 
+            .navbar-logo { font-size: 1.3rem; }
+            .hamburger-btn { font-size: 1.6rem; margin-right: 0; }
+            /* Sidebar mobilde %85 genişlikte olsun ki kapanma alanı kalsın */
+            .sidebar { width: 0; } 
             
-            .sidebar { width: 0; } /* JS ile %100 olacak */
-            
-            /* Footer linkleri mobilde alt alta */
             .footer-links { display: flex; flex-direction: column; gap: 10px; }
         }
     </style>
@@ -301,12 +292,10 @@
 
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" id="closeNavBtn">&times;</a>
-        
         <a href="#" class="nav-link active" data-tab="home-tab">Anasayfa</a>
         <a href="#" class="nav-link" data-tab="conferences-tab">Etkinlikler</a>
         <a href="#" class="nav-link" data-tab="sponsors-tab">Sponsorlar</a>
         <a href="#" class="nav-link" data-tab="about-tab">Hakkında</a>
-        
         <div class="sidebar-legal">
             <a href="#" class="nav-link" data-tab="privacy-tab">Gizlilik Politikası</a>
             <a href="#" class="nav-link" data-tab="consent-tab">Açık Rıza Metni</a>
@@ -317,43 +306,34 @@
     <div class="navbar">
         <button class="hamburger-btn" id="openNavBtn">&#9776;</button>
         <div class="navbar-logo" id="mainLogo">GıTalks</div>
-        <div class="navbar-spacer"></div> 
-    </div>
+        <div style="width: 40px;"></div> </div>
 
     <div id="home-tab" class="tab-content">
-        <div class="main-logo" style="margin-top: 20px;">
+        <div class="main-logo" style="margin-top: 30px;">
             <h1>GıTalks</h1>
         </div>
-        
         <div class="sub-header">Geleceği Şekillendiren Sesler GıTalks 2026</div>
         <div class="guest-info">Ana Konuk: <span style="font-weight:bold; color:#D4AF37;">Yakında Açıklanacak</span></div>
-
         <div class="info-box">
             <h3 style="margin-top:0; color:#fff;">GıTalks Teknoloji</h3>
             <div class="countdown-container" id="countdown">
                 <div class="time-box"><span id="days">00</span><label>GÜN</label></div>
                 <div class="time-box"><span id="hours">00</span><label>SAAT</label></div>
                 <div class="time-box"><span id="minutes">00</span><label>DK</label></div>
-                <div class="time-box"><span id="seconds">00</span><label>SN</label></div>
+                <div class="time-box"><span id="seconds">00</span><label>SANİYE</label></div>
             </div>
             <p style="color:#D4AF37; font-weight:bold; letter-spacing: 1px;">📅 16 ŞUBAT 2026 | KGTÜ KONFERANS SALONU</p>
             <hr style="border:0; border-top:1px solid #333; margin:20px 0;">
-            <p style="font-size:0.9rem; color:#aaa; font-style:italic;">
-                GıTalks, 2026 ve sonrası için sürdürülebilir etkinlik vizyonu ile planlanmaktadır.
-            </p>
+            <p style="font-size:0.9rem; color:#aaa; font-style:italic;">GıTalks, 2026 ve sonrası için sürdürülebilir etkinlik vizyonu ile planlanmaktadır.</p>
         </div>
-
         <div class="contact-home">
             <p style="color:#666; font-size:0.8rem; letter-spacing:2px; margin-bottom:10px;">RESMİ İLETİŞİM & BASIN</p>
-            <a href="mailto:gitalks.official@gmail.com" style="color:#D4AF37; text-decoration:none; font-size:1.2rem; font-weight:bold;">
-                gitalks.official@gmail.com
-            </a>
+            <a href="mailto:gitalks.official@gmail.com" style="color:#D4AF37; text-decoration:none; font-size:1.2rem; font-weight:bold;">gitalks.official@gmail.com</a>
         </div>
     </div>
 
     <div id="conferences-tab" class="tab-content">
         <h2>Etkinlik Takvimi</h2>
-        
         <div class="conf-card">
             <div class="conf-date">16 ŞUBAT 2026</div>
             <h3>💻 TEKNOLOJİ</h3>
@@ -366,28 +346,24 @@
                 <div class="mini-time"><span id="t-sec">00</span><label>SN</label></div>
             </div>
         </div>
-
         <div class="conf-card">
             <div class="conf-date" style="background:#333; color:#aaa;">TARİH BELİRLENEMEDİ</div>
             <h3>🎓 AKADEMİ</h3>
             <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
             <p>Bilimsel araştırmalar, eğitimde inovasyon ve akademik gelecek vizyonu.</p>
         </div>
-
         <div class="conf-card">
             <div class="conf-date" style="background:#333; color:#aaa;">TARİH BELİRLENEMEDİ</div>
             <h3>🌾 TARIM</h3>
             <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
             <p>Sürdürülebilir tarım teknikleri ve gıda güvenliği.</p>
         </div>
-
         <div class="conf-card">
             <div class="conf-date" style="background:#333; color:#aaa;">TARİH BELİRLENEMEDİ</div>
             <h3>📈 EKONOMİ</h3>
             <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
             <p>Küresel piyasalar ve girişimcilik ekosistemi.</p>
         </div>
-
         <div class="conf-card">
             <div class="conf-date" style="background:#333; color:#aaa;">TARİH BELİRLENEMEDİ</div>
             <h3>🤝 YARDIM & SOSYAL ETKİ</h3>
@@ -415,15 +391,12 @@
         <h2>Hakkımızda | GıTalks</h2>
         <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none;">
             <p><strong>GıTalks</strong>, tarım teknolojileri, yardım ve akademi ekseninde; teknoloji, inovasyon ve toplumsal faydayı bir araya getiren bir konferans ve etkinlik platformudur.</p>
-            <p>Akademisyenler, sektör temsilcileri, girişimciler ve öğrencileri aynı çatı altında buluşturan GıTalks; güncel teknolojik gelişmelerin tarım ve toplumsal destek alanlarındaki etkilerini ele almayı amaçlar. Etkinliklerimizde bilgi paylaşımını teşvik eden, sürdürülebilir çözümler üreten ve geleceğe değer katan fikirler ön plana çıkarılmaktadır.</p>
-            <p>Genç bakış açısı ve dinamik yapısıyla GıTalks, yalnızca etkinlik düzenleyen bir platform değil; aynı zamanda öğrenmeyi, iş birliğini ve yenilikçi düşünceyi destekleyen bir etkileşim alanıdır.</p>
-            <p>GıTalks olarak hedefimiz; teknoloji ile akademiyi buluşturarak, topluma katkı sağlayan projelerin yaygınlaşmasına öncülük etmektir.</p>
-            
-            <br><hr style="border:0; border-top:1px solid #333;"><br>
-            
-            <p style="font-size: 0.9rem; color: #888; font-style: italic;">
-                GıTalks, üniversite öğrenci toplulukları tarafından yürütülen, teknoloji, tarım, sosyal sorumluluk ve akademik gelişim alanlarında konferans ve etkinlikler düzenleyen bağımsız bir etkinlik platformudur.
-            </p>
+            <p>Akademisyenler, sektör temsilcileri, girişimciler ve öğrencileri aynı çatı altında buluşturan GıTalks; güncel teknolojik gelişmelerin tarım ve toplumsal destek alanlarındaki etkilerini ele almayı amaçlar.</p>
+            <div style="margin-top:40px; padding-top:20px; border-top:1px solid #333;">
+                <p style="font-size:0.9rem; color:#888; font-style: italic;">
+                    GıTalks, üniversite öğrenci toplulukları tarafından yürütülen, teknoloji, tarım, sosyal sorumluluk ve akademik gelişim alanlarında konferans ve etkinlikler düzenleyen bağımsız bir etkinlik platformudur.
+                </p>
+            </div>
         </div>
     </div>
 
@@ -432,29 +405,10 @@
         <div class="info-box text-content-box">
             <p>GıTalks olarak kullanıcılarımızın gizliliğine önem veriyoruz. Bu Gizlilik Politikası, web sitemizi ziyaret eden kişilere ait kişisel verilerin hangi kapsamda işlendiğini açıklamak amacıyla hazırlanmıştır.</p>
             <h3>Toplanan Veriler</h3>
-            <ul>
-                <li><span>IP adresi ve erişim bilgileri (sunucu logları)</span></li>
-                <li><span>Siteye erişim zamanı ve teknik kullanım verileri</span></li>
-            </ul>
-            <h3>Verilerin Toplanma Yöntemi</h3>
-            <p>Kişisel veriler, web sitesinin ziyaret edilmesi sırasında otomatik yollarla ve teknik altyapı gereği toplanmaktadır.</p>
-            <h3>Verilerin Kullanım Amaçları</h3>
-            <ul>
-                <li><span>Web sitesinin güvenliğinin sağlanması</span></li>
-                <li><span>Teknik işleyişin ve performansın izlenmesi</span></li>
-                <li><span>Arama motoru görünürlüğünün sağlanması</span></li>
-                <li><span>Hukuki yükümlülüklerin yerine getirilmesi</span></li>
-            </ul>
-            <h3>Google Search Console</h3>
-            <p>Web sitemizde, Google Search Console hizmeti kullanılmaktadır. Bu hizmet, sitenin Google arama sonuçlarındaki görünürlüğünü izlemek amacıyla kullanılmakta olup, kullanıcıları tanımlamaya yönelik çerezler veya izleme kodları kullanmamaktadır.</p>
+            <ul><li>IP adresi ve erişim bilgileri</li><li>Teknik site kullanım verileri</li></ul>
             <h3>Veri Güvenliği</h3>
             <p>Kişisel verileriniz, yetkisiz erişim, kayıp veya kötüye kullanıma karşı teknik ve idari tedbirlerle korunmaktadır. Web sitemiz GitHub Pages altyapısı üzerinden barındırılmaktadır.</p>
-            <h3>Haklarınız</h3>
-            <p>6698 sayılı Kişisel Verilerin Korunması Kanunu’nun 11. maddesi uyarınca; kişisel verilerinizin işlenip işlenmediğini öğrenme ve itiraz etme hakkına sahipsiniz.</p>
-            <p style="margin-top:20px; padding-top:10px; border-top:1px solid #333;">
-                KVKK kapsamındaki talepleriniz için bizimle iletişime geçebilirsiniz:<br>
-                <strong style="color:#D4AF37;">gitalks.official@gmail.com</strong>
-            </p>
+            <p>İletişim: <strong style="color:#D4AF37;">gitalks.official@gmail.com</strong></p>
         </div>
     </div>
 
@@ -471,16 +425,15 @@
         <div class="info-box text-content-box">
             <p>Bu web sitesini ziyaret ederek aşağıdaki koşulları kabul etmiş sayılırsınız:</p>
             <ul>
-                <li><strong>Fikri Mülkiyet:</strong> GıTalks logosu, içeriği ve tasarımı telif hakları ile korunmaktadır. İzinsiz kullanılamaz.</li>
-                <li><strong>Etkinlik Kayıtları:</strong> Etkinliklerimizde fotoğraf ve video kaydı alınabilir. Katılımcılar, bu görüntülerin GıTalks tanıtım materyallerinde kullanılmasına izin vermiş sayılır.</li>
-                <li><strong>Değişiklik Hakkı:</strong> GıTalks, program akışında, konuşmacılarda ve tarihlerde önceden haber vermeksizin değişiklik yapma hakkını saklı tutar.</li>
+                <li><strong>Fikri Mülkiyet:</strong> GıTalks logosu, içeriği ve tasarımı telif hakları ile korunmaktadır.</li>
+                <li><strong>Etkinlik Kayıtları:</strong> Etkinliklerimizde fotoğraf ve video kaydı alınabilir.</li>
             </ul>
         </div>
     </div>
 
     <footer>
         <div class="corporate-statement" style="max-width: 800px; margin: 0 auto 20px auto; line-height: 1.6; color: #555; text-align: center; padding: 0 20px;">
-            <p><strong>Yasal Bilgilendirme:</strong> GıTalks, üniversite öğrenci toplulukları tarafından yürütülen, teknoloji, tarım, sosyal sorumluluk ve akademik gelişim alanlarında konferans ve etkinlikler düzenleyen bağımsız bir etkinlik platformudur.</p>
+            <p><strong>Yasal Bilgilendirme:</strong> GıTalks, üniversite öğrenci toplulukları tarafından yürütülen bağımsız bir etkinlik platformudur.</p>
         </div>
         <div class="footer-links" style="text-align: center; margin-bottom: 20px;">
             <a href="#" class="modal-link" data-tab="privacy-tab" style="margin: 0 10px; color:#888;">Gizlilik Politikası</a> | 
@@ -490,23 +443,13 @@
         <p style="text-align: center; color: #666; font-size: 0.8rem;">&copy; 2026 GıTalks Organization. Tüm Hakları Saklıdır.</p>
     </footer>
 
-    <div id="cookieBanner" style="
-    position:fixed; bottom:0; left:0; width:100%;
-    background:rgba(10, 10, 10, 0.98); border-top:2px solid #D4AF37;
-    color:#ccc; padding:20px; z-index:9999; display:none; font-size:0.9rem;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.8); box-sizing: border-box;">
+    <div id="cookieBanner" style="position:fixed; bottom:0; left:0; width:100%; background:rgba(10, 10, 10, 0.98); border-top:2px solid #D4AF37; color:#ccc; padding:20px; z-index:9999; display:none; box-shadow: 0 -5px 20px rgba(0,0,0,0.8); box-sizing: border-box;">
         <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 15px;">
             <div style="text-align: center;">
                 <strong style="color:#D4AF37; font-size: 1.1rem; text-transform: uppercase;">Çerez Bilgilendirmesi</strong><br>
-                <p style="margin: 10px 0; color:#ddd; max-width: 800px;">
-                    Bu web sitesinde yalnızca sitenin çalışması için gerekli zorunlu teknik çerezler kullanılmaktadır. 
-                    Reklam veya kullanıcı takibi amacıyla çerez kullanılmamaktadır.
-                </p>
-                <br>
-                <a href="#" id="linkPrivacy" style="color:#D4AF37; text-decoration: underline; margin:0 5px;">Gizlilik Politikası</a> | 
-                <a href="#" id="linkConsent" style="color:#D4AF37; text-decoration: underline; margin:0 5px;">Açık Rıza Metni</a>
+                <p style="margin: 10px 0; color:#ddd;">Bu web sitesinde yalnızca sitenin çalışması için gerekli zorunlu teknik çerezler kullanılmaktadır. Reklam veya kullanıcı takibi amacıyla çerez kullanılmamaktadır.</p>
+                <a href="#" id="linkPrivacy" style="color:#D4AF37; text-decoration: underline; margin:0 5px;">Gizlilik Politikası</a> | <a href="#" id="linkConsent" style="color:#D4AF37; text-decoration: underline; margin:0 5px;">Açık Rıza Metni</a>
             </div>
-            
             <div style="display: flex; gap: 15px;">
                 <button id="btnReject" style="background:transparent; color:#e74c3c; border:1px solid #e74c3c; padding:8px 20px; cursor:pointer; border-radius: 4px;">Sadece Bilgi Al (Reddet)</button>
                 <button id="btnAccept" style="background:#D4AF37; color:#000; border:none; padding:8px 25px; font-weight:bold; cursor:pointer; border-radius: 4px;">Anladım & Kabul Et</button>
@@ -520,8 +463,6 @@
             <h2>KVKK Aydınlatma Metni</h2>
             <div class="text-content-box">
                 <p>GıTalks, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında kişisel verilerinizi yalnızca web sitesinin çalışması ve güvenliğinin sağlanması amacıyla işlemektedir.</p>
-                <h3>İşlenen Veriler</h3>
-                <ul><li>IP adresi ve erişim bilgileri</li><li>Teknik site kullanım verileri</li></ul>
                 <h3>Verilerin İşlenme Amacı</h3>
                 <ul><li>Web sitesinin güvenliğinin sağlanması</li><li>Teknik altyapının işletilmesi</li><li>Arama motoru görünürlüğünün izlenmesi</li></ul>
                 <p>Kişisel verileriniz doğrudan GıTalks tarafından depolanmamakta, barındırma ve arama motoru altyapıları kapsamında işlenmektedir.</p>
@@ -546,10 +487,10 @@
             const overlay = document.getElementById("menuOverlay");
             const mainLogo = document.getElementById("mainLogo");
             
-            // Hamburger Butona Tıklama
+            // Hamburger Buton: Mobilde %80, PC'de 280px
             document.getElementById("openNavBtn").addEventListener("click", function() {
                 if(window.innerWidth <= 600) {
-                    sidebar.style.width = "100%";
+                    sidebar.style.width = "80%"; // Mobilde sıkışıklığı önlemek için %80
                 } else {
                     sidebar.style.width = "280px";
                 }
@@ -571,7 +512,6 @@
             function switchTab(targetId) {
                 tabs.forEach(tab => tab.style.display = 'none');
                 
-                // Sidebar linklerini aktif yap
                 navLinks.forEach(link => {
                     link.classList.remove('active');
                     if(link.getAttribute('data-tab') === targetId) {
@@ -602,12 +542,10 @@
 
             // Banner linkleri (Tab açar)
             document.getElementById('linkPrivacy').addEventListener('click', function(e) {
-                e.preventDefault();
-                switchTab('privacy-tab');
+                e.preventDefault(); switchTab('privacy-tab');
             });
             document.getElementById('linkConsent').addEventListener('click', function(e) {
-                e.preventDefault();
-                switchTab('consent-tab');
+                e.preventDefault(); switchTab('consent-tab');
             });
 
             // Footer linkleri (Tab açar)
@@ -618,7 +556,7 @@
                 });
             });
 
-            // --- MODAL YÖNETİMİ (GENEL KAPATMA) ---
+            // --- MODAL YÖNETİMİ ---
             const modalTriggers = document.querySelectorAll('[data-modal]');
             modalTriggers.forEach(trigger => {
                 trigger.addEventListener('click', function(e) {
