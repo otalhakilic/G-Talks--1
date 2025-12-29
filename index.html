@@ -36,7 +36,6 @@
             --dark-bg: #050505;
             --panel-bg: #111;
             --text-color: #ecf0f1;
-            --sidebar-width: 280px;
         }
 
         body {
@@ -51,7 +50,7 @@
             align-items: center;
             min-height: 100vh;
             line-height: 1.6;
-            padding-top: 80px; /* Navbar yüksekliği kadar boşluk */
+            padding-top: 70px; /* Navbar yüksekliği kadar boşluk */
         }
 
         /* --- 2. ÜST MENÜ (NAVBAR & HAMBURGER) --- */
@@ -59,15 +58,17 @@
             position: fixed;
             top: 0;
             width: 100%;
-            height: 70px;
+            height: 60px; /* Sabit Yükseklik */
             background-color: rgba(0, 0, 0, 0.95);
             border-bottom: 1px solid var(--gold);
             display: flex;
             align-items: center;
-            padding: 0 20px;
+            justify-content: space-between; /* İkon solda, logo ortada */
+            padding: 0 15px; /* Kenar boşluğu */
             z-index: 1000;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+            box-sizing: border-box; /* Padding'i genişliğe dahil et */
         }
 
         .hamburger-btn {
@@ -77,18 +78,23 @@
             font-size: 1.8rem;
             cursor: pointer;
             padding: 5px;
+            margin-right: 15px; /* Logo ile mesafe */
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .hamburger-btn:hover { color: #fff; text-shadow: 0 0 10px var(--gold); }
 
         .navbar-logo {
-            flex-grow: 1;
-            text-align: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: var(--gold);
             letter-spacing: 2px;
             text-transform: uppercase;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%); /* Tam ortalama */
         }
 
         /* --- YAN MENÜ (SIDEBAR) --- */
@@ -96,7 +102,7 @@
             height: 100%;
             width: 0; /* Başlangıçta kapalı */
             position: fixed;
-            z-index: 2000;
+            z-index: 2000; /* Navbardan üstte */
             top: 0;
             left: 0;
             background-color: #0a0a0a;
@@ -117,12 +123,13 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             border-bottom: 1px solid #1a1a1a;
+            white-space: nowrap; /* Metin taşmasını engelle */
         }
 
         .sidebar a:hover, .sidebar a.active {
             color: var(--gold);
             background: #111;
-            padding-left: 35px; /* Hover efekti */
+            padding-left: 35px;
         }
 
         .sidebar .closebtn {
@@ -132,6 +139,7 @@
             font-size: 36px;
             border-bottom: none;
             color: #fff;
+            padding: 0;
         }
 
         /* Yasal Linkler Alt Grup */
@@ -142,7 +150,7 @@
         .sidebar-legal a { font-size: 0.85rem; color: #555; padding: 10px 25px; }
         .sidebar-legal a:hover { color: #aaa; }
 
-        /* Overlay (Menü açılınca arka planı karartma) */
+        /* Overlay */
         #menuOverlay {
             display: none;
             position: fixed;
@@ -172,20 +180,21 @@
 
         /* --- 4. TASARIM ÖGELERİ --- */
         h1 { 
-            font-size: 4rem; 
+            font-size: 3rem; 
             margin: 10px 0; 
             color: var(--gold);
             text-transform: uppercase;
-            letter-spacing: 6px;
+            letter-spacing: 4px;
             text-shadow: 0px 0px 20px rgba(212, 175, 55, 0.4);
             font-weight: 800;
+            line-height: 1.2;
         }
         
         .sub-header {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: #fff;
             font-weight: 300;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             margin-bottom: 10px;
             border-bottom: 1px solid #333;
             display: inline-block;
@@ -194,7 +203,7 @@
         }
 
         .guest-info {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #888;
             margin-bottom: 40px;
             font-style: italic;
@@ -209,16 +218,16 @@
             margin-bottom: 30px;
             text-transform: uppercase;
             letter-spacing: 3px;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
 
-        h3 { color: var(--gold); margin-top: 25px; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        h3 { color: var(--gold); margin-top: 25px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
 
         /* --- GERİ SAYIM SAYACI --- */
         .countdown-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 10px;
             margin: 40px auto;
             flex-wrap: wrap;
         }
@@ -227,21 +236,21 @@
             background: linear-gradient(145deg, #0f0f0f, #161616);
             border: 1px solid #222;
             color: var(--gold);
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
-            width: 80px;
+            width: 60px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
         .time-box span {
             display: block;
-            font-size: 2.2rem;
+            font-size: 1.6rem;
             font-weight: 700;
             line-height: 1;
         }
 
         .time-box label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: #666;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -253,7 +262,7 @@
         .info-box {
             background: rgba(20, 20, 20, 0.6);
             border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 40px;
+            padding: 30px;
             border-radius: 15px;
             margin: 30px auto;
             width: 100%;
@@ -267,7 +276,7 @@
             border: 1px solid #222;
             border-left: 3px solid var(--gold);
             border-radius: 4px;
-            padding: 25px;
+            padding: 20px;
             text-align: left;
             margin-bottom: 25px;
             transition: all 0.3s ease;
@@ -296,10 +305,10 @@
         /* Kart İçi Mini Sayaç */
         .mini-countdown {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             margin-top: 20px;
             background: #000;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 4px;
             border: 1px solid #333;
             width: fit-content;
@@ -307,102 +316,86 @@
         .mini-time { text-align: center; }
         .mini-time span {
             display: block;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: var(--gold);
             font-weight: bold;
             line-height: 1;
         }
         .mini-time label {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             color: #666;
             text-transform: uppercase;
         }
 
         /* --- İLETİŞİM ALANI --- */
         .contact-home {
-            margin-top: 60px;
-            padding: 30px;
+            margin-top: 50px;
+            padding: 20px;
             border-top: 1px solid #222;
             width: 100%;
             text-align: center;
         }
-        .contact-home p { color: #666; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+        .contact-home p { color: #666; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
         .contact-home a {
             color: var(--gold);
             text-decoration: none;
             font-weight: bold;
             display: block;
             margin: 10px 0;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             transition: 0.3s;
         }
-        .contact-home a:hover { color: #fff; text-shadow: 0 0 10px var(--gold); }
 
         /* --- SPONSOR GÖRSELLERİ --- */
         .sponsor-grid {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 40px;
+            gap: 30px;
             flex-wrap: wrap;
             margin-top: 40px;
         }
 
         .sponsor-img-box {
             background: #fff; 
-            padding: 20px;
+            padding: 15px;
             border-radius: 4px;
-            width: 200px;
-            height: 100px;
+            width: 180px;
+            height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
             filter: grayscale(100%); 
             transition: all 0.4s ease;
             cursor: pointer;
-            opacity: 0.7;
+            opacity: 0.8;
         }
-        
         .sponsor-img-box:hover {
             filter: grayscale(0%); 
             transform: scale(1.05);
             opacity: 1;
             box-shadow: 0 0 30px rgba(255,255,255,0.1);
         }
-
         .sponsor-img-box img {
-            max-width: 80%;
-            max-height: 80%;
+            max-width: 90%;
+            max-height: 90%;
             object-fit: contain;
         }
 
         /* --- TEXT CONTENT --- */
         .text-content-box {
             text-align: left;
-            line-height: 1.8;
+            line-height: 1.7;
             color: #ccc;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         .text-content-box strong { color: #fff; }
-        .text-content-box ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .text-content-box ul li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 8px;
-        }
+        .text-content-box ul { list-style-type: none; padding-left: 0; }
+        .text-content-box ul li { position: relative; padding-left: 20px; margin-bottom: 8px; }
         .text-content-box ul li::before {
-            content: "›";
-            color: var(--gold);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            font-size: 1.2rem;
-            line-height: 1.2rem;
+            content: "›"; color: var(--gold); position: absolute; left: 0; font-weight: bold; font-size: 1.2rem; line-height: 1.2rem;
         }
-        .text-content-box p { margin-bottom: 20px; }
+        .text-content-box p { margin-bottom: 15px; }
 
         /* --- MODAL (POP-UP) --- */
         .modal {
@@ -421,17 +414,17 @@
 
         .modal-content {
             background-color: #0a0a0a;
-            margin: 5% auto; 
-            padding: 40px;
+            margin: 10% auto; 
+            padding: 30px;
             border: 1px solid var(--gold);
-            width: 80%;
+            width: 85%;
             max-width: 800px;
             border-radius: 0;
             color: #ecf0f1;
             position: relative;
-            box-shadow: 0 0 100px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 0 80px rgba(212, 175, 55, 0.15);
             text-align: left;
-            max-height: 85vh;
+            max-height: 80vh;
             overflow-y: auto;
         }
 
@@ -445,7 +438,6 @@
         }
         .close-btn:hover { color: var(--gold); }
         
-        /* Modal içi linkler */
         .modal-link {
             color: var(--gold);
             text-decoration: none;
@@ -456,12 +448,19 @@
         }
         .modal-link:hover { color: #fff; border-bottom: 1px solid #fff; }
 
+        /* MOBİL UYUMLULUK (RESPONSIVE) */
         @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; letter-spacing: 2px; }
+            h1 { font-size: 2.2rem; letter-spacing: 2px; }
+            .info-box { padding: 20px; }
             .time-box { width: 50px; padding: 10px; }
             .time-box span { font-size: 1.4rem; }
-            .modal-content { width: 90%; margin: 15% auto; padding: 20px; }
-            .sponsor-img-box { width: 100%; max-width: 250px; }
+            .navbar { padding: 0 15px; }
+            /* Mobilde Sidebar %100 genişlik */
+            .sidebar { width: 0; } /* JS ile %100 olacak */
+            
+            /* Mobilde footer linkleri alt alta */
+            .footer-links { display: flex; flex-direction: column; gap: 10px; }
+            .footer-links a { margin: 0; }
         }
     </style>
 </head>
@@ -487,10 +486,11 @@
     <div class="navbar">
         <button class="hamburger-btn" id="openNavBtn">&#9776;</button>
         <div class="navbar-logo">GıTalks</div>
-        <div style="width: 30px;"></div> </div>
+        <div style="width: 32px;"></div> 
+    </div>
 
     <div id="home-tab" class="tab-content">
-        <div class="main-logo">
+        <div class="main-logo" style="margin-top: 30px;">
             <h1>GıTalks</h1>
         </div>
         
@@ -502,19 +502,19 @@
             <div class="countdown-container" id="countdown">
                 <div class="time-box"><span id="days">00</span><label>GÜN</label></div>
                 <div class="time-box"><span id="hours">00</span><label>SAAT</label></div>
-                <div class="time-box"><span id="minutes">00</span><label>DAKİKA</label></div>
+                <div class="time-box"><span id="minutes">00</span><label>DK</label></div>
                 <div class="time-box"><span id="seconds">00</span><label>SANİYE</label></div>
             </div>
             <p style="color:#D4AF37; font-weight:bold; letter-spacing: 1px;">📅 16 ŞUBAT 2026 | KGTÜ KONFERANS SALONU</p>
             <hr style="border:0; border-top:1px solid #333; margin:20px 0;">
-            <p style="font-size:0.9rem; color:#aaa; font-style:italic;">
+            <p style="font-size:0.85rem; color:#aaa; font-style:italic;">
                 GıTalks, 2026 ve sonrası için sürdürülebilir etkinlik vizyonu ile planlanmaktadır.
             </p>
         </div>
 
         <div class="contact-home">
-            <p style="color:#666; font-size:0.8rem; letter-spacing:2px; margin-bottom:10px;">RESMİ İLETİŞİM & BASIN</p>
-            <a href="mailto:gitalks.official@gmail.com" style="color:#D4AF37; text-decoration:none; font-size:1.2rem; font-weight:bold;">
+            <p style="color:#666; font-size:0.75rem; letter-spacing:2px; margin-bottom:10px;">RESMİ İLETİŞİM & BASIN</p>
+            <a href="mailto:gitalks.official@gmail.com" style="color:#D4AF37; text-decoration:none; font-size:1.1rem; font-weight:bold;">
                 gitalks.official@gmail.com
             </a>
         </div>
@@ -590,7 +590,7 @@
             
             <br><hr style="border:0; border-top:1px solid #333;"><br>
             
-            <p style="font-size: 0.9rem; color: #888; font-style: italic;">
+            <p style="font-size: 0.85rem; color: #888; font-style: italic;">
                 GıTalks, üniversite öğrenci toplulukları tarafından yürütülen, teknoloji, tarım, sosyal sorumluluk ve akademik gelişim alanlarında konferans ve etkinlikler düzenleyen bağımsız bir etkinlik platformudur.
             </p>
         </div>
@@ -652,11 +652,13 @@
             <p><strong>Yasal Bilgilendirme:</strong> GıTalks, üniversite öğrenci toplulukları tarafından yürütülen, teknoloji, tarım, sosyal sorumluluk ve akademik gelişim alanlarında konferans ve etkinlikler düzenleyen bağımsız bir etkinlik platformudur.</p>
         </div>
         <div class="footer-links" style="text-align: center; margin-bottom: 20px;">
-            <a href="#" class="modal-link" data-tab="privacy-tab" style="margin: 0 10px; color:#888;">Gizlilik Politikası</a> | 
-            <a href="#" class="modal-link" data-modal="kvkkModal" style="margin: 0 10px; color:#888;">KVKK Aydınlatma Metni</a> | 
-            <a href="#" class="modal-link" data-tab="consent-tab" style="margin: 0 10px; color:#888;">Açık Rıza Metni</a>
+            <a href="#" class="modal-link" data-tab="privacy-tab">Gizlilik Politikası</a>
+            <span style="color:#333; margin:0 5px;">|</span>
+            <a href="#" class="modal-link" data-modal="kvkkModal">KVKK Aydınlatma Metni</a>
+            <span style="color:#333; margin:0 5px;">|</span>
+            <a href="#" class="modal-link" data-tab="consent-tab">Açık Rıza Metni</a>
         </div>
-        <p style="text-align: center; color: #666; font-size: 0.85rem;">&copy; 2026 GıTalks Organization. Tüm Hakları Saklıdır.</p>
+        <p style="text-align: center; color: #666; font-size: 0.8rem;">&copy; 2026 GıTalks Organization. Tüm Hakları Saklıdır.</p>
     </footer>
 
     <div id="cookieBanner" style="
@@ -714,8 +716,14 @@
             const sidebar = document.getElementById("mySidebar");
             const overlay = document.getElementById("menuOverlay");
             
+            // Hamburger Butona Tıklama
             document.getElementById("openNavBtn").addEventListener("click", function() {
-                sidebar.style.width = "280px";
+                // Mobilde %100, masaüstünde 280px genişlik
+                if(window.innerWidth <= 600) {
+                    sidebar.style.width = "100%";
+                } else {
+                    sidebar.style.width = "280px";
+                }
                 overlay.style.display = "block";
             });
 
@@ -758,7 +766,7 @@
                 });
             });
 
-            // Banner linkleri için event listener (Tab açar)
+            // Banner linkleri için event listener
             document.getElementById('linkPrivacy').addEventListener('click', function(e) {
                 e.preventDefault();
                 switchTab('privacy-tab');
@@ -779,7 +787,6 @@
 
 
             // --- MODAL YÖNETİMİ (GENEL KAPATMA) ---
-            // data-modal ile açma (KVKK vb. popup isteyenler için)
             const modalTriggers = document.querySelectorAll('[data-modal]');
             modalTriggers.forEach(trigger => {
                 trigger.addEventListener('click', function(e) {
@@ -792,7 +799,6 @@
                 });
             });
 
-            // data-close ile kapatma (X butonları)
             const closeButtons = document.querySelectorAll('[data-close]');
             closeButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -801,7 +807,6 @@
                 });
             });
 
-            // Dışarı tıklayınca kapatma
             window.addEventListener('click', function(event) {
                 if (event.target.classList.contains('modal')) {
                     event.target.style.display = 'none';
@@ -878,7 +883,6 @@
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                // Ana Sayaç
                 const dEl = document.getElementById("days");
                 if(dEl) {
                     dEl.innerText = days;
@@ -887,7 +891,6 @@
                     document.getElementById("seconds").innerText = seconds;
                 }
 
-                // Teknoloji Kartı Sayacı
                 const tEl = document.getElementById("t-days");
                 if(tEl) {
                     tEl.innerText = days;
@@ -898,7 +901,7 @@
             }
 
             setInterval(updateCountdowns, 1000);
-            updateCountdowns(); // İlk yüklemede çalıştır
+            updateCountdowns(); 
         });
     </script>
 </body>
