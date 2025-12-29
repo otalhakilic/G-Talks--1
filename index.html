@@ -149,6 +149,7 @@
             transform: translateX(-50%);
             white-space: nowrap;
             filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.2));
+            z-index: 1003; /* En üstte tıklanabilir olsun */
         }
 
         .navbar-spacer { width: 52px; } 
@@ -188,17 +189,25 @@
             border-left: 3px solid var(--gold-primary);
         }
 
+        /* KAPATMA BUTONU DÜZELTMESİ (ALTIN RENGİ) */
         .sidebar .closebtn {
             position: absolute;
-            top: 20px;
+            top: 25px;
             right: 25px;
-            font-size: 30px;
+            font-size: 35px;
             border: none;
-            color: #fff;
-            opacity: 0.6;
+            background: none;
+            color: var(--gold-primary); /* Artık Altın Rengi */
+            opacity: 0.8;
             transition: 0.3s;
+            cursor: pointer;
+            z-index: 2001;
         }
-        .sidebar .closebtn:hover { opacity: 1; color: var(--gold-primary); }
+        .sidebar .closebtn:hover { 
+            opacity: 1; 
+            transform: rotate(90deg);
+            text-shadow: 0 0 15px var(--gold-primary);
+        }
 
         #menuOverlay {
             display: none;
@@ -325,7 +334,7 @@
         }
         
         .accordion-panel.open {
-             padding: 30px 25px;
+             padding: 30px 25px; /* Padding eklendi, JS'de yükseklik hesabı düzeltildi */
              border-color: var(--glass-border);
         }
 
@@ -923,7 +932,11 @@
                 });
             });
 
-            document.getElementById("mainLogo").addEventListener("click", function() { switchTab('home-tab'); });
+            // LOGOYA TIKLAYINCA ANASAYFAYA DÖNME İŞLEVİ (GÜNCELLENDİ)
+            const mainLogo = document.getElementById("mainLogo");
+            if (mainLogo) {
+                mainLogo.addEventListener("click", function() { switchTab('home-tab'); });
+            }
 
             // YENİ ÖZELLİK: "GıTalks Teknoloji" yazısına tıklayınca karta git
             document.getElementById("tech-title-btn").addEventListener("click", function() {
@@ -942,9 +955,7 @@
                 link.addEventListener('click', function(e) { e.preventDefault(); switchTab(this.getAttribute('data-tab')); });
             });
 
-            // --- 2. ACCORDION (VİZYON/MİSYON ve ETKİNLİKLER) İŞLEMLERİ ---
-            // Script dinamik olarak tüm accordion-btn class'lı öğeleri seçtiği için
-            // yeni eklediğimiz "GITALKS NEDİR?" butonu otomatik olarak çalışacaktır.
+            // --- 2. ACCORDION (VİZYON/MİSYON ve ETKİNLİKLER) İŞLEMLERİ (DÜZELTİLDİ) ---
             const acc = document.getElementsByClassName("accordion-btn");
             for (let i = 0; i < acc.length; i++) {
                 acc[i].addEventListener("click", function() {
@@ -954,7 +965,8 @@
                         panel.style.maxHeight = null;
                         panel.classList.remove('open');
                     } else {
-                        panel.style.maxHeight = panel.scrollHeight + "px";
+                        // KESİLME SORUNU İÇİN GÜVENLİK PAYI (+40px) EKLENDİ
+                        panel.style.maxHeight = (panel.scrollHeight + 40) + "px";
                         panel.classList.add('open');
                     }
                 });
