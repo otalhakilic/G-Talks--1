@@ -121,7 +121,7 @@
             letter-spacing: 2px;
         }
 
-        h3 { color: #D4AF37; }
+        h3 { color: #D4AF37; margin-top: 25px; }
 
         /* --- GERİ SAYIM SAYACI --- */
         .countdown-container {
@@ -240,6 +240,7 @@
         .text-content-box ul {
             list-style-type: square;
             color: #D4AF37;
+            margin-left: 20px;
         }
         .text-content-box ul li span {
             color: #ccc;
@@ -249,7 +250,7 @@
         .modal {
             display: none; 
             position: fixed; 
-            z-index: 20000; /* Çerez banner'ından (9999) daha yüksek olsun ki üstte açılsın */
+            z-index: 20000; 
             left: 0;
             top: 0;
             width: 100%; 
@@ -284,7 +285,6 @@
             cursor: pointer;
         }
         
-        /* Modal içi linkler */
         .modal-link {
             color: #D4AF37;
             text-decoration: underline;
@@ -377,29 +377,46 @@
     <div id="privacy-tab" class="tab-content">
         <h2>Gizlilik Politikası</h2>
         <div class="info-box text-content-box">
-            <p>G-Talks olarak, kullanıcılarımızın gizliliğini önemsiyoruz. Bu Gizlilik Politikası, web sitemizi ziyaret eden kişilerin kişisel verilerinin nasıl toplandığını, kullanıldığını ve korunduğunu açıklamaktadır.</p>
+            <p>
+                G-Talks olarak kullanıcılarımızın gizliliğine önem veriyoruz.
+                Bu Gizlilik Politikası, web sitemizi ziyaret eden kişilere ait
+                kişisel verilerin hangi kapsamda işlendiğini açıklamak amacıyla hazırlanmıştır.
+            </p>
 
             <h3>Toplanan Veriler</h3>
             <ul>
-                <li><span>Ad – Soyad</span></li>
-                <li><span>E-posta adresi</span></li>
-                <li><span>IP adresi ve site kullanım bilgileri</span></li>
-                <li><span>Etkinlik katılım bilgileri</span></li>
+                <li><span>IP adresi ve erişim bilgileri (sunucu logları)</span></li>
+                <li><span>Site kullanımına ilişkin teknik veriler</span></li>
+                <li><span>Çerez tercih bilgileri (localStorage)</span></li>
             </ul>
+
+            <h3>Verilerin Toplanma Yöntemi</h3>
+            <p>
+                Veriler, web sitesinin ziyaret edilmesi sırasında
+                otomatik yollarla ve teknik altyapı gereği toplanmaktadır.
+            </p>
 
             <h3>Verilerin Kullanım Amaçları</h3>
             <ul>
-                <li><span>Etkinlik ve organizasyon süreçlerinin yürütülmesi</span></li>
-                <li><span>İletişim faaliyetlerinin sağlanması</span></li>
-                <li><span>Site performansının iyileştirilmesi</span></li>
-                <li><span>Yasal yükümlülüklerin yerine getirilmesi</span></li>
+                <li><span>Web sitesinin güvenliğinin sağlanması</span></li>
+                <li><span>Site performansının ve işleyişinin iyileştirilmesi</span></li>
+                <li><span>Hukuki yükümlülüklerin yerine getirilmesi</span></li>
             </ul>
 
             <h3>Veri Güvenliği</h3>
-            <p>Kişisel verileriniz; yetkisiz erişime, kayba veya kötüye kullanıma karşı teknik ve idari tedbirlerle korunmaktadır.</p>
+            <p>
+                Kişisel verileriniz; yetkisiz erişim, kayıp veya kötüye kullanıma karşı
+                teknik ve idari tedbirlerle korunmaktadır.
+                Veriler doğrudan G-Talks tarafından depolanmamakta,
+                GitHub Pages altyapısı üzerinden barındırılmaktadır.
+            </p>
 
             <h3>Haklarınız</h3>
-            <p>KVKK’nın 11. maddesi uyarınca; kişisel verilerinizin işlenip işlenmediğini öğrenme, düzeltilmesini talep etme, silinmesini isteme ve itiraz etme hakkına sahipsiniz.</p>
+            <p>
+                6698 sayılı Kişisel Verilerin Korunması Kanunu’nun 11. maddesi uyarınca;
+                kişisel verilerinizin işlenip işlenmediğini öğrenme,
+                düzeltilmesini talep etme ve itiraz etme hakkına sahipsiniz.
+            </p>
 
             <p style="margin-top:20px; padding-top:10px; border-top:1px solid #333;">
                 KVKK kapsamındaki talepleriniz için bizimle iletişime geçebilirsiniz:<br>
@@ -413,13 +430,26 @@
         <div class="info-box text-content-box">
             <p>
                 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında;
-                G-Talks tarafından, kişisel verilerimin etkinlik süreçleri,
-                iletişim faaliyetleri ve bilgilendirme amacıyla işlenmesine
-                <strong style="color:#D4AF37;">özgür irademle açık rıza verdiğimi</strong> kabul ederim.
+                G-Talks web sitesini ziyaret etmem sebebiyle,
             </p>
+
+            <ul>
+                <li>IP adresim ve teknik erişim bilgilerimin,</li>
+                <li>Çerez tercih bilgilerimin,</li>
+            </ul>
+
             <p>
-                Bu rıza, zorunlu olmayıp dilediğim zaman geri alınabilir.
-                Geri alma taleplerimi <strong style="color:#D4AF37;">gitalks.official@gmail.com</strong> adresi üzerinden iletebilirim.
+                web sitesinin güvenliğinin sağlanması ve teknik işleyişinin yürütülmesi
+                amacıyla işlenmesine
+                <strong style="color:#D4AF37;">özgür irademle açık rıza verdiğimi</strong>
+                kabul ediyorum.
+            </p>
+
+            <p>
+                Bu rıza zorunlu olmayıp, dilediğim zaman geri alınabilir.
+                Rıza geri alma taleplerimi
+                <strong style="color:#D4AF37;">gitalks.official@gmail.com</strong>
+                adresine iletebilirim.
             </p>
         </div>
     </div>
@@ -450,16 +480,23 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeKvkkModal()">&times;</span>
             <h2 class="modal-title">KVKK Aydınlatma Metni</h2>
-            <div class="kvkk-modal-text">
-                <p>G-Talks olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında kişisel verilerinizi işlemekteyiz.</p>
-                <p>Verileriniz, etkinlik süreçlerinin yürütülmesi ve güvenliğin sağlanması amacıyla yalnızca hukuki yükümlülükler çerçevesinde saklanır.</p>
-                
+            <div class="kvkk-modal-text text-content-box">
+                <p>
+                    G-Talks olarak kullanıcılarımızın gizliliğine önem veriyoruz.
+                    Bu Gizlilik Politikası, web sitemizi ziyaret eden kişilere ait
+                    kişisel verilerin hangi kapsamda işlendiğini açıklamak amacıyla hazırlanmıştır.
+                </p>
                 <h3>Toplanan Veriler</h3>
                 <ul>
-                    <li>IP adresi ve site kullanım bilgileri (Log kayıtları)</li>
-                    <li>Varsa iletişim formundan iletilen bilgiler</li>
+                    <li><span>IP adresi ve erişim bilgileri (sunucu logları)</span></li>
+                    <li><span>Site kullanımına ilişkin teknik veriler</span></li>
+                    <li><span>Çerez tercih bilgileri (localStorage)</span></li>
                 </ul>
-                
+                <h3>Verilerin Kullanım Amaçları</h3>
+                <ul>
+                    <li><span>Web sitesinin güvenliğinin sağlanması</span></li>
+                    <li><span>Hukuki yükümlülüklerin yerine getirilmesi</span></li>
+                </ul>
                 <h3>Haklarınız</h3>
                 <p>Verilerinizin silinmesini veya düzeltilmesini talep etme hakkına sahipsiniz.</p>
                 <p>İletişim: <strong style="color:#D4AF37;">gitalks.official@gmail.com</strong></p>
@@ -471,16 +508,26 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeConsentModal()">&times;</span>
             <h2 class="modal-title">Açık Rıza Metni</h2>
-            <div class="kvkk-modal-text">
+            <div class="kvkk-modal-text text-content-box">
                 <p>
                     6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında;
-                    G-Talks tarafından, kişisel verilerimin etkinlik süreçleri,
-                    iletişim faaliyetleri ve bilgilendirme amacıyla işlenmesine
-                    <strong style="color:#D4AF37;">özgür irademle açık rıza verdiğimi</strong> kabul ederim.
+                    G-Talks web sitesini ziyaret etmem sebebiyle,
+                </p>
+                <ul>
+                    <li>IP adresim ve teknik erişim bilgilerimin,</li>
+                    <li>Çerez tercih bilgilerimin,</li>
+                </ul>
+                <p>
+                    web sitesinin güvenliğinin sağlanması ve teknik işleyişinin yürütülmesi
+                    amacıyla işlenmesine
+                    <strong style="color:#D4AF37;">özgür irademle açık rıza verdiğimi</strong>
+                    kabul ediyorum.
                 </p>
                 <p>
-                    Bu rıza, zorunlu olmayıp dilediğim zaman geri alınabilir.
-                    Geri alma taleplerimi <strong style="color:#D4AF37;">gitalks.official@gmail.com</strong> adresi üzerinden iletebilirim.
+                    Bu rıza zorunlu olmayıp, dilediğim zaman geri alınabilir.
+                    Rıza geri alma taleplerimi
+                    <strong style="color:#D4AF37;">gitalks.official@gmail.com</strong>
+                    adresine iletebilirim.
                 </p>
             </div>
         </div>
@@ -501,21 +548,15 @@
             var x = document.getElementsByClassName("tab-content");
             var buttons = document.getElementsByClassName("nav-btn");
             
-            // Tüm sekmeleri gizle
             for (i = 0; i < x.length; i++) {
                 x[i].style.display = "none";  
             }
-            // Tüm butonların aktifliğini kaldır
             for (i = 0; i < buttons.length; i++) {
                 buttons[i].classList.remove("active");
             }
-            // İstenen sekmeyi aç
             document.getElementById(tabName).style.display = "block";
-            // İlgili butonu aktif yap
             var activeBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabName));
             if(activeBtn) activeBtn.classList.add("active");
-            
-            // Sayfayı en üste kaydır
             window.scrollTo(0,0);
         }
 
@@ -535,15 +576,12 @@
         }
 
         // --- 3. MODAL YÖNETİMİ ---
-        // KVKK Modalı
         function openKvkkModal() { document.getElementById("kvkkModal").style.display = "block"; }
         function closeKvkkModal() { document.getElementById("kvkkModal").style.display = "none"; }
         
-        // Açık Rıza Modalı
         function openConsentModal() { document.getElementById("consentModal").style.display = "block"; }
         function closeConsentModal() { document.getElementById("consentModal").style.display = "none"; }
 
-        // Sponsor Modalı
         function openBio(key) {
             const data = {
                 'uludag': {title: 'Uludağ İçecek', text: 'G-Talks ana içecek sponsoru.'},
@@ -558,7 +596,6 @@
         }
         function closeBio() { document.getElementById("bioModal").style.display = "none"; }
 
-        // Modalların dışına tıklayınca kapatma
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = "none";
