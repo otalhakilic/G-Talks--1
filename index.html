@@ -21,7 +21,7 @@
             align-items: center;
             min-height: 100vh;
             line-height: 1.6;
-            padding-top: 90px;
+            padding-top: 110px; /* Navbar arttığı için biraz daha boşluk */
         }
 
         /* --- 2. ÜST MENÜ (NAVBAR) --- */
@@ -40,23 +40,25 @@
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             list-style: none;
             margin: 0;
             padding: 0;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .nav-btn {
             background: none;
             border: none;
             color: #888;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding: 10px;
+            padding: 8px 12px;
         }
 
         .nav-btn:hover, .nav-btn.active {
@@ -69,7 +71,7 @@
         .tab-content {
             display: none;
             width: 90%;
-            max-width: 800px;
+            max-width: 900px;
             text-align: center;
             animation: fadeIn 0.8s;
             padding-bottom: 50px;
@@ -118,6 +120,8 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
+
+        h3 { color: #D4AF37; }
 
         /* --- GERİ SAYIM SAYACI --- */
         .countdown-container {
@@ -178,29 +182,60 @@
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); 
         }
 
-        .conf-card h3 {
-            color: #D4AF37;
-            margin: 0 0 10px 0;
-            display: flex;
-            align-items: center;
-        }
-
         /* --- İLETİŞİM ALANI --- */
         .contact-home {
             margin-top: 40px;
-            padding: 20px;
+            padding: 30px;
             border: 1px solid #333;
             background-color: #0a0a0a;
             color: #ccc;
             border-radius: 10px;
             display: inline-block;
-            min-width: 300px;
+            min-width: 320px;
+            text-align: center;
         }
         .contact-home a {
             color: #D4AF37;
             text-decoration: none;
             font-weight: bold;
+            display: block;
+            margin: 5px 0;
+            font-size: 1.1rem;
         }
+
+        /* --- FORM STİLİ (CHECKBOX İÇİN) --- */
+        .form-group {
+            margin-top: 20px;
+            text-align: left;
+            background: #111;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #aaa;
+            cursor: pointer;
+        }
+        .checkbox-label input {
+            margin-top: 4px;
+            accent-color: #D4AF37; /* Altın rengi checkbox */
+        }
+        .submit-btn {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background-color: #D4AF37;
+            border: none;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .submit-btn:hover { background-color: #f1c40f; }
 
         /* --- SPONSOR GÖRSELLERİ --- */
         .sponsor-grid {
@@ -225,37 +260,26 @@
             cursor: pointer;
             position: relative;
         }
-        
         .sponsor-img-box:hover {
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
 
-        .sponsor-img-box::after {
-            content: 'BİLGİ İÇİN TIKLA';
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
+        /* --- TEXT CONTENT (Gizlilik & Rıza için) --- */
+        .text-content-box {
+            text-align: left;
+            line-height: 1.8;
+            color: #ccc;
+        }
+        .text-content-box ul {
+            list-style-type: square;
             color: #D4AF37;
-            opacity: 0;
-            transition: 0.3s;
-            white-space: nowrap;
+        }
+        .text-content-box ul li span {
+            color: #ccc;
         }
 
-        .sponsor-img-box:hover::after {
-            opacity: 1;
-            bottom: -30px;
-        }
-
-        .sponsor-img-box img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        /* --- MODAL (POP-UP) PENCERE --- */
+        /* --- MODAL (POP-UP) --- */
         .modal {
             display: none; 
             position: fixed; 
@@ -290,27 +314,6 @@
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #fff;
-        }
-
-        .modal-title {
-            color: #D4AF37;
-            margin-top: 0;
-            font-size: 2rem;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        /* --- KVKK MODAL STİLİ --- */
-        /* Genel modal yapısını kullanıyoruz ama butonlar için ek stil */
-        .kvkk-modal-text p {
-            margin-bottom: 15px;
-            color: #ccc;
         }
 
         @media (max-width: 600px) {
@@ -318,6 +321,7 @@
             .time-box { width: 50px; padding: 10px; }
             .time-box span { font-size: 1.4rem; }
             .modal-content { width: 90%; margin: 20% auto; }
+            .nav-btn { font-size: 0.75rem; padding: 6px 8px; }
         }
     </style>
 </head>
@@ -329,6 +333,8 @@
             <li><button class="nav-btn" onclick="openTab('conferences-tab')">Program</button></li>
             <li><button class="nav-btn" onclick="openTab('sponsors-tab')">Sponsorlar</button></li>
             <li><button class="nav-btn" onclick="openTab('about-tab')">Hakkında</button></li>
+            <li><button class="nav-btn" onclick="openTab('privacy-tab')">Gizlilik</button></li>
+            <li><button class="nav-btn" onclick="openTab('consent-tab')">Açık Rıza</button></li>
         </ul>
     </nav>
 
@@ -353,74 +359,119 @@
         </div>
 
         <div class="contact-home">
-            <h3>Bize Ulaşın</h3>
-            <p>Sorularınız ve iş birlikleri için:</p>
-            <a href="mailto:gitalks.official@gmail.com">gitalks.official@gmail.com</a>
+            <h3>Bize Ulaşın & Kayıt</h3>
+            <p>Resmi İletişim:</p>
+            <a href="mailto:info@gtalks.org">info@gtalks.org</a>
+            <a href="mailto:gitalks.official@gmail.com" style="font-size:0.9rem; color:#888;">gitalks.official@gmail.com</a>
+            
+            <div class="form-group">
+                <p style="margin:0 0 10px 0; color:#D4AF37; font-weight:bold;">Bülten Aboneliği</p>
+                <input type="email" placeholder="E-posta adresiniz" style="width:90%; padding:8px; margin-bottom:10px; background:#222; border:1px solid #444; color:#fff;">
+                
+                <label class="checkbox-label">
+                    <input type="checkbox" required>
+                    <span>
+                        KVKK Aydınlatma Metni’ni okudum, kişisel verilerimin işlenmesine açık rıza veriyorum.
+                    </span>
+                </label>
+                <button class="submit-btn">KAYDOL</button>
+            </div>
+
         </div>
     </div>
 
     <div id="conferences-tab" class="tab-content">
         <h2>Konferans Programı</h2>
-        <p style="color:#888; margin-bottom:30px;">Dört ana başlıkta sektörün liderleriyle buluşuyoruz.</p>
-        
         <div class="conf-card">
             <h3>💻 TEKNOLOJİ</h3>
-            <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
-            <p>Yapay zeka, dijital dönüşüm ve geleceğin yazılım teknolojileri üzerine derinlemesine bir sohbet.</p>
+            <p>Yapay zeka, dijital dönüşüm ve geleceğin yazılım teknolojileri.</p>
         </div>
-
         <div class="conf-card">
             <h3>🌾 TARIM</h3>
-            <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
-            <p>Sürdürülebilir tarım teknikleri, akıllı tarım uygulamaları ve gıda güvenliği.</p>
+            <p>Sürdürülebilir tarım teknikleri ve gıda güvenliği.</p>
         </div>
-
         <div class="conf-card">
             <h3>📈 EKONOMİ</h3>
-            <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
-            <p>Küresel piyasalar, girişimcilik ekosistemi ve tarım ekonomisinin geleceği.</p>
-        </div>
-
-        <div class="conf-card">
-            <h3>🤝 YARDIM & SOSYAL ETKİ</h3>
-            <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
-            <p>Sosyal sorumluluk projeleri ve toplumsal fayda odaklı çalışmalar.</p>
+            <p>Küresel piyasalar ve girişimcilik ekosistemi.</p>
         </div>
     </div>
 
     <div id="sponsors-tab" class="tab-content">
         <h2>Değerli Sponsorlarımız</h2>
-        <p>Logoların üzerine tıklayarak şirket hakkında bilgi alabilirsiniz.</p>
-        
         <div class="sponsor-grid">
-            <div class="sponsor-img-box" onclick="openBio('uludag')">
-                <img src="uludag.png" alt="Uludağ Logo" onerror="this.style.display='none'; this.parentElement.innerText='Uludağ'">
-            </div>
-
-            <div class="sponsor-img-box" onclick="openBio('ilko')">
-                <img src="ilko.png" alt="İlko İlaç Logo" onerror="this.style.display='none'; this.parentElement.innerText='İlko İlaç'">
-            </div>
-
-            <div class="sponsor-img-box" onclick="openBio('atiker')">
-                <img src="atiker.png" alt="Atiker Logo" onerror="this.style.display='none'; this.parentElement.innerText='Atiker'">
-            </div>
+            <div class="sponsor-img-box" onclick="openBio('uludag')"><img src="uludag.png" alt="Uludağ" onerror="this.parentElement.innerText='Uludağ'"></div>
+            <div class="sponsor-img-box" onclick="openBio('ilko')"><img src="ilko.png" alt="İlko" onerror="this.parentElement.innerText='İlko'"></div>
+            <div class="sponsor-img-box" onclick="openBio('atiker')"><img src="atiker.png" alt="Atiker" onerror="this.parentElement.innerText='Atiker'"></div>
         </div>
     </div>
 
     <div id="about-tab" class="tab-content">
         <h2>G-Talks Hakkında</h2>
-        <div class="info-box" style="text-align: left; background:transparent; border:none; box-shadow:none;">
-            <p><strong>G-Talks;</strong> tarım, teknoloji ve ekonomi dünyasını üniversite gençliği ile bir araya getiren yenilikçi bir konferans serisidir.</p>
-            <p>Konya Gıda ve Tarım Üniversitesi İletişim ve Tanıtım Topluluğu tarafından düzenlenen bu etkinlik, öğrencilere vizyon kazandırmayı ve sektörel ağlarını genişletmeyi hedefler.</p>
+        <div class="info-box" style="background:transparent; border:none; box-shadow:none;">
+            <p>G-Talks; tarım, teknoloji ve ekonomi dünyasını üniversite gençliği ile bir araya getiren yenilikçi bir konferans serisidir.</p>
         </div>
     </div>
 
-    <div id="bioModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeBio()">&times;</span>
-            <h2 id="modal-title" class="modal-title">Şirket Adı</h2>
-            <div id="modal-text">
-                Buraya özgeçmiş gelecek...
+    <div id="privacy-tab" class="tab-content">
+        <h2>Gizlilik Politikası</h2>
+        <div class="info-box text-content-box">
+            <p>G-Talks olarak, kullanıcılarımızın gizliliğini önemsiyoruz. Bu Gizlilik Politikası, web sitemizi ziyaret eden kişilerin kişisel verilerinin nasıl toplandığını, kullanıldığını ve korunduğunu açıklamaktadır.</p>
+
+            <h3>Toplanan Veriler</h3>
+            <ul>
+                <li><span>Ad – Soyad</span></li>
+                <li><span>E-posta adresi</span></li>
+                <li><span>IP adresi ve site kullanım bilgileri</span></li>
+                <li><span>Etkinlik katılım bilgileri</span></li>
+            </ul>
+
+            <h3>Verilerin Kullanım Amaçları</h3>
+            <ul>
+                <li><span>Etkinlik ve organizasyon süreçlerinin yürütülmesi</span></li>
+                <li><span>İletişim faaliyetlerinin sağlanması</span></li>
+                <li><span>Site performansının iyileştirilmesi</span></li>
+                <li><span>Yasal yükümlülüklerin yerine getirilmesi</span></li>
+            </ul>
+
+            <h3>Veri Güvenliği</h3>
+            <p>Kişisel verileriniz; yetkisiz erişime, kayba veya kötüye kullanıma karşı teknik ve idari tedbirlerle korunmaktadır.</p>
+
+            <h3>Haklarınız</h3>
+            <p>KVKK’nın 11. maddesi uyarınca; kişisel verilerinizin işlenip işlenmediğini öğrenme, düzeltilmesini talep etme, silinmesini isteme ve itiraz etme hakkına sahipsiniz.</p>
+
+            <p style="margin-top:20px; padding-top:10px; border-top:1px solid #333;">
+                Talepleriniz için: <strong style="color:#D4AF37;">info@gtalks.org</strong>
+            </p>
+        </div>
+    </div>
+
+    <div id="consent-tab" class="tab-content">
+        <h2>Açık Rıza Metni</h2>
+        <div class="info-box text-content-box">
+            <p>
+                6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında;
+                G-Talks tarafından, kişisel verilerimin etkinlik süreçleri,
+                iletişim faaliyetleri ve bilgilendirme amacıyla işlenmesine
+                <strong style="color:#D4AF37;">özgür irademle açık rıza verdiğimi</strong> kabul ederim.
+            </p>
+            <p>Bu rıza, zorunlu olmayıp dilediğim zaman geri alınabilir.</p>
+        </div>
+    </div>
+
+    <div id="cookieBanner" style="
+    position:fixed; bottom:0; left:0; width:100%;
+    background:rgba(10, 10, 10, 0.98); border-top:2px solid #D4AF37;
+    color:#ccc; padding:15px; z-index:9999; display:none; font-size:0.9rem;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.5); box-sizing: border-box;">
+        <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+            <div style="text-align: center;">
+                <strong style="color:#D4AF37; font-size: 1.1rem;">KVKK & Çerez Bilgilendirmesi</strong><br>
+                Bu sitede zorunlu çerezler kullanılmaktadır. Analitik çerezler yalnızca onayınızla aktif olur.
+                <a href="javascript:void(0)" onclick="openKvkkModal()" style="color:#D4AF37; text-decoration: underline;">Detaylı Bilgi</a>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="rejectCookies()" style="background:transparent; color:#e74c3c; border:1px solid #e74c3c; padding:8px 20px; cursor:pointer; border-radius: 4px;">Reddet</button>
+                <button onclick="acceptCookies()" style="background:#D4AF37; color:#000; border:none; padding:8px 25px; font-weight:bold; cursor:pointer; border-radius: 4px;">Kabul Et</button>
             </div>
         </div>
     </div>
@@ -430,167 +481,104 @@
             <span class="close-btn" onclick="closeKvkkModal()">&times;</span>
             <h2 class="modal-title">KVKK Aydınlatma Metni</h2>
             <div class="kvkk-modal-text">
-                <p>
-                G-Talks olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında
-                kişisel verilerinizi; etkinlik süreçlerinin yürütülmesi, iletişim faaliyetlerinin
-                sağlanması ve site güvenliğinin temini amacıyla işlemekteyiz.
-                </p>
-                <p>
-                Toplanan veriler; ad-soyad, e-posta, IP bilgisi ve site kullanım verileridir.
-                Veriler yalnızca hukuki yükümlülükler çerçevesinde saklanır ve üçüncü kişilere
-                pazarlama amacıyla aktarılmaz.
-                </p>
-                <p>
-                KVKK kapsamındaki haklarınızı info@gtalks.org adresi üzerinden kullanabilirsiniz.
-                </p>
+                <p>G-Talks olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında kişisel verilerinizi işlemekteyiz.</p>
+                <p>Veriler yalnızca hukuki yükümlülükler çerçevesinde saklanır.</p>
+                <p>İletişim: info@gtalks.org</p>
             </div>
         </div>
     </div>
 
-    <div id="cookieBanner" style="
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:rgba(10, 10, 10, 0.98);
-    border-top:2px solid #D4AF37;
-    color:#ccc;
-    padding:15px;
-    z-index:9999;
-    display:none;
-    font-size:0.9rem;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
-    box-sizing: border-box;
-    ">
-        <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-            <div style="text-align: center;">
-                <strong style="color:#D4AF37; font-size: 1.1rem;">KVKK & Çerez Bilgilendirmesi</strong><br>
-                Bu sitede zorunlu çerezler kullanılmaktadır. Analitik çerezler yalnızca onayınızla aktif olur.
-                <a href="javascript:void(0)" onclick="openKvkkModal()" style="color:#D4AF37; text-decoration: underline;">Detaylı Bilgi</a>
-            </div>
-            
-            <div style="display: flex; gap: 10px;">
-                <button onclick="rejectCookies()" style="background:transparent; color:#e74c3c; border:1px solid #e74c3c; padding:8px 20px; cursor:pointer; border-radius: 4px; transition:0.3s;">Reddet</button>
-                <button onclick="acceptCookies()" style="background:#D4AF37; color:#000; border:none; padding:8px 25px; font-weight:bold; cursor:pointer; border-radius: 4px; transition:0.3s;">Kabul Et</button>
-            </div>
+    <div id="bioModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeBio()">&times;</span>
+            <h2 id="modal-title" class="modal-title">Şirket Adı</h2>
+            <div id="modal-text">...</div>
         </div>
     </div>
 
     <script>
-        // --- 1. ÇEREZ VE KVKK YÖNETİMİ ---
-        document.addEventListener("DOMContentLoaded", function () {
-            // Eğer daha önce bir seçim yapılmadıysa banner'ı göster
-            if (!localStorage.getItem("cookieConsent")) {
-                document.getElementById("cookieBanner").style.display = "block";
-            }
-        });
-
-        function acceptCookies() {
-            localStorage.setItem("cookieConsent", "accepted");
-            document.getElementById("cookieBanner").style.display = "none";
-            console.log("Çerezler kabul edildi.");
-        }
-
-        function rejectCookies() {
-            localStorage.setItem("cookieConsent", "rejected");
-            document.getElementById("cookieBanner").style.display = "none";
-            console.log("Analitik çerezler reddedildi.");
-        }
-
-        // KVKK Modalı Aç/Kapa
-        function openKvkkModal() {
-            document.getElementById("kvkkModal").style.display = "block";
-        }
-        function closeKvkkModal() {
-            document.getElementById("kvkkModal").style.display = "none";
-        }
-
-        // --- 2. DİĞER SİTE FONKSİYONLARI ---
-        
-        // Sponsor Bilgileri
-        const sponsorData = {
-            'uludag': {
-                title: 'Uludağ İçecek',
-                text: '1930 yılından bu yana Türkiye\'nin meşrubat sektöründeki öncü markası olan Uludağ İçecek, yenilikçi ürünleri ve kalitesiyle tanınmaktadır. "Efsane Gazoz" sloganıyla hafızalara kazınan marka, G-Talks etkinliğinin ana içecek sponsorudur.'
-            },
-            'ilko': {
-                title: 'İLKO İlaç',
-                text: '50 yılı aşkın tecrübesiyle Türk ilaç sanayisinin köklü kuruluşlarından biri olan İLKO İlaç, Konya\'daki modern üretim tesislerinde Ar-Ge ve biyoteknoloji üzerine yaptığı yatırımlarla sağlık sektörüne yön vermektedir.'
-            },
-            'atiker': {
-                title: 'Atiker Yazılım & Teknoloji',
-                text: 'Konya merkezli bir dünya markası olan Atiker, otomotiv sektöründeki liderliğinin yanı sıra, geliştirdiği yerli ERP yazılımları, akıllı tarım çözümleri ve teknoloji yatırımlarıyla dijital dönüşümün öncülerindendir.'
-            }
-        };
-
-        function openBio(sponsorKey) {
-            const modal = document.getElementById("bioModal");
-            const title = document.getElementById("modal-title");
-            const text = document.getElementById("modal-text");
-            const data = sponsorData[sponsorKey];
-
-            if (data) {
-                title.innerText = data.title;
-                text.innerHTML = `<p>${data.text}</p>`;
-                modal.style.display = "block";
-            }
-        }
-
-        function closeBio() {
-            document.getElementById("bioModal").style.display = "none";
-        }
-
-        // Modalların dışında bir yere tıklanınca kapatma
-        window.onclick = function(event) {
-            const bioModal = document.getElementById("bioModal");
-            const kvkkModal = document.getElementById("kvkkModal");
-            
-            if (event.target == bioModal) {
-                bioModal.style.display = "none";
-            }
-            if (event.target == kvkkModal) {
-                kvkkModal.style.display = "none";
-            }
-        }
-
+        // --- 1. SEKMELER (NAVİGASYON) ---
         function openTab(tabName) {
             var i;
             var x = document.getElementsByClassName("tab-content");
             var buttons = document.getElementsByClassName("nav-btn");
             
+            // Tüm sekmeleri gizle
             for (i = 0; i < x.length; i++) {
                 x[i].style.display = "none";  
             }
+            // Tüm butonların aktifliğini kaldır
             for (i = 0; i < buttons.length; i++) {
                 buttons[i].classList.remove("active");
             }
+            // İstenen sekmeyi aç
             document.getElementById(tabName).style.display = "block";
+            // İlgili butonu aktif yap
             var activeBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabName));
             if(activeBtn) activeBtn.classList.add("active");
+            
+            // Sayfayı en üste kaydır
+            window.scrollTo(0,0);
         }
 
-        // Geri Sayım
-        var countDownDate = new Date("Feb 16, 2026 09:00:00").getTime();
+        // --- 2. ÇEREZ YÖNETİMİ ---
+        document.addEventListener("DOMContentLoaded", function () {
+            if (!localStorage.getItem("cookieConsent")) {
+                document.getElementById("cookieBanner").style.display = "block";
+            }
+        });
+        function acceptCookies() {
+            localStorage.setItem("cookieConsent", "accepted");
+            document.getElementById("cookieBanner").style.display = "none";
+        }
+        function rejectCookies() {
+            localStorage.setItem("cookieConsent", "rejected");
+            document.getElementById("cookieBanner").style.display = "none";
+        }
 
+        // --- 3. MODAL YÖNETİMİ ---
+        function openKvkkModal() { document.getElementById("kvkkModal").style.display = "block"; }
+        function closeKvkkModal() { document.getElementById("kvkkModal").style.display = "none"; }
+        
+        function openBio(key) {
+            const data = {
+                'uludag': {title: 'Uludağ İçecek', text: 'G-Talks ana içecek sponsoru.'},
+                'ilko': {title: 'İLKO İlaç', text: 'Sağlık sektörü lideri.'},
+                'atiker': {title: 'Atiker Yazılım', text: 'Konya teknoloji devi.'}
+            };
+            if(data[key]) {
+                document.getElementById("modal-title").innerText = data[key].title;
+                document.getElementById("modal-text").innerText = data[key].text;
+                document.getElementById("bioModal").style.display = "block";
+            }
+        }
+        function closeBio() { document.getElementById("bioModal").style.display = "none"; }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+
+        // --- 4. GERİ SAYIM ---
+        var countDownDate = new Date("Feb 16, 2026 09:00:00").getTime();
         var x = setInterval(function() {
             var now = new Date().getTime();
             var distance = countDownDate - now;
-
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+            
             if(document.getElementById("days")) {
                 document.getElementById("days").innerHTML = days;
                 document.getElementById("hours").innerHTML = hours;
                 document.getElementById("minutes").innerHTML = minutes;
                 document.getElementById("seconds").innerHTML = seconds;
             }
-
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("countdown").innerHTML = "<h2 style='color:#D4AF37;'>ETKİNLİK BAŞLADI!</h2>";
+                document.getElementById("countdown").innerHTML = "ETKİNLİK BAŞLADI!";
             }
         }, 1000);
     </script>
