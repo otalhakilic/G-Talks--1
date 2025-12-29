@@ -38,26 +38,17 @@
 
         * { box-sizing: border-box; }
 
-        /* Özel Scrollbar (Kaydırma Çubuğu) */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--gold-dim); 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gold); 
-        }
+        /* Özel Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
         body {
             background-color: var(--dark-bg);
             background-image: radial-gradient(circle at 50% 0%, #1f1f1f 0%, #000000 80%);
             color: var(--text-color);
-            font-family: 'Open Sans', sans-serif; /* Okunabilirlik için */
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -66,11 +57,11 @@
             min-height: 100vh;
             line-height: 1.7;
             padding-top: 80px;
-            overflow-x: hidden; /* Yatay kaydırmayı engelle */
+            overflow-x: hidden;
         }
 
         h1, h2, h3, .sub-header, .navbar-logo, .sidebar a, .accordion-btn {
-            font-family: 'Montserrat', sans-serif; /* Başlıklar için modern font */
+            font-family: 'Montserrat', sans-serif;
         }
 
         /* --- 2. NAVBAR --- */
@@ -97,7 +88,7 @@
             width: 42px;
             height: 42px;
             border: 1px solid rgba(212, 175, 55, 0.5);
-            border-radius: 50%; /* Modern yuvarlak buton */
+            border-radius: 50%;
             margin-right: auto;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -177,20 +168,6 @@
             border-left: 3px solid var(--gold);
         }
 
-        /* PWA Install Button Style */
-        .install-pwa-btn {
-            display: none; 
-            color: #D4AF37 !important;
-            font-weight: 800 !important;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            margin: 10px 20px;
-            text-align: center;
-            border-radius: 4px;
-        }
-        .install-pwa-btn:hover {
-            background-color: rgba(212, 175, 55, 0.2) !important;
-        }
-
         .sidebar .closebtn {
             position: absolute;
             top: 15px;
@@ -232,7 +209,6 @@
             to {opacity: 1; transform: translateY(0);}
         }
 
-        /* SHINE ANIMASYONU İÇİN LOGO */
         h1 { 
             font-size: clamp(3rem, 8vw, 5rem); 
             margin: 20px 0 10px 0; 
@@ -241,7 +217,6 @@
             letter-spacing: 4px;
             font-weight: 900;
             line-height: 1.1;
-            /* Shine Effect */
             background: linear-gradient(to right, #aa8c2c 20%, #F2E2A6 40%, #aa8c2c 60%, #D4AF37 80%);
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -379,6 +354,17 @@
             width: 100%; 
             box-sizing: border-box; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* --- YÖNLENDİRİLEBİLİR BAŞLIK (HOME) --- */
+        .clickable-title {
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .clickable-title:hover {
+            text-shadow: 0 0 15px var(--gold);
+            transform: scale(1.02);
         }
 
         /* --- PREMIUM KARTLAR (YENİLENMİŞ) --- */
@@ -575,8 +561,6 @@
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" id="closeNavBtn">&times;</a>
         
-        <a href="#" id="installAppBtn" class="nav-link install-pwa-btn">📲 Uygulamayı Yükle</a>
-
         <a href="#" class="nav-link active" data-tab="home-tab">Anasayfa</a>
         <a href="#" class="nav-link" data-tab="conferences-tab">Etkinlikler</a>
         <a href="#" class="nav-link" data-tab="sponsors-tab">Sponsorlar</a>
@@ -603,7 +587,8 @@
         <div class="guest-info">Ana Konuk: <span style="font-weight:bold; color:#D4AF37;">Yakında Açıklanacak</span></div>
         
         <div class="info-box">
-            <h3>GıTalks Teknoloji</h3>
+            <h3 id="tech-title-btn" class="clickable-title">GıTalks Teknoloji</h3>
+            
             <div class="countdown-container" id="countdown">
                 <div class="time-box"><span id="days">00</span><label>GÜN</label></div>
                 <div class="time-box"><span id="hours">00</span><label>SAAT</label></div>
@@ -622,13 +607,11 @@
     </div>
 
     <div id="conferences-tab" class="tab-content">
-        <h2>Etkinlik Vizyonu</h2>
-        <p style="color:#888; margin-bottom: 30px;">Teknolojiden tarıma, ekonomiden akademiye uzanan geniş spektrumlu oturumlar.</p>
+        <p style="color:#888; margin-bottom: 30px; margin-top:30px;">Teknolojiden tarıma, ekonomiden akademiye uzanan geniş spektrumlu oturumlar.</p>
         
         <h3 style="text-align:left; color:var(--gold); border-bottom:1px solid #333; padding-bottom:10px; margin-top:40px;">YAYINDA OLAN</h3>
         <div class="conf-grid">
-            <div class="conf-card">
-                <div class="card-header">
+            <div class="conf-card" id="target-tech-card"> <div class="card-header">
                     <div class="card-icon"></div>
                     <div class="conf-date-badge">16 ŞUBAT 2026</div>
                 </div>
@@ -654,7 +637,6 @@
                 <div class="conf-card">
                     <div class="card-header">
                         <div class="card-icon"></div>
-                        <div class="conf-date-badge pending">TARİH BEKLENİYOR</div>
                     </div>
                     <h3>GıTalks 2026 AKADEMİ</h3>
                     <p>Bilimsel araştırmalar, akademik kariyer rotaları ve üniversite-sanayi iş birliği modelleri.</p>
@@ -668,7 +650,6 @@
                 <div class="conf-card">
                     <div class="card-header">
                         <div class="card-icon"></div>
-                        <div class="conf-date-badge pending">TARİH BEKLENİYOR</div>
                     </div>
                     <h3>GıTalks 2026 TARIM</h3>
                     <p>Sürdürülebilir tarım teknikleri, gıda güvenliği ve modern tarım teknolojileri.</p>
@@ -682,7 +663,6 @@
                 <div class="conf-card">
                     <div class="card-header">
                         <div class="card-icon"></div>
-                        <div class="conf-date-badge pending">TARİH BEKLENİYOR</div>
                     </div>
                     <h3>GıTalks 2026 EKONOMİ</h3>
                     <p>Küresel piyasalar, fintech girişimleri ve yeni nesil ekonomi modelleri üzerine analizler.</p>
@@ -696,7 +676,6 @@
                 <div class="conf-card">
                     <div class="card-header">
                         <div class="card-icon"></div>
-                        <div class="conf-date-badge pending">TARİH BEKLENİYOR</div>
                     </div>
                     <h3>GıTalks 2026 SOSYAL ETKİ</h3>
                     <p>Toplumsal fayda odaklı projeler, sosyal sorumluluk ve yardım organizasyonları.</p>
@@ -881,13 +860,24 @@
 
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    if (this.id === 'installAppBtn') return; // Install butonu tab değiştirmez
                     e.preventDefault();
                     switchTab(this.getAttribute('data-tab'));
                 });
             });
 
             document.getElementById("mainLogo").addEventListener("click", function() { switchTab('home-tab'); });
+
+            // YENİ ÖZELLİK: "GıTalks Teknoloji" yazısına tıklayınca karta git
+            document.getElementById("tech-title-btn").addEventListener("click", function() {
+                switchTab('conferences-tab'); // Etkinlikler sekmesini aç
+                // Sekme açıldıktan sonra biraz bekle ve karta kaydır
+                setTimeout(function(){
+                    const targetCard = document.getElementById("target-tech-card");
+                    if(targetCard) {
+                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 100);
+            });
 
             // Footer Linkleri
             document.querySelectorAll('.footer-links .modal-link[data-tab]').forEach(link => {
@@ -1008,44 +998,12 @@
             setInterval(updateCountdowns, 1000);
             updateCountdowns(); 
 
-            // --- 6. PWA KURULUM (INSTALL) MANTIĞI ---
-            let deferredPrompt;
-            const installBtn = document.getElementById("installAppBtn");
-
-            // Service Worker Kaydı
+            // Service Worker Kaydı (PWA Arka Planı için kalabilir)
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                    navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-                        console.log('ServiceWorker registered with scope: ', registration.scope);
-                    }, function(err) {
-                        console.log('ServiceWorker registration failed: ', err);
-                    });
+                    navigator.serviceWorker.register('service-worker.js');
                 });
             }
-
-            // Kurulum Butonu Mantığı
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-                installBtn.style.display = 'block';
-            });
-
-            installBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if(!deferredPrompt) return;
-                
-                deferredPrompt.prompt();
-                
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('Kullanıcı kurulumu kabul etti');
-                        installBtn.style.display = 'none';
-                    } else {
-                        console.log('Kullanıcı kurulumu reddetti');
-                    }
-                    deferredPrompt = null;
-                });
-            });
         });
     </script>
 </body>
