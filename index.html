@@ -337,28 +337,6 @@
         .close-btn:hover { color: var(--gold); }
         .modal-link { color: var(--gold); text-decoration: none; cursor: pointer; border-bottom: 1px dotted var(--gold); font-size: 0.9rem; }
 
-        /* --- MÜZİK OYNATICI STİLİ --- */
-        .music-player-btn {
-            position: fixed; bottom: 20px; right: 20px;
-            width: 50px; height: 50px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 9999;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-            transition: all 0.3s ease;
-            color: var(--gold);
-            font-size: 1.5rem;
-        }
-        .music-player-btn:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
-        .music-anim { animation: pulseMusic 1.5s infinite; }
-        @keyframes pulseMusic {
-            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
-        }
-
         /* --- MOBİL UYUMLULUK --- */
         @media (max-width: 600px) {
             h1 { font-size: 2.5rem; margin-top: 15px; letter-spacing: 2px; }
@@ -383,7 +361,6 @@
             .modal-content { width: 90%; margin: 30% auto; padding: 25px; }
             .sponsor-img-box { width: 100%; max-width: 250px; }
             .footer-links { display: flex; flex-direction: column; gap: 12px; }
-            .music-player-btn { width: 40px; height: 40px; font-size: 1.2rem; bottom: 15px; right: 15px; }
         }
     </style>
 </head>
@@ -398,9 +375,8 @@
         <a href="#" class="nav-link" data-tab="sponsors-tab">Sponsorlar</a>
         <a href="#" class="nav-link" data-tab="about-tab">Hakkında</a>
         <div class="sidebar-legal">
-            <a href="#" class="nav-link" data-tab="privacy-tab">Gizlilik Politikası</a>
+            <a href="#" class="nav-link" data-tab="privacy-tab">Gizlilik Politikası & KVKK</a>
             <a href="#" class="nav-link" data-tab="consent-tab">Açık Rıza Metni</a>
-            <a href="#" class="nav-link" data-tab="terms-tab">Kullanım Koşulları</a>
         </div>
     </div>
 
@@ -410,14 +386,6 @@
         </div>
         <div class="navbar-logo" id="mainLogo">GıTalks</div>
         <div class="navbar-spacer"></div> 
-    </div>
-
-    <audio id="bgMusic" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_55940562e2.mp3" type="audio/mpeg">
-        Tarayıcınız ses elementini desteklemiyor.
-    </audio>
-    <div id="musicBtn" class="music-player-btn" title="Müziği Başlat/Durdur">
-        &#9835; 
     </div>
 
     <div id="home-tab" class="tab-content">
@@ -569,21 +537,13 @@
         </div>
     </div>
 
-    <div id="terms-tab" class="tab-content">
-        <h2>Kullanım Koşulları</h2>
-        <div class="info-box text-content-box">
-            <p>Bu web sitesini ziyaret ederek aşağıdaki koşulları kabul etmiş sayılırsınız:</p>
-            <ul><li>Fikri Mülkiyet: GıTalks logosu ve içeriği korunmaktadır.</li></ul>
-        </div>
-    </div>
-
     <footer>
         <div class="corporate-statement" style="max-width: 800px; margin: 0 auto 20px auto; color: #555; text-align: center; padding: 0 20px;">
             <p><strong>Yasal Bilgilendirme:</strong> GıTalks, üniversite öğrenci toplulukları tarafından yürütülen bağımsız bir etkinlik platformudur.</p>
         </div>
         <div class="footer-links" style="text-align: center; margin-bottom: 20px;">
-            <a href="#" class="modal-link" data-tab="privacy-tab">Gizlilik</a> | 
-            <a href="#" class="modal-link" data-tab="consent-tab">Rıza Metni</a>
+            <a href="#" class="modal-link" data-tab="privacy-tab">Gizlilik Politikası ve KVKK</a> | 
+            <a href="#" class="modal-link" data-tab="consent-tab">Açık Rıza Metni</a>
         </div>
         <p style="text-align: center; color: #666; font-size: 0.8rem;">&copy; 2026 GıTalks Organization.</p>
     </footer>
@@ -751,39 +711,6 @@
             
             setInterval(updateCountdowns, 1000);
             updateCountdowns(); 
-
-            // --- 5. MÜZİK OYNATICI ---
-            const bgMusic = document.getElementById("bgMusic");
-            const musicBtn = document.getElementById("musicBtn");
-            let isPlaying = false;
-
-            bgMusic.volume = 0.5; 
-            
-            const playPromise = bgMusic.play();
-            if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    isPlaying = true;
-                    musicBtn.innerHTML = "||"; 
-                    musicBtn.classList.add('music-anim');
-                }).catch(error => {
-                    isPlaying = false;
-                    musicBtn.innerHTML = "&#9835;"; 
-                });
-            }
-
-            musicBtn.addEventListener("click", function() {
-                if(isPlaying) {
-                    bgMusic.pause();
-                    musicBtn.innerHTML = "&#9835;";
-                    musicBtn.classList.remove('music-anim');
-                    isPlaying = false;
-                } else {
-                    bgMusic.play();
-                    musicBtn.innerHTML = "||";
-                    musicBtn.classList.add('music-anim');
-                    isPlaying = true;
-                }
-            });
         });
     </script>
 </body>
