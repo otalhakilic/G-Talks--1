@@ -123,9 +123,9 @@
             letter-spacing: 2px;
         }
 
-        h3 { color: #D4AF37; margin-top: 25px; }
+        h3 { color: #D4AF37; margin-top: 0; }
 
-        /* --- GERİ SAYIM SAYACI --- */
+        /* --- GERİ SAYIM SAYACI (ANA) --- */
         .countdown-container {
             display: flex;
             justify-content: center;
@@ -177,11 +177,52 @@
             text-align: left;
             margin-bottom: 20px;
             transition: 0.3s;
+            position: relative;
         }
         .conf-card:hover { 
             transform: translateX(10px); 
             border-color: #D4AF37;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); 
+        }
+
+        /* Tarih Rozeti */
+        .conf-date {
+            display: inline-block;
+            background: #D4AF37;
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Kart İçi Mini Sayaç */
+        .mini-countdown {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            background: #000;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            width: fit-content;
+        }
+        .mini-time {
+            text-align: center;
+        }
+        .mini-time span {
+            display: block;
+            font-size: 1.2rem;
+            color: #D4AF37;
+            font-weight: bold;
+            line-height: 1;
+        }
+        .mini-time label {
+            font-size: 0.6rem;
+            color: #888;
+            text-transform: uppercase;
         }
 
         /* --- İLETİŞİM ALANI --- */
@@ -249,7 +290,7 @@
             display: block;
         }
 
-        /* --- TEXT CONTENT (Gizlilik, Rıza, Hakkımızda) --- */
+        /* --- TEXT CONTENT --- */
         .text-content-box {
             text-align: left;
             line-height: 1.8;
@@ -329,7 +370,7 @@
     <nav class="navbar">
         <ul class="nav-links">
             <li><button class="nav-btn active" onclick="openTab('home-tab')">Anasayfa</button></li>
-            <li><button class="nav-btn" onclick="openTab('conferences-tab')">Program</button></li>
+            <li><button class="nav-btn" onclick="openTab('conferences-tab')">Etkinlikler</button></li>
             <li><button class="nav-btn" onclick="openTab('sponsors-tab')">Sponsorlar</button></li>
             <li><button class="nav-btn" onclick="openTab('about-tab')">Hakkında</button></li>
             <li><button class="nav-btn" onclick="openTab('privacy-tab')">Gizlilik</button></li>
@@ -365,23 +406,45 @@
     </div>
 
     <div id="conferences-tab" class="tab-content">
-        <h2>Konferans Programı</h2>
+        <h2>Etkinlik Takvimi</h2>
+        
         <div class="conf-card">
+            <div class="conf-date">16 ŞUBAT 2026</div>
             <h3>💻 TEKNOLOJİ</h3>
             <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
             <p>Yapay zeka, dijital dönüşüm ve geleceğin yazılım teknolojileri.</p>
+            
+            <div class="mini-countdown" id="tech-countdown">
+                <div class="mini-time"><span id="t-days">00</span><label>GÜN</label></div>
+                <div class="mini-time"><span id="t-hours">00</span><label>SAAT</label></div>
+                <div class="mini-time"><span id="t-min">00</span><label>DK</label></div>
+                <div class="mini-time"><span id="t-sec">00</span><label>SN</label></div>
+            </div>
         </div>
+
         <div class="conf-card">
+            <div class="conf-date">17 ŞUBAT 2026</div>
+            <h3>🎓 AKADEMİ</h3>
+            <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
+            <p>Bilimsel araştırmalar, eğitimde inovasyon ve akademik gelecek vizyonu.</p>
+        </div>
+
+        <div class="conf-card">
+            <div class="conf-date" style="background:#333; color:#aaa;">TARİH BELİRLENEMEDİ</div>
             <h3>🌾 TARIM</h3>
             <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
             <p>Sürdürülebilir tarım teknikleri ve gıda güvenliği.</p>
         </div>
+
         <div class="conf-card">
+            <div class="conf-date" style="background:#333; color:#aaa;">TARİH BELİRLENEMEDİ</div>
             <h3>📈 EKONOMİ</h3>
             <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
             <p>Küresel piyasalar ve girişimcilik ekosistemi.</p>
         </div>
+
         <div class="conf-card">
+            <div class="conf-date" style="background:#333; color:#aaa;">TARİH BELİRLENEMEDİ</div>
             <h3>🤝 YARDIM & SOSYAL ETKİ</h3>
             <p><strong>Konuk:</strong> <em>Yakında Açıklanacak</em></p>
             <p>Sosyal sorumluluk projeleri ve toplumsal fayda odaklı çalışmalar.</p>
@@ -434,35 +497,43 @@
             <ul>
                 <li><span>IP adresi ve erişim bilgileri (sunucu logları)</span></li>
                 <li><span>Siteye erişim zamanı ve teknik kullanım verileri</span></li>
-                <li><span>Çerez tercih bilgileri (localStorage)</span></li>
             </ul>
 
             <h3>Verilerin Toplanma Yöntemi</h3>
             <p>
-                Veriler, web sitesinin ziyaret edilmesi sırasında
+                Kişisel veriler, web sitesinin ziyaret edilmesi sırasında
                 otomatik yollarla ve teknik altyapı gereği toplanmaktadır.
             </p>
 
             <h3>Verilerin Kullanım Amaçları</h3>
             <ul>
                 <li><span>Web sitesinin güvenliğinin sağlanması</span></li>
-                <li><span>Site performansının ve işleyişinin iyileştirilmesi</span></li>
+                <li><span>Teknik işleyişin ve performansın izlenmesi</span></li>
+                <li><span>Arama motoru görünürlüğünün sağlanması</span></li>
                 <li><span>Hukuki yükümlülüklerin yerine getirilmesi</span></li>
             </ul>
 
+            <h3>Google Search Console</h3>
+            <p>
+                Web sitemizde, Google Search Console hizmeti kullanılmaktadır.
+                Bu hizmet, sitenin Google arama sonuçlarındaki görünürlüğünü
+                izlemek amacıyla kullanılmakta olup,
+                kullanıcıları tanımlamaya yönelik çerezler veya izleme kodları
+                kullanmamaktadır.
+            </p>
+
             <h3>Veri Güvenliği</h3>
             <p>
-                Kişisel verileriniz; yetkisiz erişim, kayıp veya kötüye kullanıma karşı
+                Kişisel verileriniz, yetkisiz erişim, kayıp veya kötüye kullanıma karşı
                 teknik ve idari tedbirlerle korunmaktadır.
-                Veriler doğrudan G-Talks tarafından depolanmamakta,
-                GitHub Pages altyapısı üzerinden barındırılmaktadır.
+                Web sitemiz GitHub Pages altyapısı üzerinden barındırılmaktadır.
             </p>
 
             <h3>Haklarınız</h3>
             <p>
                 6698 sayılı Kişisel Verilerin Korunması Kanunu’nun 11. maddesi uyarınca;
-                kişisel verilerinizin işlenip işlenmediğini öğrenme,
-                düzeltilmesini talep etme ve itiraz etme hakkına sahipsiniz.
+                kişisel verilerinizin işlenip işlenmediğini öğrenme
+                ve itiraz etme hakkına sahipsiniz.
             </p>
 
             <p style="margin-top:20px; padding-top:10px; border-top:1px solid #333;">
@@ -476,27 +547,15 @@
         <h2>Açık Rıza Metni</h2>
         <div class="info-box text-content-box">
             <p>
-                6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında;
                 G-Talks web sitesini ziyaret etmem sebebiyle,
-            </p>
-
-            <ul>
-                <li>IP adresim ve teknik erişim bilgilerimin,</li>
-                <li>Çerez tercih bilgilerimin,</li>
-            </ul>
-
-            <p>
-                web sitesinin güvenliğinin sağlanması ve teknik işleyişinin yürütülmesi
-                amacıyla işlenmesine
-                <strong style="color:#D4AF37;">özgür irademle açık rıza verdiğimi</strong>
-                kabul ediyorum.
+                kişisel verilerimin yalnızca web sitesinin teknik işleyişi
+                ve güvenliğinin sağlanması amacıyla
+                işlendiği konusunda bilgilendirildim.
             </p>
 
             <p>
-                Bu rıza zorunlu olmayıp, dilediğim zaman geri alınabilir.
-                Rıza geri alma taleplerimi
-                <strong style="color:#D4AF37;">gitalks.official@gmail.com</strong>
-                adresine iletebilirim.
+                Bu kapsamda açık rızamın gerekmediğini,
+                verilerin ilgili mevzuat çerçevesinde işlendiğini kabul ederim.
             </p>
         </div>
     </div>
@@ -653,7 +712,7 @@
             }
         }
 
-        // --- 4. GERİ SAYIM ---
+        // --- 4. GERİ SAYIM (ANA) ---
         var countDownDate = new Date("Feb 16, 2026 09:00:00").getTime();
         var x = setInterval(function() {
             var now = new Date().getTime();
@@ -672,6 +731,28 @@
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("countdown").innerHTML = "ETKİNLİK BAŞLADI!";
+            }
+        }, 1000);
+
+        // --- 5. MİNİ SAYAÇ (TEKNOLOJİ KARTI İÇİN) ---
+        var techInterval = setInterval(function() {
+            var now = new Date().getTime();
+            var distance = countDownDate - now; // Aynı tarihi kullandım (16 Şubat 2026)
+
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if(document.getElementById("t-days")) {
+                document.getElementById("t-days").innerText = days;
+                document.getElementById("t-hours").innerText = hours;
+                document.getElementById("t-min").innerText = minutes;
+                document.getElementById("t-sec").innerText = seconds;
+            }
+            if (distance < 0) {
+                clearInterval(techInterval);
+                document.getElementById("tech-countdown").innerHTML = "<span style='color:#D4AF37;'>BAŞLADI</span>";
             }
         }, 1000);
     </script>
