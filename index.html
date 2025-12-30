@@ -107,25 +107,26 @@
             border-left: 3px solid var(--gold-primary);
         }
         
-        /* GÜNCELLENEN KAPATMA BUTONU STİLİ (FIXED) */
+        /* --- DÜZELTİLMİŞ X BUTONU --- */
         .sidebar .closebtn {
             position: absolute; 
             top: 20px; 
             right: 25px; 
-            font-size: 45px; /* Daha büyük */
+            font-size: 45px; 
             border: none; 
             background: transparent;
             color: var(--gold-primary); 
             opacity: 1; 
             transition: 0.3s; 
-            cursor: pointer; 
-            z-index: 2005; /* Sidebar'dan daha yüksek katman */
+            cursor: pointer !important; /* Önemli: İmleci zorla */
+            z-index: 2147483647; /* En üst katman */
             width: 50px; 
             height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             line-height: 1;
+            pointer-events: auto; /* Tıklamayı zorla */
         }
         .sidebar .closebtn:hover { 
             opacity: 1; 
@@ -720,23 +721,24 @@
             const sidebar = document.getElementById("mySidebar");
             const overlay = document.getElementById("menuOverlay");
             
+            // SIDEBAR KAPATMA FONKSİYONU
+            function closeNav() { 
+                sidebar.style.width = "0"; 
+                overlay.style.display = "none"; 
+            }
+
             document.getElementById("openNavBtn").addEventListener("click", function() {
                 if(window.innerWidth <= 600) { sidebar.style.width = "85%"; } else { sidebar.style.width = "320px"; }
                 overlay.style.display = "block";
             });
 
-            function closeNav() { 
-                sidebar.style.width = "0"; 
-                overlay.style.display = "none"; 
-            }
-            
-            // Güncellenmiş "X" Butonu Kapatma Mantığı
+            // GÜNCELLENMİŞ X BUTONU DİNLEYİCİSİ (GARANTİ ÇÖZÜM)
             const closeBtn = document.getElementById("closeNavBtn");
             if(closeBtn) {
-                closeBtn.onclick = function(e) {
+                closeBtn.addEventListener("click", function(e) {
                     e.preventDefault();
                     closeNav();
-                };
+                });
             }
             
             overlay.addEventListener("click", closeNav);
