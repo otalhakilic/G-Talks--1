@@ -248,7 +248,7 @@
             #gitalks-ai-container { right: 20px; bottom: 20px; }
         }
 
-        /* --- MOBİL DÜZELTME KODU (BURASI EKLENDİ) --- */
+        /* --- MOBİL DÜZELTME KODU (SAYAÇLAR İÇİN) --- */
         @media (max-width: 600px) {
             .countdown-container {
                 gap: 10px; /* Mobilde boşluğu azalt */
@@ -744,6 +744,15 @@
 
             document.querySelectorAll('.footer-links .modal-link[data-tab]').forEach(link => {
                 link.addEventListener('click', function(e) { e.preventDefault(); switchTab(this.getAttribute('data-tab')); });
+            });
+
+            // Cookie Linkleri için Event Listener (YENİ EKLENEN KISIM)
+            document.querySelectorAll('.cookie-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = this.getAttribute('data-target');
+                    switchTab(target);
+                });
             });
 
             // Accordion
