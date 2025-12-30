@@ -117,7 +117,7 @@
             color: var(--gold-primary); 
             opacity: 1; 
             transition: 0.3s; 
-            cursor: pointer !important;
+            cursor: pointer;
             z-index: 2147483647; /* En yüksek Z-index */
             width: 60px; 
             height: 60px;
@@ -126,6 +126,7 @@
             justify-content: center;
             line-height: 1;
             padding-bottom: 5px;
+            pointer-events: auto; /* Tıklamayı zorla */
         }
         .sidebar .closebtn:hover { 
             opacity: 1; 
@@ -226,7 +227,7 @@
         .contact-home a { color: var(--gold-primary); text-decoration: none; font-weight: bold; font-size: 1.4rem; transition: 0.3s; }
         .contact-home a:hover { color: #fff; text-shadow: 0 0 20px var(--gold-primary); }
 
-        /* --- YENİLENMİŞ SPONSOR ALANI --- */
+        /* --- YENİLENMİŞ SPONSOR ALANI (COMING SOON) --- */
         .coming-soon-box {
             background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 12px; padding: 60px 40px; text-align: center;
             max-width: 600px; margin: 40px auto; position: relative; overflow: hidden; backdrop-filter: blur(10px);
@@ -291,7 +292,7 @@
     <div id="menuOverlay"></div>
 
     <div id="mySidebar" class="sidebar">
-        <button class="closebtn" id="closeNavBtn" onclick="closeNav()">&times;</button>
+        <button class="closebtn" id="closeNavBtn">&times;</button>
         
         <a href="#" class="nav-link active" data-tab="home-tab">Anasayfa</a>
         <a href="#" class="nav-link" data-tab="conferences-tab">Etkinlikler</a>
@@ -548,18 +549,11 @@
     </div>
 
     <script>
-        // --- GLOBAL FONKSİYONLAR (GARANTİ ÇALIŞMA) ---
-        
-        // Bu fonksiyon artık global, HTML'den direkt çağrılabilir.
-        function closeNav() { 
-            const sidebar = document.getElementById("mySidebar");
-            const overlay = document.getElementById("menuOverlay");
-            if(sidebar) sidebar.style.width = "0"; 
-            if(overlay) overlay.style.display = "none"; 
-        }
-
         // --- GITALKS YEREL YAPAY ZEKA MOTORU (NO-API) ---
+        
+        // 1. GENİŞLETİLMİŞ EĞİTİM VERİ SETİ (BİLGİ BANKASI V2)
         const knowledgeBase = [
+            // --- SELAMLAŞMA & HAL HATIR ---
             {
                 keywords: ["merhaba", "selam", "hi", "hey", "naber", "günaydın", "iyi akşamlar"],
                 response: "Merhaba! 👋 Ben GıTalks asistanıyım. Enerjim yerinde! 🚀 Zirve hakkında merak ettiğin her şeyi bana sorabilirsin."
@@ -572,6 +566,8 @@
                 keywords: ["seni kim", "kim yaptı", "geliştirici", "kodladı", "sahibin"],
                 response: "🤖 Ben **GıTalks Yazılım Ekibi** tarafından, katılımcılara yardımcı olmak için özel olarak tasarlandım. API kullanmam, tamamen yerel çalışırım!"
             },
+
+            // --- TARİH & KONUM ---
             {
                 keywords: ["ne zaman", "tarih", "saat", "gün", "zaman", "takvim", "hangi gün"],
                 response: "📅 Not al: **16 Şubat 2026, Pazartesi**. Kapılar sabah **09:00'da** açılıyor, ilk oturum 09:30'da başlıyor. Sakın geç kalma!"
@@ -580,6 +576,8 @@
                 keywords: ["nerede", "konum", "yer", "adres", "lokasyon", "hangi salon"],
                 response: "📍 Zirve, **Konya Gıda ve Tarım Üniversitesi (KGTÜ)** Ana Konferans Salonu'nda gerçekleşecek. Meram, Melikşah Mahallesi'nde."
             },
+
+            // --- ULAŞIM & OTOPARK (KONYA ÖZEL) ---
             {
                 keywords: ["nasıl gidilir", "ulaşım", "otobüs", "tramvay", "dolmuş", "vasıta"],
                 response: "🚌 **Ulaşım Çok Kolay:**\n🚊 **Tramvay:** Alaaddin-Adliye hattını kullanıp 'Kültürpark' veya 'Zafer' durağında inebilirsin, oradan otobüs aktarması yapabilirsin.\n🚌 **Otobüs:** 1, 2, 4 numaralı hatlar üniversitenin çok yakınından geçer."
@@ -588,6 +586,8 @@
                 keywords: ["otopark", "araba", "park", "araç"],
                 response: "🚗 Evet, üniversite kampüsü içerisinde ve çevresinde katılımcılar için ayrılmış **ücretsiz otopark** alanlarımız mevcut."
             },
+
+            // --- KATILIM & BELGE ---
             {
                 keywords: ["sertifika", "belge", "katılım belgesi", "cv"],
                 response: "🎓 Evet! Zirve sonunda tüm oturumlara katılanlara, isme özel, QR kodlu ve **dijital onaylı Katılım Sertifikası** (e-Sertifika) gönderilecektir. CV'in için harika bir detay! ✨"
@@ -604,6 +604,8 @@
                 keywords: ["online", "uzaktan", "yayın", "canlı", "zoom", "youtube"],
                 response: "🎥 Ana salon kapasitesi dolduğunda veya şehir dışından katılmak isteyenler için **YouTube üzerinden canlı yayın** yapılması planlanıyor."
             },
+
+            // --- İÇERİK & PROGRAM ---
             {
                 keywords: ["konuşmacı", "konuk", "kimler var", "davetli"],
                 response: "🎙️ Bu sene çıtayı yükseltiyoruz! Tarım teknolojileri (AgriTech) devleri ve Yapay Zeka uzmanları bizimle olacak. İsimler **gizlilik anlaşması gereği** lansmanda açıklanacak. 🤫"
@@ -612,6 +614,8 @@
                 keywords: ["konu", "içerik", "tema", "ne anlatılacak"],
                 response: "🧠 **Ana Başlıklar:**\n1. Tarımda Yapay Zeka ve Drone Teknolojileri\n2. Sürdürülebilir Gıda Ekosistemi\n3. Girişimcilik ve Start-up Dünyası\n4. Sosyal Sorumluluk Projeleri"
             },
+
+            // --- YEMEK & DİĞER ---
             {
                 keywords: ["yemek", "ikram", "kahve", "çay", "su", "öğle arası", "açlık"],
                 response: "☕ Endişelenme, aç kalmayacaksın! :) Aralarda **kahve/çay ve atıştırmalık** ikramlarımız olacak. Öğle arası için kampüs yemekhanesi ve kafeterya kullanıma açık."
@@ -620,6 +624,8 @@
                 keywords: ["wifi", "internet", "bağlantı"],
                 response: "📶 Etkinlik alanında tüm misafirlerimiz için **ücretsiz GıTalks_Guest** Wi-Fi ağı açık olacaktır. Şifre etkinlik günü panolarda yazacak."
             },
+            
+            // --- GÜVENLİK & YASAL ---
             {
                 keywords: ["kvkk", "gizlilik", "veri", "çerez"],
                 response: "🔒 Verilerin güvende. Bu site statik bir yapıda (GitHub Pages) çalışır ve arka planda kişisel verini veritabanına kaydetmez. Sadece tarayıcı bazlı çalışıyoruz."
@@ -628,14 +634,8 @@
                 keywords: ["sponsor", "destek", "reklam"],
                 response: "🤝 Vizyoner markalarla görüşmelerimiz sürüyor. Sponsorluk dosyası için lütfen **gitalks.official@gmail.com** adresine mail atın."
             },
-            {
-                keywords: ["iletişim", "mail", "eposta", "bize ulaş", "telefon"],
-                response: "📩 Bizimle resmi iletişim için **gitalks.official@gmail.com** adresini kullanabilirsin."
-            },
-            {
-                keywords: ["vizyon", "misyon", "amaç", "nedir"],
-                response: "🚀 **GıTalks;** teknoloji, akademi, tarım, ekonomi ve sosyal etki alanlarında geleceği şekillendiren fikirlerin buluştuğu, üniversite öğrencileri tarafından yürütülen bağımsız bir platformdur."
-            },
+            
+            // --- MİZAH & HATA YAKALAMA ---
             {
                 keywords: ["mal", "aptal", "gerizekalı", "salak"],
                 response: "🚫 Lütfen nazik olalım. Ben sadece yardımcı olmaya çalışan bir kod parçasıyım. 😔"
@@ -646,6 +646,7 @@
             }
         ];
 
+        // 2. YEREL ZEKA FONKSİYONLARI
         function findAnswer(userText) {
             const cleanText = userText.toLowerCase();
             for (let item of knowledgeBase) {
@@ -705,77 +706,119 @@
             area.scrollTop = area.scrollHeight;
         }
 
-        // --- DOM LOAD EVENTS ---
+        // --- 3. SİTE GENEL JS ---
         document.addEventListener("DOMContentLoaded", function () {
             
+            // --- BURGER MENU & SIDEBAR SYSTEM ---
             const sidebar = document.getElementById("mySidebar");
             const overlay = document.getElementById("menuOverlay");
-            
-            document.getElementById("openNavBtn").addEventListener("click", function() {
-                if(window.innerWidth <= 600) { sidebar.style.width = "85%"; } else { sidebar.style.width = "320px"; }
+            const openBtn = document.getElementById("openNavBtn");
+            const closeBtn = document.getElementById("closeNavBtn");
+
+            // 1. RESET ON LOAD (Prevent auto-opening)
+            // Sayfa yüklendiğinde menüyü ve overlay'i kesinlikle kapalı başlat.
+            if(sidebar) sidebar.style.width = "0";
+            if(overlay) overlay.style.display = "none";
+
+            // 2. OPEN FUNCTION
+            openBtn.addEventListener("click", function() {
+                if(window.innerWidth <= 600) { 
+                    sidebar.style.width = "85%"; 
+                } else { 
+                    sidebar.style.width = "320px"; 
+                }
                 overlay.style.display = "block";
             });
 
-            // Overlay click closes nav (closeNav is now global)
-            overlay.addEventListener("click", closeNav);
+            // 3. CLOSE FUNCTION (The Fix)
+            function closeMenu() {
+                sidebar.style.width = "0";
+                overlay.style.display = "none";
+            }
 
-            const navLinks = document.querySelectorAll('.nav-link');
+            // X Butonuna tıklama olayını ekle
+            closeBtn.addEventListener("click", function(e) {
+                e.preventDefault(); // Varsayılan davranışı engelle
+                closeMenu();
+            });
+
+            // Overlay'e tıklayınca da kapanması için
+            overlay.addEventListener("click", closeMenu);
+
+            // --- TAB SYSTEM ---
+            const navLinks = document.querySelectorAll('.nav-link, .modal-link, .cookie-link'); // Tüm link türlerini kapsa
             const tabs = document.querySelectorAll('.tab-content');
 
             function switchTab(targetId) {
+                if(!targetId) return;
+                
+                // Tüm tabları gizle
                 tabs.forEach(tab => tab.style.display = 'none');
+                
+                // Aktif link sınıfını yönet
                 navLinks.forEach(link => {
                     link.classList.remove('active');
-                    if(link.getAttribute('data-tab') === targetId) link.classList.add('active');
+                    // Data attribute kontrolü (dataset.tab veya dataset.target)
+                    const linkTarget = link.getAttribute('data-tab') || link.getAttribute('data-target');
+                    if(linkTarget === targetId) link.classList.add('active');
                 });
-                document.getElementById(targetId).style.display = 'block';
-                window.scrollTo(0, 0);
-                closeNav(); 
+
+                // Hedef tabı göster
+                const targetElement = document.getElementById(targetId);
+                if(targetElement) {
+                    targetElement.style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); // Yumuşak kaydırma
+                }
+                
+                closeMenu(); // Menüyü kapat
             }
 
+            // Linklere tıklama olayını ekle
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    switchTab(this.getAttribute('data-tab'));
+                    const target = this.getAttribute('data-tab') || this.getAttribute('data-target');
+                    switchTab(target);
                 });
             });
 
+            // Logo tıklanınca anasayfaya dön
             const mainLogo = document.getElementById("mainLogo");
             if (mainLogo) {
                 mainLogo.addEventListener("click", function() { switchTab('home-tab'); });
             }
 
-            document.getElementById("tech-title-btn").addEventListener("click", function() {
-                switchTab('conferences-tab');
-                setTimeout(function(){
-                    const targetCard = document.getElementById("target-tech-card");
-                    if(targetCard) {
-                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 100);
-            });
+            // "GıTalks Teknoloji" başlığına tıklayınca etkinliklere git
+            const techBtn = document.getElementById("tech-title-btn");
+            if(techBtn) {
+                techBtn.addEventListener("click", function() {
+                    switchTab('conferences-tab');
+                    setTimeout(function(){
+                        const targetCard = document.getElementById("target-tech-card");
+                        if(targetCard) {
+                            targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }, 300); // Biraz gecikme ile kaydır
+                });
+            }
 
-            document.querySelectorAll('.footer-links .modal-link[data-tab]').forEach(link => {
-                link.addEventListener('click', function(e) { e.preventDefault(); switchTab(this.getAttribute('data-tab')); });
-            });
-
-            // Accordion Logic
-            const acc = document.getElementsByClassName("accordion-btn");
-            for (let i = 0; i < acc.length; i++) {
-                acc[i].addEventListener("click", function() {
+            // --- ACCORDION SYSTEM ---
+            const acc = document.querySelectorAll(".accordion-btn");
+            acc.forEach(btn => {
+                btn.addEventListener("click", function() {
                     this.classList.toggle("active-acc");
                     const panel = this.nextElementSibling;
                     if (panel.style.maxHeight) {
                         panel.style.maxHeight = null;
                         panel.classList.remove('open');
                     } else {
-                        panel.style.maxHeight = (panel.scrollHeight + 60) + "px"; 
+                        panel.style.maxHeight = (panel.scrollHeight + 60) + "px";
                         panel.classList.add('open');
                     }
                 });
-            }
+            });
 
-            // Cookie
+            // --- COOKIE BANNER ---
             const cookieBanner = document.getElementById("cookieBanner");
             if (localStorage.getItem("cookieConsent") !== "accepted") {
                 cookieBanner.style.display = "block";
@@ -785,40 +828,50 @@
                 cookieBanner.style.display = "none";
             });
             document.getElementById('btnReject').addEventListener('click', function() {
-                localStorage.removeItem("cookieConsent"); 
+                // Reddedilirse saklama, sadece kapat
                 cookieBanner.style.display = "none";
             });
 
-            // Countdown
+            // --- COUNTDOWN SYSTEM ---
             const countDownDate = new Date("Feb 16, 2026 09:00:00").getTime();
+            
             function updateCountdowns() {
                 const now = new Date().getTime();
                 const distance = countDownDate - now;
                 
+                // Süre dolduysa
                 if (distance < 0) {
-                    if(document.getElementById("countdown")) document.getElementById("countdown").innerHTML = "<div style='color:var(--gold-primary); font-size:2rem; text-shadow:0 0 20px var(--gold-primary);'>ZİRVE BAŞLADI!</div>";
-                    if(document.getElementById("tech-countdown")) document.getElementById("tech-countdown").innerHTML = "<span style='color:var(--gold-primary);'>BAŞLADI</span>";
+                    const mainCount = document.getElementById("countdown");
+                    if(mainCount) mainCount.innerHTML = "<div style='color:var(--gold-primary); font-size:2rem; text-shadow:0 0 20px var(--gold-primary);'>ZİRVE BAŞLADI!</div>";
+                    
+                    const miniCount = document.getElementById("tech-countdown");
+                    if(miniCount) miniCount.innerHTML = "<span style='color:var(--gold-primary);'>BAŞLADI</span>";
                     return;
                 }
+
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+                // Ana Sayaç
                 if(document.getElementById("days")) {
                     document.getElementById("days").innerText = days < 10 ? "0" + days : days;
                     document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
                     document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
                     document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
                 }
+                
+                // Mini Sayaç (Kart içindeki)
                 if(document.getElementById("t-days")) {
                     document.getElementById("t-days").innerText = days < 10 ? "0" + days : days;
                     document.getElementById("t-hours").innerText = hours < 10 ? "0" + hours : hours;
                     document.getElementById("t-min").innerText = minutes < 10 ? "0" + minutes : minutes;
                 }
             }
+            
             setInterval(updateCountdowns, 1000);
-            updateCountdowns(); 
+            updateCountdowns(); // İlk yüklemede çalıştır
         });
     </script>
 </body>
