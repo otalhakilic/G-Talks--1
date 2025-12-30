@@ -456,7 +456,7 @@
         <h2>GİZLİLİK POLİTİKASI & KVKK AYDINLATMA METNİ</h2>
         <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
             
-            <button class="accordion-btn">1. Veri Sorumlusu & Altyapı <span>&#9660;</span></button>
+            <button class="accordion-btn">GİZLİLİK POLİTİKASI VE KVKK TAM METNİ <span>&#9660;</span></button>
             <div class="accordion-panel">
                 <h3>1. Veri Sorumlusu</h3>
                 <p>KVKK uyarınca kişisel verileriniz, veri sorumlusu sıfatıyla GıTalks Organizasyonu tarafından işlenmektedir.</p>
@@ -471,10 +471,8 @@
                 </ul>
                 <p>GitHub’ın sunucu ve güvenlik altyapısı kapsamında otomatik olarak işlenebilmektedir.</p>
                 <p>GıTalks; üyelik sistemi, zorunlu kayıt veya form aracılığıyla doğrudan kişisel veri toplama kullanmamaktadır.</p>
-            </div>
 
-            <button class="accordion-btn">2. Yapay Zekâ Botu Kullanımı <span>&#9660;</span></button>
-            <div class="accordion-panel">
+                <h3>3. Yapay Zekâ Botu Kullanımı (GÜNCEL)</h3>
                 <p>GıTalks internet sitesinde, kullanıcı deneyimini geliştirmek ve bilgilendirme sağlamak amacıyla API anahtarı kullanılmadan çalışan (keysiz) bir yapay zekâ botu entegre edilmiştir.</p>
                 <p>Bu kapsamda:</p>
                 <ul>
@@ -486,10 +484,7 @@
                 <p style="background: rgba(255, 0, 0, 0.1); padding: 10px; border-radius: 5px; border-left: 3px solid #ff4444;">
                     <strong>⚠️ Kullanıcıların, yapay zekâ botu üzerinden kimlik bilgisi, iletişim bilgisi veya özel nitelikli kişisel veri paylaşmamaları önerilir.</strong>
                 </p>
-            </div>
 
-            <button class="accordion-btn">3. Veri İşleme Amaçları & Hukuki Sebepler <span>&#9660;</span></button>
-            <div class="accordion-panel">
                 <h3>4. Kişisel Verilerin İşlenme Amaçları</h3>
                 <p>Toplanan teknik veriler ve yapay zekâ etkileşimleri; web sitesinin teknik işleyişinin sağlanması, bilgi güvenliğinin temini, sistem performansının izlenmesi ve kullanıcı deneyiminin geliştirilmesi amaçlarıyla sınırlı olarak işlenmektedir.</p>
 
@@ -500,12 +495,8 @@
                     <li>Veri sorumlusunun hukuki yükümlülüklerini yerine getirmesi</li>
                     <li>Meşru menfaatler</li>
                 </ul>
-                <p>hukuki sebeplerine dayanılarak işlenmektedir.</p>
-                <p>Bu kapsamda ayrıca açık rıza alınması gerekmemektedir.</p>
-            </div>
+                <p>hukuki sebeplerine dayanılarak işlenmektedir. Bu kapsamda ayrıca açık rıza alınması gerekmemektedir.</p>
 
-            <button class="accordion-btn">4. Aktarım ve Çerezler <span>&#9660;</span></button>
-            <div class="accordion-panel">
                 <h3>6. Kişisel Verilerin Aktarılması</h3>
                 <p>Kişisel verileriniz;</p>
                 <ul>
@@ -521,10 +512,7 @@
                     <li>Site işlevselliği için gerekli yerel depolama (localStorage)</li>
                 </ul>
                 <p>kullanılmaktadır. Reklam veya izleme amaçlı çerez kullanılmaz.</p>
-            </div>
 
-            <button class="accordion-btn">5. Haklarınız ve İletişim <span>&#9660;</span></button>
-            <div class="accordion-panel">
                 <h3>8. KVKK Kapsamındaki Haklarınız</h3>
                 <p>KVKK’nın 11. maddesi kapsamında kullanıcılar;</p>
                 <ul>
@@ -535,8 +523,7 @@
                 <p>haklarına sahiptir.</p>
 
                 <h3>9. İletişim</h3>
-                <p>KVKK ve gizlilik uygulamalarına ilişkin her türlü talep için: <br>
-                📩 <a href="mailto:gitalks.official@gmail.com" style="color:var(--gold-primary); text-decoration:none; font-weight:bold;">gitalks.official@gmail.com</a></p>
+                <p>KVKK ve gizlilik uygulamalarına ilişkin her türlü talep için: <strong style="color:var(--gold-primary);">gitalks.official@gmail.com</strong></p>
             </div>
         </div>
     </div>
@@ -608,14 +595,69 @@
     </div>
 
     <script>
-        // --- GITALKS YEREL YAPAY ZEKA MOTORU (NO-API) ---
+        // --- GITALKS YEREL YAPAY ZEKA MOTORU (GELİŞMİŞ SÜRÜM) ---
         
-        // 1. EĞİTİM VERİ SETİ (BİLGİ BANKASI)
+        // 1. EĞİTİM VERİ SETİ (GENİŞLETİLMİŞ)
         const knowledgeBase = [
+            // --- GENEL SOHBET & SELAMLAŞMA ---
             {
-                keywords: ["merhaba", "selam", "hi", "hey", "naber"],
-                response: "Merhaba! 👋 Ben GıTalks asistanıyım. Zirve tarihi, konumu, ulaşım veya konular hakkında bana soru sorabilirsin."
+                keywords: ["merhaba", "selam", "hi", "hey", "naber", "günaydın", "iyi akşamlar"],
+                response: "Merhaba! 👋 Enerjim yerinde, sana nasıl yardımcı olabilirim? Konferans detayları, kahve tarifleri veya sadece sohbet için buradayım!"
             },
+            {
+                keywords: ["nasılsın", "nasıl gidiyor", "ne haber"],
+                response: "Ben bir yapay zeka botuyum, bu yüzden duygularım yok ama sistemlerim %100 performansla çalışıyor! 🚀 Sen nasılsın?"
+            },
+            {
+                keywords: ["iyiyim", "süper", "harika", "bomba gibi"],
+                response: "Bunu duyduğuma sevindim! 🎉 Enerjin harika. Bugün senin için ne yapabilirim?"
+            },
+            {
+                keywords: ["kötüyüm", "moralim bozuk", "canım sıkkın"],
+                response: "Üzüldüm... 😔 Bazen en iyi çözüm derin bir nefes almak ve kendine zaman ayırmaktır. Belki sana komik bir şey anlatmamı istersin?"
+            },
+            {
+                keywords: ["sen kimsin", "adın ne", "nesin sen"],
+                response: "🤖 Ben **GıTalks AI Asistanıyım!** Bu web sitesinde rehberlik yapmak, sorularını yanıtlamak ve bazen de kahve tarifi vermek için tasarlandım."
+            },
+            {
+                keywords: ["teşekkür", "sağ ol", "eyvallah", "mersi"],
+                response: "Rica ederim! 😊 Yardımcı olabildiysem ne mutlu bana. Başka bir sorun olursa buradayım!"
+            },
+
+            // --- YEMEK & KAHVE TARİFLERİ ---
+            {
+                keywords: ["kahve", "filtre", "latte", "espresso", "americano"],
+                response: "☕ **Kahve Molası!** Basit bir Latte tarifi vereyim: <br>1. Bir shot espresso hazırla. <br>2. Sütü 65°C'ye kadar ısıt ve köpürt. <br>3. Sütü yavaşça kahvenin üzerine dök. Afiyet olsun!"
+            },
+            {
+                keywords: ["türk kahvesi", "türk kahve"],
+                response: "☕ **Bol Köpüklü Türk Kahvesi:** <br>Cezveye kişi başı 1 fincan su, 1 tatlı kaşığı kahve ve isteğe göre şeker koy. Karıştırıp ocağa al. Kabarmaya başlayınca köpüğünü al, bir taşım daha kaynatıp servis et. Yanına suyu unutma! 😉"
+            },
+            {
+                keywords: ["yemek", "ne yesem", "açım", "tarif", "makarna"],
+                response: "🍝 **Hızlı Makarna Önerisi:** <br>Makarnayı haşla. Ayrı bir tavada zeytinyağı, ezilmiş sarımsak ve kiraz domatesleri sotele. Makarnayla karıştır, üzerine taze fesleğen ve parmesan ekle. Bitti bile! 😋"
+            },
+            {
+                keywords: ["tatlı", "çikolata", "kek"],
+                response: "🍫 **Kriz Anı İçin:** Mikrodalgada kupa kek yapabilirsin! <br>4 kaşık un, 4 kaşık şeker, 2 kaşık kakao, 1 yumurta, 3 kaşık süt ve yağı karıştır. Kupaya dök, mikrodalgada 2-3 dk pişir. Efsane oluyor!"
+            },
+
+            // --- EĞLENCE & CART CURT ---
+            {
+                keywords: ["şaka", "komik", "güldür"],
+                response: "😄 Bir yazılımcı diğerine ne demiş? <br>- 'Hadi gidip biraz hava alalım.' <br>- 'Olmaz, o kütüphaneyi henüz import etmedim!' 🤓"
+            },
+            {
+                keywords: ["motivasyon", "söz", "ilham"],
+                response: "✨ *'Başlamak için mükemmel olmak zorunda değilsin, ama mükemmel olmak için başlamak zorundasın.'* – Zig Ziglar. Hadi, bugün o gün olsun! 💪"
+            },
+            {
+                keywords: ["sıkıldım", "yapacak bir şey yok"],
+                response: "Sıkılmak yaratıcılığın başlangıcıdır! 🎨 Belki GıTalks etkinliklerini inceleyebilir, yeni bir kod öğrenebilir veya mutfağa girip bir şeyler deneyebilirsin."
+            },
+
+            // --- KONFERANS BİLGİLERİ (ESKİ VERİLER KORUNDU) ---
             {
                 keywords: ["ne zaman", "tarih", "saat", "gün", "zaman", "takvim"],
                 response: "📅 GıTalks Global Teknoloji Zirvesi, **16 Şubat 2026** tarihinde gerçekleşecek. Kapılar sabah saat **09:00'da** açılıyor."
@@ -662,7 +704,7 @@
                     return item.response;
                 }
             }
-            return "🤔 Bu konuda şu an net bir bilgim yok veya henüz açıklanmadı. Ancak tarih, konum veya genel vizyonumuz hakkında sorularını yanıtlayabilirim.";
+            return "🤔 Hımm, bu konuda henüz bir bilgim yok. Ama sana kahve tarifi verebilirim veya zirve tarihi hakkında konuşabiliriz! 😊";
         }
 
         function toggleChat() {
@@ -770,7 +812,7 @@
                 link.addEventListener('click', function(e) { e.preventDefault(); switchTab(this.getAttribute('data-tab')); });
             });
 
-            // Cookie Linkleri için Event Listener (YENİ EKLENEN KISIM)
+            // Cookie Linkleri için Event Listener
             document.querySelectorAll('.cookie-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
