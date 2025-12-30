@@ -1,667 +1,242 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="description" content="GıTalks | Teknoloji, tarım, akademi ve sosyal sorumluluk alanlarında konferans ve etkinlik platformu.">
-    <meta name="keywords" content="Teknoloji Konferansı, GıTalks, Tarım Teknolojileri, Yapay Zeka, KGTÜ, Konya, Zirve">
-    <meta name="author" content="GıTalks Organization">
-    <meta name="robots" content="index, follow">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icon-192.png">
-
-    <meta property="og:title" content="GıTalks | Geleceği Tasarlayan Zirve">
-    <meta property="og:description" content="Teknoloji, Akademi ve İnovasyonun kalbi burada atıyor. 16 Şubat 2026'da buluşuyoruz.">
-    <meta property="og:type" content="website">
-
-    <title>GıTalks | Premium Tech Summit</title>
-    <style>
-        /* --- 1. PREMIUM CORE VARIABLES --- */
-        :root {
-            --gold-primary: #D4AF37;
-            --gold-bright: #FFD700;
-            --gold-muted: #8E7020;
-            --gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 40%, #B38728 60%, #AA771C 100%);
-            --glass-bg: rgba(20, 20, 20, 0.65);
-            --glass-border: rgba(212, 175, 55, 0.15);
-            --glass-blur: blur(25px);
-            --text-main: #ffffff;
-            --text-secondary: #b0b0b0;
-            --bg-dark: #020202;
-            --nav-z: 1000;
-            --sidebar-z: 2000;
-            --overlay-z: 1500;
-            --ai-z: 5000;
-        }
-
-        * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+<script>
+        // --- GITALKS YEREL YAPAY ZEKA MOTORU (NO-API) ---
         
-        /* Smooth Scroll & Custom Scrollbar */
-        html { scroll-behavior: smooth; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: var(--gold-muted); border-radius: 10px; }
-        ::selection { background: var(--gold-primary); color: #000; }
-
-        body {
-            background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
-                radial-gradient(circle at 80% 80%, rgba(50, 50, 50, 0.3) 0%, transparent 50%);
-            color: var(--text-main);
-            font-family: 'Outfit', sans-serif; /* Daha modern font */
-            margin: 0; padding: 0;
-            display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-            padding-top: 90px;
-        }
-
-        h1, h2, h3, .navbar-logo, .sidebar a, .chat-title, .countdown-container span {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Noise Texture for Texture Depth */
-        .noise-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: -1; opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
-        /* --- PREMIUM NAVBAR --- */
-        .navbar {
-            position: fixed; top: 0; width: 100%; height: 80px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 5%; z-index: var(--nav-z);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .hamburger-container {
-            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
-        }
-        .hamburger-container:hover { border-color: var(--gold-primary); transform: rotate(90deg); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
-        .hamburger-btn { background: none; border: none; color: var(--gold-primary); font-size: 1.4rem; cursor: pointer; }
-
-        .navbar-logo {
-            font-size: 1.8rem; font-weight: 800; letter-spacing: 2px;
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase; cursor: pointer; position: absolute; left: 50%; transform: translateX(-50%);
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
-        }
-
-        /* --- SIDEBAR (THE FIX) --- */
-        #menuOverlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: var(--overlay-z);
-        }
-
-        .sidebar {
-            height: 100%; width: 0; position: fixed; z-index: var(--sidebar-z); top: 0; left: 0;
-            background: linear-gradient(180deg, #050505 0%, #0a0a0a 100%);
-            border-right: 1px solid var(--glass-border);
-            overflow-x: hidden; transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            padding-top: 80px; box-shadow: 20px 0 50px rgba(0,0,0,0.9);
-        }
-
-        .sidebar a {
-            padding: 20px 40px; text-decoration: none; font-size: 1.1rem; color: var(--text-secondary);
-            display: block; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
-            border-bottom: 1px solid rgba(255,255,255,0.02); font-weight: 500; position: relative;
-        }
-        
-        .sidebar a::before {
-            content:''; position: absolute; left: 0; top: 0; height: 100%; width: 0;
-            background: var(--gold-primary); transition: 0.3s; opacity: 0.1;
-        }
-
-        .sidebar a:hover, .sidebar a.active {
-            color: var(--gold-bright); padding-left: 50px; text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
-        }
-        .sidebar a:hover::before { width: 100%; }
-
-        /* KESİN ÇALIŞAN X BUTONU STİLİ */
-        .sidebar .closebtn {
-            position: absolute; top: 20px; right: 25px;
-            width: 45px; height: 45px;
-            background: rgba(255,255,255,0.05); border-radius: 50%; border: 1px solid rgba(255,255,255,0.1);
-            color: var(--gold-primary); font-size: 30px; display: flex; align-items: center; justify-content: center;
-            cursor: pointer !important; z-index: 2005; transition: 0.3s; pointer-events: auto;
-        }
-        .sidebar .closebtn:hover { background: var(--gold-primary); color: #000; transform: rotate(90deg); }
-
-        /* --- CONTENT & TABS --- */
-        .tab-content { display: none; width: 90%; max-width: 1000px; text-align: center; animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1); padding-bottom: 120px; }
-        #home-tab { display: block; }
-        @keyframes slideUp { from {opacity: 0; transform: translateY(40px);} to {opacity: 1; transform: translateY(0);} }
-
-        /* HERO TYPOGRAPHY */
-        h1 {
-            font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 900; line-height: 1.1; margin: 30px 0 10px 0;
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.25)); text-transform: uppercase; letter-spacing: -3px;
-        }
-        
-        .sub-header {
-            font-size: clamp(1rem, 3vw, 1.4rem); color: var(--text-main); font-weight: 300;
-            letter-spacing: 8px; text-transform: uppercase; opacity: 0.8; margin-bottom: 40px;
-        }
-
-        /* --- GLASS INFO BOX --- */
-        .info-box {
-            background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border); border-radius: 24px; padding: 50px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8); position: relative; overflow: hidden; margin-top: 30px;
-        }
-        /* Shine Effect */
-        .info-box::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(to bottom right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0) 100%);
-            transform: rotate(30deg); animation: shimmer 6s infinite linear; pointer-events: none;
-        }
-        @keyframes shimmer { 0% {transform:translate(-20%, -20%) rotate(30deg);} 100% {transform:translate(20%, 20%) rotate(30deg);} }
-
-        .clickable-title { cursor: pointer; font-size: 1.8rem; color: #fff; font-weight: 700; transition: 0.3s; padding-bottom: 5px; border-bottom: 2px solid transparent; }
-        .clickable-title:hover { color: var(--gold-bright); border-color: var(--gold-primary); text-shadow: 0 0 20px var(--gold-primary); }
-
-        /* --- COUNTDOWN --- */
-        .countdown-container { display: flex; gap: 20px; justify-content: center; margin: 40px 0; flex-wrap: wrap; }
-        .time-box {
-            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 20px;
-            border-radius: 16px; min-width: 90px; backdrop-filter: blur(10px);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: 0.3s;
-        }
-        .time-box:hover { border-color: var(--gold-primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); }
-        .time-box span { font-size: 2.8rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-        .time-box label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; font-weight: 600; }
-
-        /* --- CARDS --- */
-        .conf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; text-align: left; margin-top: 30px; }
-        .conf-card {
-            background: linear-gradient(160deg, rgba(30,30,30,0.6) 0%, rgba(10,10,10,0.4) 100%);
-            border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 35px;
-            transition: 0.4s; position: relative; overflow: hidden; backdrop-filter: blur(15px);
-            display: flex; flex-direction: column; justify-content: space-between; height: 100%;
-        }
-        .conf-card:hover { transform: translateY(-10px); border-color: var(--gold-primary); box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 20px rgba(212, 175, 55, 0.1); }
-        .conf-card h3 { font-size: 1.6rem; margin-bottom: 15px; color: #fff; }
-        .conf-card p { color: #aaa; font-size: 1rem; line-height: 1.6; }
-        .conf-date-badge { 
-            position: absolute; top: 20px; right: 20px; 
-            background: rgba(212, 175, 55, 0.1); color: var(--gold-primary); 
-            padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-
-        /* --- ACCORDION --- */
-        .accordion-btn {
-            background: rgba(255,255,255,0.03); color: var(--gold-light); cursor: pointer; padding: 25px; width: 100%; text-align: left;
-            border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; transition: 0.3s; font-size: 1rem; font-weight: 600;
-            display: flex; justify-content: space-between; align-items: center; margin-top: 15px; letter-spacing: 1px;
-        }
-        .accordion-btn:hover, .accordion-btn.active-acc { background: rgba(212, 175, 55, 0.1); border-color: var(--gold-primary); color: #fff; }
-        .accordion-panel {
-            padding: 0 25px; background: rgba(0,0,0,0.3); max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease;
-            border-radius: 0 0 12px 12px; border: 1px solid transparent; border-top: none; text-align: left;
-        }
-        .accordion-panel.open { padding: 25px; border-color: rgba(255,255,255,0.08); }
-
-        /* --- FOOTER --- */
-        footer { margin-top: auto; width: 100%; border-top: 1px solid rgba(255,255,255,0.05); padding: 40px 0; background: #050505; }
-        .footer-links a { color: #777; text-decoration: none; margin: 0 10px; font-size: 0.9rem; transition: 0.3s; }
-        .footer-links a:hover { color: var(--gold-primary); }
-
-        /* --- COOKIE BANNER --- */
-        #cookieBanner {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 600px;
-            background: rgba(15, 15, 15, 0.95); border: 1px solid var(--gold-muted); border-radius: 16px;
-            padding: 25px; z-index: 9999; box-shadow: 0 20px 50px rgba(0,0,0,0.8); backdrop-filter: blur(20px);
-            display: none; text-align: center;
-        }
-        
-        /* --- AI CHATBOT UI (PREMIUM) --- */
-        #gitalks-ai-container { position: fixed; bottom: 30px; right: 30px; z-index: var(--ai-z); display: flex; flex-direction: column; align-items: flex-end; }
-        
-        #ai-btn-trigger {
-            width: 70px; height: 70px; background: var(--gold-gradient);
-            border-radius: 50%; border: none; cursor: pointer;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
-            display: flex; align-items: center; justify-content: center; font-size: 35px;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: pulseGold 3s infinite;
-        }
-        @keyframes pulseGold { 0% {box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);} 70% {box-shadow: 0 0 0 15px rgba(212, 175, 55, 0);} 100% {box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);} }
-        #ai-btn-trigger:hover { transform: scale(1.1); }
-
-        #ai-chat-interface {
-            display: none; width: 380px; height: 550px;
-            background: rgba(10, 10, 10, 0.95); border: 1px solid var(--gold-muted);
-            border-radius: 20px; margin-bottom: 20px; overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.9); flex-direction: column;
-            backdrop-filter: blur(20px);
-        }
-        .chat-header {
-            padding: 20px; background: linear-gradient(90deg, rgba(212, 175, 55, 0.2), transparent);
-            border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;
-        }
-        .chat-title { color: var(--gold-primary); font-weight: 700; letter-spacing: 1px; }
-        .chat-close { color: #fff; cursor: pointer; font-size: 1.2rem; opacity: 0.7; transition:0.3s; }
-        .chat-close:hover { opacity:1; color: var(--gold-primary); transform: rotate(90deg); }
-        
-        .chat-body { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
-        .bubble { padding: 14px 18px; border-radius: 16px; font-size: 0.95rem; line-height: 1.5; max-width: 85%; }
-        .bubble-bot { background: rgba(255, 255, 255, 0.08); color: #ddd; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .bubble-user { background: var(--gold-gradient); color: #000; align-self: flex-end; font-weight: 600; border-bottom-right-radius: 2px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        
-        .chat-footer { padding: 15px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 10px; background: rgba(0,0,0,0.3); }
-        #chat-input {
-            flex: 1; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 10px; padding: 12px; color: #fff; font-family: 'Inter', sans-serif;
-        }
-        #chat-input:focus { border-color: var(--gold-primary); }
-        #chat-send {
-            background: var(--gold-primary); color: #000; border: none; border-radius: 10px; width: 45px;
-            cursor: pointer; font-weight: bold; font-size: 1.2rem; transition: 0.3s;
-        }
-        #chat-send:hover { background: #fff; box-shadow: 0 0 10px var(--gold-primary); }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            h1 { font-size: 3.5rem; }
-            .info-box { padding: 30px 20px; }
-            .time-box { min-width: 65px; padding: 10px; }
-            .time-box span { font-size: 2rem; }
-            #ai-chat-interface { width: 92vw; height: 65vh; right: 4vw; bottom: 100px; }
-            .sidebar { width: 85% !important; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="noise-overlay"></div>
-    <div id="menuOverlay"></div>
-
-    <div id="mySidebar" class="sidebar">
-        <button class="closebtn" id="closeNavBtn" onclick="closeNav()">&times;</button>
-        
-        <a href="#" class="nav-link active" data-tab="home-tab">Anasayfa</a>
-        <a href="#" class="nav-link" data-tab="conferences-tab">Etkinlikler</a>
-        <a href="#" class="nav-link" data-tab="sponsors-tab">Sponsorlar</a>
-        <a href="#" class="nav-link" data-tab="about-tab">Hakkında</a>
-        <div style="margin-top: auto; padding-bottom: 40px; border-top: 1px solid rgba(255,255,255,0.05); padding-top:20px;">
-            <a href="#" class="nav-link" data-tab="privacy-tab" style="font-size: 0.8rem; opacity: 0.6; border:none;">Gizlilik & KVKK</a>
-            <a href="#" class="nav-link" data-tab="consent-tab" style="font-size: 0.8rem; opacity: 0.6; border:none;">Açık Rıza Metni</a>
-        </div>
-    </div>
-
-    <div class="navbar">
-        <div class="hamburger-container" id="openNavBtn">
-            <button class="hamburger-btn">&#9776;</button>
-        </div>
-        <div class="navbar-logo" id="mainLogo">GıTalks</div>
-        <div class="navbar-spacer"></div> 
-    </div>
-
-    <div id="home-tab" class="tab-content">
-        <div class="main-logo" style="margin-top: 40px;">
-            <h1>GıTalks 2026</h1>
-        </div>
-        <div class="sub-header">Geleceği Şekillendiren Sesler</div>
-        <div class="guest-info">Ana Konuk: <span style="font-weight:700; color:var(--gold-primary); text-shadow: 0 0 15px rgba(212,175,55,0.4);">Yakında Açıklanacak</span></div>
-        
-        <div class="info-box">
-            <h3 id="tech-title-btn" class="clickable-title">GıTalks Teknoloji</h3>
-            
-            <div class="countdown-container" id="countdown">
-                <div class="time-box"><span id="days">00</span><label>GÜN</label></div>
-                <div class="time-box"><span id="hours">00</span><label>SAAT</label></div>
-                <div class="time-box"><span id="minutes">00</span><label>DK</label></div>
-                <div class="time-box"><span id="seconds">00</span><label>SN</label></div>
-            </div>
-            
-            <p style="color:var(--gold-primary); font-weight:700; margin-top:30px; letter-spacing: 2px; font-size: 0.95rem;">
-                📅 16 ŞUBAT 2026 &bull; KGTÜ KONFERANS SALONU
-            </p>
-            <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:30px 0;">
-            <p style="font-size:0.95rem; color:var(--text-secondary); font-style:italic; font-weight: 300;">
-                "Teknoloji ve bilginin toplumsal faydaya dönüştüğü yer."
-            </p>
-        </div>
-
-        <div class="contact-home">
-            <p style="color:#666; font-size:0.8rem; letter-spacing:4px; margin-bottom:15px; font-weight: 700;">RESMİ İLETİŞİM</p>
-            <a href="mailto:gitalks.official@gmail.com">gitalks.official@gmail.com</a>
-        </div>
-    </div>
-
-    <div id="conferences-tab" class="tab-content">
-        <h3 style="text-align:left; color:#fff; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:15px; margin-top:50px; font-size: 1.5rem; letter-spacing: 2px;">ETKİNLİK TAKVİMİ</h3>
-        <div class="conf-grid">
-            <div class="conf-card" id="target-tech-card"> 
-                <div class="conf-date-badge">16 ŞUBAT 2026</div>
-                <div style="margin-top:20px;">
-                    <h3>GıTalks 2026 TEKNOLOJİ</h3>
-                    <p>Yapay zekâ, yazılım ekosistemleri ve dijital dönüşümün geleceğini sektörün öncüleriyle konuşuyoruz.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="guest-pill"><span>Konuk: <strong>Yakında</strong></span></div>
-                    <div class="mini-countdown" id="tech-countdown">
-                        <div class="mini-time"><span id="t-days">00</span><label>G</label></div>
-                        <div class="mini-time"><span id="t-hours">00</span><label>S</label></div>
-                        <div class="mini-time"><span id="t-min">00</span><label>D</label></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <button class="accordion-btn">DİĞER PLANLANAN ZİRVELER <span>&#9660;</span></button>
-        <div class="accordion-panel">
-            <div class="conf-grid">
-                <div class="conf-card">
-                    <h3>GıTalks 2026 AKADEMİ</h3>
-                    <p>Bilimsel araştırmalar ve üniversite-sanayi iş birliği modelleri.</p>
-                    <div class="card-footer"><div class="guest-pill">Durum: <span style="color:#777; margin-left:5px;">Planlanıyor</span></div></div>
-                </div>
-                <div class="conf-card">
-                    <h3>GıTalks 2026 TARIM</h3>
-                    <p>Sürdürülebilir tarım teknikleri ve gıda güvenliği.</p>
-                    <div class="card-footer"><div class="guest-pill">Durum: <span style="color:#777; margin-left:5px;">Planlanıyor</span></div></div>
-                </div>
-                <div class="conf-card">
-                    <h3>GıTalks 2026 EKONOMİ</h3>
-                    <p>Fintech girişimleri ve yeni nesil ekonomi modelleri.</p>
-                    <div class="card-footer"><div class="guest-pill">Durum: <span style="color:#777; margin-left:5px;">Planlanıyor</span></div></div>
-                </div>
-                <div class="conf-card">
-                    <h3>GıTalks 2026 SOSYAL ETKİ</h3>
-                    <p>Toplumsal fayda odaklı projeler ve yardım organizasyonları.</p>
-                    <div class="card-footer"><div class="guest-pill">Durum: <span style="color:#777; margin-left:5px;">Planlanıyor</span></div></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="sponsors-tab" class="tab-content">
-        <h2 style="margin-top: 60px;">SPONSORLARIMIZ</h2>
-        <div class="coming-soon-box">
-            <h3 style="letter-spacing: 2px;">VİZYONERLER BULUŞUYOR</h3>
-            <p>Sektörün öncü markaları çok yakında burada yerini alacak.</p>
-        </div>
-    </div>
-
-    <div id="about-tab" class="tab-content">
-        <h2 style="margin-top: 60px;">HAKKIMIZDA</h2>
-        <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
-            <button class="accordion-btn">GITALKS NEDİR? <span>&#9660;</span></button>
-            <div class="accordion-panel">
-                <p><strong>GıTalks</strong>, tarım teknolojileri, yardım ve akademi ekseninde; teknoloji, inovasyon ve toplumsal faydayı bir araya getiren bir konferans ve etkinlik platformudur.</p>
-            </div>
-            
-            <button class="accordion-btn">VİZYONUMUZ <span>&#9660;</span></button>
-            <div class="accordion-panel">
-                <p>Türkiye merkezli fakat küresel bakış açısına sahip saygın bir konferans ve düşünce platformu olmayı hedefler.</p>
-            </div>
-
-            <button class="accordion-btn">MİSYONUMUZ <span>&#9660;</span></button>
-            <div class="accordion-panel">
-                <ul>
-                    <li>Geleceğe yön veren konuları uzmanlarla ele almak.</li>
-                    <li>Akademi ve sektör arasında köprü kurmak.</li>
-                    <li>Teknolojiyi toplumsal faydaya dönüştürmek.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div id="privacy-tab" class="tab-content">
-        <h2 style="margin-top: 60px;">GİZLİLİK VE GÜVENLİK</h2>
-        <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
-            <button class="accordion-btn">GİZLİLİK POLİTİKASI & KVKK <span>&#9660;</span></button>
-            <div class="accordion-panel">
-                <p>Bu internet sitesi, GıTalks tarafından GitHub Pages altyapısı ile sunulmaktadır. KVKK kapsamında verileriniz işlenmektedir.</p>
-                <h3>Veri Sorumlusu & İşleme</h3>
-                <p>GıTalks Organizasyonu veri sorumlusudur. IP adresi, tarayıcı bilgisi gibi teknik veriler GitHub altyapısı gereği işlenebilir.</p>
-                <p><strong>İletişim:</strong> gitalks.official@gmail.com</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="consent-tab" class="tab-content">
-        <h2 style="margin-top: 60px;">AÇIK RIZA BEYANI</h2>
-        <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
-            <button class="accordion-btn">METNİ GÖRÜNTÜLE <span>&#9660;</span></button>
-            <div class="accordion-panel">
-                <p>Sitenin teknik işleyişi için zorunlu olan verilerin (IP, Log vb.) işlenmesini ve çerez politikasını kabul etmiş sayılırsınız.</p>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <div style="max-width: 800px; margin: 0 auto; text-align: center; color: #555; font-size: 0.8rem;">
-            <p>&copy; 2026 GıTalks Organization. Tüm hakları saklıdır.</p>
-            <p style="opacity: 0.5; margin-top: 5px;">Designed by GıTalks AI Team</p>
-        </div>
-    </footer>
-
-    <div id="cookieBanner">
-        <strong style="color:var(--gold-primary); font-size: 1.1rem; letter-spacing: 1px;">GİZLİLİK TERCİHLERİ</strong><br>
-        <p style="margin: 15px 0; color:#ddd; font-size:0.9rem;">Sitemizde KVKK uyarınca teknik çerezler kullanılmaktadır.</p>
-        <div style="display: flex; gap: 15px; justify-content: center;">
-            <button id="btnReject" style="background:transparent; color:#aaa; border:1px solid #444; padding:10px 20px; cursor:pointer; border-radius: 8px;">Kapat</button>
-            <button id="btnAccept" style="background:var(--gold-gradient); color:#000; border:none; padding:10px 25px; font-weight:bold; cursor:pointer; border-radius: 8px;">Kabul Et</button>
-        </div>
-    </div>
-    
-    <div id="gitalks-ai-container">
-        <div id="ai-chat-interface">
-            <div class="chat-header">
-                <span class="chat-title">GıTalks AI</span>
-                <span class="chat-close" onclick="toggleChat()">✕</span>
-            </div>
-            <div class="chat-body" id="messages-area">
-                <div class="bubble bubble-bot">
-                    Merhaba! 🤖 Ben <strong>GıTalks AI</strong>. <br><br>
-                    Zirve, ulaşım veya katılım sertifikası hakkında sorularını bekliyorum!
-                </div>
-            </div>
-            <div class="chat-footer">
-                <input type="text" id="chat-input" placeholder="Bir soru yazın..." onkeypress="checkEnter(event)">
-                <button id="chat-send" onclick="sendMessage()">➤</button>
-            </div>
-        </div>
-        <div id="ai-btn-trigger" onclick="toggleChat()">🤖</div>
-    </div>
-
-    <script>
-        // GLOBAL FUNCTIONS (HTML içinden erişilebilir)
-        function closeNav() { 
-            const sidebar = document.getElementById("mySidebar");
-            const overlay = document.getElementById("menuOverlay");
-            if(sidebar) sidebar.style.width = "0"; 
-            if(overlay) overlay.style.display = "none"; 
-        }
-
-        // AI LOGIC
+        // 1. EĞİTİM VERİ SETİ (BİLGİ BANKASI)
+        // Sitedeki verilere göre özelleştirilmiş cevaplar buradadır.
         const knowledgeBase = [
-            { keywords: ["merhaba", "selam", "hi"], response: "Merhaba! 👋 Enerjim yerinde, zirve hakkında ne bilmek istersin?" },
-            { keywords: ["ne zaman", "tarih", "saat"], response: "📅 **16 Şubat 2026, Pazartesi**. Kapılar 09:00'da açılıyor." },
-            { keywords: ["nerede", "konum", "yer"], response: "📍 **Konya Gıda ve Tarım Üniversitesi (KGTÜ)** Konferans Salonu'nda." },
-            { keywords: ["nasıl gidilir", "ulaşım", "tramvay"], response: "🚌 Tramvay ile 'Kültürpark' durağına gelip otobüs aktarması yapabilirsin." },
-            { keywords: ["sertifika", "belge", "cv"], response: "🎓 Evet! Katılımcılara **dijital onaylı Katılım Sertifikası** verilecektir." },
-            { keywords: ["ücret", "bilet", "para"], response: "🎫 Etkinliğimiz öğrenciler için **ÜCRETSİZDİR**, ancak kayıt zorunludur." },
-            { keywords: ["yemek", "çay", "kahve"], response: "☕ Aralarda kahve/çay ve atıştırmalık ikramlarımız olacak." },
-            { keywords: ["kim", "konuk", "konuşmacı"], response: "🎙️ Sürpriz! Konuşmacılarımız çok yakında açıklanacak." },
-            { keywords: ["iletişim", "mail"], response: "📩 gitalks.official@gmail.com" }
+            {
+                keywords: ["merhaba", "selam", "hi", "hey", "naber"],
+                response: "Merhaba! 👋 Ben GıTalks asistanıyım. Zirve tarihi, konumu, ulaşım veya konular hakkında bana soru sorabilirsin."
+            },
+            {
+                keywords: ["ne zaman", "tarih", "saat", "gün", "zaman", "takvim"],
+                response: "📅 GıTalks Global Teknoloji Zirvesi, **16 Şubat 2026** tarihinde gerçekleşecek. Kapılar sabah saat **09:00'da** açılıyor."
+            },
+            {
+                keywords: ["nerede", "konum", "yer", "adres", "lokasyon", "nasıl gidilir", "ulaşım", "konya"],
+                response: "📍 Etkinliğimiz **Konya Gıda ve Tarım Üniversitesi (KGTÜ) Konferans Salonu'nda** düzenlenecek. Konya merkezden toplu taşıma veya özel araçla kolayca ulaşabilirsin."
+            },
+            {
+                keywords: ["kim", "konuşmacı", "konuk", "davetli", "katılımcı"],
+                response: "🎙️ Ana konuklarımız ve konuşmacı listemiz şu an **'Yakında Açıklanacak'** statüsündedir. Sektörün öncü isimleriyle görüşmelerimiz sürüyor, takipte kal!"
+            },
+            {
+                keywords: ["ücret", "bilet", "fiyat", "para", "kayıt", "başvuru"],
+                response: "🎫 Etkinlik katılım detayları ve kayıt süreçleri çok yakında web sitemiz ve sosyal medya hesaplarımızdan duyurulacaktır."
+            },
+            {
+                keywords: ["konu", "içerik", "tema", "ne hakkında", "teknoloji", "tarım"],
+                response: "GıTalks 2026'nın ana temaları şunlardır:\n🔹 **Teknoloji:** Yapay Zeka ve Dijital Dönüşüm\n🔹 **Tarım:** Sürdürülebilir Tarım Teknolojileri\n🔹 **Akademi:** Bilimsel Araştırmalar\n🔹 **Sosyal Etki:** Toplumsal Fayda Projeleri"
+            },
+            {
+                keywords: ["sponsor", "destek", "marka"],
+                response: "🤝 Sponsorluk görüşmelerimiz devam etmektedir. Vizyoner markalar çok yakında 'Sponsorlar' sekmesinde yerini alacak."
+            },
+            {
+                keywords: ["iletişim", "mail", "eposta", "bize ulaş", "telefon"],
+                response: "📩 Bizimle resmi iletişim için **gitalks.official@gmail.com** adresini kullanabilirsin."
+            },
+            {
+                keywords: ["vizyon", "misyon", "amaç", "nedir"],
+                response: "🚀 **GıTalks;** teknoloji, akademi ve tarımı bir araya getirerek toplumsal fayda üretmeyi amaçlayan, üniversite öğrencileri tarafından yürütülen bağımsız bir platformdur."
+            },
+            {
+                keywords: ["kvkk", "gizlilik", "veri", "çerez", "güvenlik"],
+                response: "🔒 Sitemiz GitHub Pages altyapısını kullanır. Herhangi bir kişisel veri kaydı tutmuyoruz (form, üyelik yok). Sadece teknik çerezler çalışır."
+            }
         ];
 
-        function findAnswer(text) {
-            const clean = text.toLowerCase();
+        // 2. YEREL ZEKA FONKSİYONLARI
+        function findAnswer(userText) {
+            // Metni küçült ve noktalama işaretlerini temizle
+            const cleanText = userText.toLowerCase();
+            
+            // Veri setinde eşleşme ara
             for (let item of knowledgeBase) {
-                if (item.keywords.some(k => clean.includes(k))) return item.response;
+                // Eğer anahtar kelimelerden herhangi biri cümlede geçiyorsa
+                if (item.keywords.some(keyword => cleanText.includes(keyword))) {
+                    return item.response;
+                }
             }
-            return "🤔 Bunu henüz öğrenmedim. Ama tarih, konum veya sertifika hakkında konuşabiliriz.";
+            
+            // Eşleşme bulunamazsa genel cevap
+            return "🤔 Bu konuda şu an net bir bilgim yok veya henüz açıklanmadı. Ancak tarih, konum veya genel vizyonumuz hakkında sorularını yanıtlayabilirim.";
         }
+
+        // --- ARAYÜZ FONKSİYONLARI (MEVCUT TASARIM KORUNDU) ---
 
         function toggleChat() {
             const ui = document.getElementById("ai-chat-interface");
             const btn = document.getElementById("ai-btn-trigger");
-            const isOpen = ui.style.display === "flex";
-            ui.style.display = isOpen ? "none" : "flex";
-            btn.style.transform = isOpen ? "scale(1)" : "scale(0.9)";
-            if(!isOpen && window.innerWidth > 600) document.getElementById("chat-input").focus();
+            
+            if (ui.style.display === "flex") {
+                ui.style.display = "none";
+                btn.style.transform = "scale(1)";
+            } else {
+                ui.style.display = "flex";
+                btn.style.transform = "scale(0.9)";
+                if(window.innerWidth > 600) document.getElementById("chat-input").focus();
+            }
         }
 
-        function sendMessage() {
+        function checkEnter(e) { if(e.key === "Enter") sendMessage(); }
+
+        async function sendMessage() {
             const input = document.getElementById("chat-input");
             const area = document.getElementById("messages-area");
             const text = input.value.trim();
+
             if (text === "") return;
 
-            // User msg
-            const userDiv = document.createElement("div");
-            userDiv.className = "bubble bubble-user";
-            userDiv.innerText = text;
-            area.appendChild(userDiv);
+            // Kullanıcı mesajını ekle
+            addBubble(text, "bubble-user");
             input.value = "";
+
+            // "Yazıyor..." animasyonu simülasyonu
+            const loadingId = "load-" + Date.now();
+            const loadingBubble = document.createElement("div");
+            loadingBubble.className = "bubble bubble-bot";
+            loadingBubble.innerHTML = "<span style='opacity:0.6'><i>Yazıyor...</i></span>";
+            loadingBubble.id = loadingId;
+            area.appendChild(loadingBubble);
             area.scrollTop = area.scrollHeight;
 
-            // Bot msg (Delay)
+            // Yapay gecikme (Gerçekçilik için 600ms bekleme)
             setTimeout(() => {
-                const botDiv = document.createElement("div");
-                botDiv.className = "bubble bubble-bot";
-                botDiv.innerHTML = findAnswer(text);
-                area.appendChild(botDiv);
-                area.scrollTop = area.scrollHeight;
-            }, 600);
+                document.getElementById(loadingId).remove();
+                
+                // Yerel zekadan cevabı al
+                const response = findAnswer(text);
+                addBubble(response, "bubble-bot");
+                
+            }, 600); 
         }
-        function checkEnter(e) { if(e.key === "Enter") sendMessage(); }
 
-        // DOM LOADED
+        function addBubble(txt, cls) {
+            const area = document.getElementById("messages-area");
+            const div = document.createElement("div");
+            div.className = `bubble ${cls}`;
+            // Markdown benzeri bold yapıyı HTML'e çevir
+            div.innerHTML = txt.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+            area.appendChild(div);
+            area.scrollTop = area.scrollHeight;
+        }
+
+        // --- SİTE GENEL JS (NAVBAR, TAB, COUNTDOWN) ---
         document.addEventListener("DOMContentLoaded", function () {
             
-            // 1. Force Sidebar Close on Load
-            closeNav();
-
-            // 2. Open Sidebar Logic
+            // Menü ve Tab İşlemleri
+            const sidebar = document.getElementById("mySidebar");
+            const overlay = document.getElementById("menuOverlay");
+            
             document.getElementById("openNavBtn").addEventListener("click", function() {
-                const w = window.innerWidth <= 600 ? "85%" : "350px";
-                document.getElementById("mySidebar").style.width = w;
-                document.getElementById("menuOverlay").style.display = "block";
+                if(window.innerWidth <= 600) { sidebar.style.width = "80%"; } else { sidebar.style.width = "320px"; }
+                overlay.style.display = "block";
             });
 
-            document.getElementById("menuOverlay").addEventListener("click", closeNav);
+            function closeNav() { sidebar.style.width = "0"; overlay.style.display = "none"; }
+            document.getElementById("closeNavBtn").addEventListener("click", closeNav);
+            overlay.addEventListener("click", closeNav);
 
-            // 3. Tab Switching
-            const navLinks = document.querySelectorAll('.nav-link, .modal-link');
+            const navLinks = document.querySelectorAll('.nav-link');
             const tabs = document.querySelectorAll('.tab-content');
 
-            function switchTab(id) {
-                if(!id) return;
-                tabs.forEach(t => t.style.display = 'none');
-                navLinks.forEach(l => {
-                    l.classList.remove('active');
-                    if((l.getAttribute('data-tab') || l.getAttribute('data-target')) === id) l.classList.add('active');
+            function switchTab(targetId) {
+                tabs.forEach(tab => tab.style.display = 'none');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if(link.getAttribute('data-tab') === targetId) link.classList.add('active');
                 });
-                const target = document.getElementById(id);
-                if(target) {
-                    target.style.display = 'block';
-                    window.scrollTo({top:0, behavior:'smooth'});
-                }
-                closeNav();
+                document.getElementById(targetId).style.display = 'block';
+                window.scrollTo(0, 0);
+                closeNav(); 
             }
 
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    switchTab(this.getAttribute('data-tab') || this.getAttribute('data-target'));
+                    switchTab(this.getAttribute('data-tab'));
                 });
             });
 
-            // Logo Click
-            const logo = document.getElementById("mainLogo");
-            if(logo) logo.addEventListener("click", () => switchTab('home-tab'));
+            const mainLogo = document.getElementById("mainLogo");
+            if (mainLogo) {
+                mainLogo.addEventListener("click", function() { switchTab('home-tab'); });
+            }
 
-            // Tech Title Click
-            const techBtn = document.getElementById("tech-title-btn");
-            if(techBtn) {
-                techBtn.addEventListener("click", () => {
-                    switchTab('conferences-tab');
-                    setTimeout(() => {
-                        document.getElementById("target-tech-card")?.scrollIntoView({behavior:'smooth', block:'center'});
-                    }, 300);
+            document.getElementById("tech-title-btn").addEventListener("click", function() {
+                switchTab('conferences-tab');
+                setTimeout(function(){
+                    const targetCard = document.getElementById("target-tech-card");
+                    if(targetCard) {
+                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 100);
+            });
+
+            document.querySelectorAll('.footer-links .modal-link[data-tab]').forEach(link => {
+                link.addEventListener('click', function(e) { e.preventDefault(); switchTab(this.getAttribute('data-tab')); });
+            });
+
+            // Accordion
+            const acc = document.getElementsByClassName("accordion-btn");
+            for (let i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function() {
+                    this.classList.toggle("active-acc");
+                    const panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                        panel.classList.remove('open');
+                    } else {
+                        panel.style.maxHeight = (panel.scrollHeight + 40) + "px";
+                        panel.classList.add('open');
+                    }
                 });
             }
 
-            // Accordion
-            document.querySelectorAll(".accordion-btn").forEach(btn => {
-                btn.addEventListener("click", function() {
-                    this.classList.toggle("active-acc");
-                    const p = this.nextElementSibling;
-                    if(p.style.maxHeight) {
-                        p.style.maxHeight = null;
-                        p.classList.remove('open');
-                    } else {
-                        p.style.maxHeight = p.scrollHeight + 50 + "px";
-                        p.classList.add('open');
-                    }
-                });
+            // Cookie
+            const cookieBanner = document.getElementById("cookieBanner");
+            if (localStorage.getItem("cookieConsent") !== "accepted") {
+                cookieBanner.style.display = "block";
+            }
+            document.getElementById('btnAccept').addEventListener('click', function() {
+                localStorage.setItem("cookieConsent", "accepted");
+                cookieBanner.style.display = "none";
+            });
+            document.getElementById('btnReject').addEventListener('click', function() {
+                localStorage.removeItem("cookieConsent"); 
+                cookieBanner.style.display = "none";
             });
 
-            // Cookie
-            const cBanner = document.getElementById("cookieBanner");
-            if (!localStorage.getItem("cookieConsent")) cBanner.style.display = "block";
-            
-            document.getElementById('btnAccept').onclick = () => {
-                localStorage.setItem("cookieConsent", "accepted");
-                cBanner.style.display = "none";
-            };
-            document.getElementById('btnReject').onclick = () => {
-                cBanner.style.display = "none";
-            };
-
             // Countdown
-            const targetDate = new Date("Feb 16, 2026 09:00:00").getTime();
-            setInterval(() => {
+            const countDownDate = new Date("Feb 16, 2026 09:00:00").getTime();
+            function updateCountdowns() {
                 const now = new Date().getTime();
-                const dist = targetDate - now;
+                const distance = countDownDate - now;
                 
-                if (dist < 0) {
-                    document.getElementById("countdown").innerHTML = "ZİRVE BAŞLADI";
+                if (distance < 0) {
+                    if(document.getElementById("countdown")) document.getElementById("countdown").innerHTML = "<div style='color:var(--gold-primary); font-size:2rem; text-shadow:0 0 20px var(--gold-primary);'>ZİRVE BAŞLADI!</div>";
+                    if(document.getElementById("tech-countdown")) document.getElementById("tech-countdown").innerHTML = "<span style='color:var(--gold-primary);'>BAŞLADI</span>";
                     return;
                 }
-                
-                const d = Math.floor(dist / (1000 * 60 * 60 * 24));
-                const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((dist % (1000 * 60)) / 1000);
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                 if(document.getElementById("days")) {
-                    document.getElementById("days").innerText = d < 10 ? "0"+d : d;
-                    document.getElementById("hours").innerText = h < 10 ? "0"+h : h;
-                    document.getElementById("minutes").innerText = m < 10 ? "0"+m : m;
-                    document.getElementById("seconds").innerText = s < 10 ? "0"+s : s;
+                    document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+                    document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+                    document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+                    document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
                 }
-                // Mini
                 if(document.getElementById("t-days")) {
-                    document.getElementById("t-days").innerText = d < 10 ? "0"+d : d;
-                    document.getElementById("t-hours").innerText = h < 10 ? "0"+h : h;
-                    document.getElementById("t-min").innerText = m < 10 ? "0"+m : m;
+                    document.getElementById("t-days").innerText = days < 10 ? "0" + days : days;
+                    document.getElementById("t-hours").innerText = hours < 10 ? "0" + hours : hours;
+                    document.getElementById("t-min").innerText = minutes < 10 ? "0" + minutes : minutes;
                 }
-            }, 1000);
+            }
+            setInterval(updateCountdowns, 1000);
+            updateCountdowns(); 
         });
     </script>
-</body>
-</html>
