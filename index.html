@@ -12,17 +12,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <meta name="theme-color" content="#030303">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icon-192.png">
-
-    <meta property="og:title" content="GıTalks | Geleceği Tasarlayan Zirve">
-    <meta property="og:description" content="Teknoloji, Akademi ve İnovasyonun kalbi burada atıyor. 16 Şubat 2026'da buluşuyoruz.">
-    <meta property="og:type" content="website">
-
+    
     <title>GıTalks | Global Teknoloji Zirvesi</title>
     <style>
         /* --- 1. PREMIUM DEĞİŞKENLER --- */
@@ -61,7 +56,9 @@
         body {
             background-color: var(--bg-dark);
             background-image: radial-gradient(circle at center top, #1a1a1a 0%, #000000 80%);
-            color: var(--text-main); font-family: 'Inter', sans-serif; margin: 0; padding: 0;
+            color: var(--text-main); 
+            font-family: 'Roboto', 'Inter', sans-serif; /* Roboto öncelikli yapıldı */
+            margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
             line-height: 1.6; padding-top: 80px; overflow-x: hidden;
         }
@@ -246,7 +243,7 @@
         .text-content-box h3 { color: var(--gold-primary); font-size: 1.3rem; margin-top: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
         
         /* --- AI STYLES --- */
-        #gitalks-ai-container { position: fixed; bottom: 30px; right: 30px; z-index: 20000; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: flex-end; }
+        #gitalks-ai-container { position: fixed; bottom: 30px; right: 30px; z-index: 20000; font-family: 'Roboto', 'Inter', sans-serif; display: flex; flex-direction: column; align-items: flex-end; }
         
         #ai-btn-trigger {
             width: 65px; height: 65px; background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 40%, #AA771C 100%);
@@ -270,7 +267,7 @@
         .bubble-bot { background: rgba(255, 255, 255, 0.08); color: #e0e0e0; align-self: flex-start; border: 1px solid rgba(255,255,255,0.05); border-bottom-left-radius: 2px; }
         .bubble-user { background: linear-gradient(135deg, #D4AF37 0%, #AA771C 100%); color: #000; align-self: flex-end; font-weight: 600; border-bottom-right-radius: 2px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .chat-footer { padding: 15px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 10px; background: rgba(0,0,0,0.4); }
-        #chat-input { flex: 1; background: #000; border: 1px solid #444; border-radius: 8px; padding: 12px; color: #fff; font-family: 'Inter', sans-serif; outline: none; transition: 0.3s; }
+        #chat-input { flex: 1; background: #000; border: 1px solid #444; border-radius: 8px; padding: 12px; color: #fff; font-family: 'Roboto', 'Inter', sans-serif; outline: none; transition: 0.3s; }
         #chat-input:focus { border-color: #D4AF37; }
         #chat-send { background: #D4AF37; color: #000; border: none; border-radius: 8px; width: 45px; cursor: pointer; font-weight: bold; font-size: 1.2rem; transition: 0.3s; }
         #chat-send:hover { background: #fff; box-shadow: 0 0 15px #D4AF37; }
@@ -683,7 +680,7 @@
             <div class="chat-body" id="messages-area">
                 <div class="bubble bubble-bot">
                     Merhaba! 🤖 Ben <strong>GıTalks AI</strong>. <br><br>
-                    Sponsorluklar, zirve detayları, tarih, ulaşım veya vizyonumuz hakkında sorularını cevaplamak için kapsamlı şekilde eğitildim.
+                    Sponsorluklar, zirve detayları, tarih, ulaşım veya genel kültür hakkında sorularını cevaplamak için kapsamlı şekilde eğitildim.
                 </div>
             </div>
             <div class="chat-footer">
@@ -695,47 +692,31 @@
     </div>
 
     <script>
-        // --- GITALKS YEREL YAPAY ZEKA MOTORU (GELİŞMİŞ SÜRÜM 2.0) ---
+        // --- GITALKS YEREL YAPAY ZEKA MOTORU (GELİŞMİŞ SÜRÜM 2.0 - EĞİTİLMİŞ) ---
         
         // 1. EĞİTİM VERİ SETİ (KAPSAMLI VE GÜNCEL)
         const knowledgeBase = [
             // --- GENEL SOHBET & SELAMLAŞMA ---
             {
                 keywords: ["merhaba", "selam", "hi", "hey", "naber", "günaydın", "iyi akşamlar"],
-                response: "Merhaba! 👋 Enerjim yerinde, sana nasıl yardımcı olabilirim? Sponsorluklar, konferans detayları veya kahve tarifleri hakkında konuşabiliriz!"
+                response: "Merhaba! 👋 Enerjim yerinde, sana nasıl yardımcı olabilirim? Sponsorluklar, konferans detayları, genel kültür veya üniversite hakkında konuşabiliriz!"
             },
             {
                 keywords: ["nasılsın", "nasıl gidiyor", "ne haber"],
                 response: "Ben bir yapay zeka botuyum, sistemlerim %100 performansla ve hatasız çalışıyor! 🚀 Sen nasılsın?"
             },
+            
+            // --- YAPAY ZEKA YETENEKLERİ (İSTENEN ÖZELLİKLER) ---
             {
-                keywords: ["iyiyim", "süper", "harika", "bomba gibi"],
-                response: "Bunu duyduğuma sevindim! 🎉 Enerjin harika. Bugün senin için ne yapabilirim?"
+                keywords: ["neler yapabiliyorsun", "yeteneklerin", "ne yaparsın", "ne işe yararsın", "özelliklerin"],
+                response: "🤖 **GıTalks AI Yeteneklerim:**\n\n1. 📅 **Etkinlik Rehberi:** Zirve tarihi, saati ve yeri hakkında bilgi veririm.\n2. 🤝 **Sponsorluk:** Nasıl sponsor olunacağını anlatırım.\n3. 🧠 **Genel Kültür:** Tarih, coğrafya ve bilimsel konularda sohbet edebilirim.\n4. ℹ️ **Site Bilgisi:** GıTalks vizyonu ve misyonunu açıklayabilirim.\n5. ☕ **Tarifler:** Kahve ve basit yemek tarifleri verebilirim.\n\nNeyi merak ediyorsun?"
             },
             {
-                keywords: ["kötüyüm", "moralim bozuk", "canım sıkkın"],
-                response: "Üzüldüm... 😔 Bazen en iyi çözüm derin bir nefes almak ve kendine zaman ayırmaktır. Belki sana komik bir şey anlatmamı istersin?"
-            },
-            {
-                keywords: ["sen kimsin", "adın ne", "nesin sen", "görevin ne"],
-                response: "🤖 Ben **GıTalks AI Asistanıyım!** Bu web sitesinde rehberlik yapmak, sorularını yanıtlamak ve bazen de kahve tarifi vermek için tasarlandım."
-            },
-            {
-                keywords: ["teşekkür", "sağ ol", "eyvallah", "mersi"],
-                response: "Rica ederim! 😊 Yardımcı olabildiysem ne mutlu bana. Başka bir sorun olursa buradayım!"
+                keywords: ["napıyorsun", "ne yapıyorsun", "şu an ne yapıyorsun", "durumun ne"],
+                response: "Şu anda GıTalks web sitesini saniye saniye izliyor, ziyaretçilere rehberlik etmek için veri tabanımı tarıyorum. Senin sorularını yanıtlamak için hazırım! 🚀"
             },
 
-            // --- YENİ SPONSORLUK BİLGİLERİ (GÜNCELLENDİ) ---
-            {
-                keywords: ["sponsor", "destekçi", "platin", "gold", "silver", "bronze", "marka"],
-                response: "🤝 **Sponsorluk Yapısı:**\nGıTalks sponsorları 4 ana kategoride (Platinum, Gold, Silver, Bronze) yer almaktadır. Şu an görüşmelerimiz sürüyor ve markalar çok yakında sitemizdeki **'Sponsorlar'** sekmesinde 'Yakında Burada' statüsünden çıkarak listelenecek."
-            },
-            {
-                keywords: ["sponsor olmak istiyorum", "nasıl sponsor olunur", "dosya", "şartlar", "reklam"],
-                response: "💼 **İş Birliği İçin:** Markanızla GıTalks'ta yer almak isterseniz, detaylı sponsorluk dosyamızı talep edebilirsiniz. Lütfen **gitalks.official@gmail.com** adresine mail atın."
-            },
-
-            // --- ETKİNLİK DETAYLARI & LOJİSTİK ---
+            // --- SITE SCRAPED DATA (GITALKS HAKKINDA) ---
             {
                 keywords: ["ne zaman", "tarih", "saat", "gün", "zaman", "takvim"],
                 response: "📅 GıTalks Global Teknoloji Zirvesi, **16 Şubat 2026** tarihinde gerçekleşecek. Kapılar sabah saat **09:00'da** açılıyor."
@@ -745,81 +726,88 @@
                 response: "📍 Etkinliğimiz **Konya Gıda ve Tarım Üniversitesi (KGTÜ) Konferans Salonu'nda** düzenlenecek. Meram bölgesinde yer alır, toplu taşıma ve özel araçla ulaşım kolaydır."
             },
             {
-                keywords: ["otopark", "park", "araba"],
-                response: "🚗 KGTÜ kampüsü çevresinde ve yakın lokasyonlarda otopark alanları mevcuttur."
-            },
-            {
-                keywords: ["internet", "wifi", "bağlantı"],
-                response: "📶 Etkinlik alanında katılımcılar için ücretsiz Wi-Fi erişimi sağlanması planlanmaktadır."
-            },
-            {
-                keywords: ["sertifika", "katılım belgesi", "belge"],
-                response: "📜 Evet! Etkinliğe katılanlara dijital veya basılı **Katılım Sertifikası** verilmesi planlanmaktadır. Detaylar etkinlik günü duyurulacak."
-            },
-            {
-                keywords: ["yemek", "ikram", "yiyecek", "aç", "öğle yemeği"],
-                response: "🥪 Etkinlik aralarında kahve molaları ve atıştırmalık ikramlarımız olacaktır."
-            },
-
-            // --- İÇERİK & KONUŞMACILAR ---
-            {
-                keywords: ["kim", "konuşmacı", "konuk", "davetli", "katılımcı"],
-                response: "🎙️ Ana konuklarımız ve konuşmacı listemiz şu an **'Yakında Açıklanacak'** statüsündedir. Sektörün dev isimleriyle görüşüyoruz, sürprizlere hazır ol!"
+                keywords: ["vizyon", "misyon", "amaç", "nedir", "gitalks nedir"],
+                response: "🚀 **GıTalks;** teknoloji, akademi, tarım, ekonomi ve sosyal etki alanlarında geleceği şekillendiren fikirlerin buluştuğu, üniversite öğrencileri tarafından yürütülen bağımsız bir platformdur. Amacımız inovasyon ve toplumsal faydayı bir araya getirmektir."
             },
             {
                 keywords: ["konu", "içerik", "tema", "ne hakkında", "teknoloji", "tarım"],
                 response: "GıTalks 2026'nın ana temaları:\n🔹 **Teknoloji:** Yapay Zeka, Dijital Dönüşüm\n🔹 **Tarım:** Akıllı Tarım, Gıda Güvenliği\n🔹 **Akademi:** Bilimsel Kariyer\n🔹 **Sosyal Etki:** Toplumsal Fayda"
             },
             {
-                keywords: ["vizyon", "misyon", "amaç", "nedir"],
-                response: "🚀 **GıTalks;** teknoloji, akademi, tarım ve sosyal etki alanlarında geleceği şekillendiren fikirlerin buluştuğu, üniversite öğrencileri tarafından yürütülen bağımsız bir platformdur."
+                keywords: ["kim", "konuşmacı", "konuk", "davetli", "katılımcı"],
+                response: "🎙️ Ana konuklarımız ve konuşmacı listemiz şu an **'Yakında Açıklanacak'** statüsündedir. Sektörün dev isimleriyle görüşüyoruz, sürprizlere hazır ol!"
             },
 
-            // --- YEMEK & KAHVE TARİFLERİ ---
+            // --- SPONSORLUK VE İLETİŞİM ---
             {
-                keywords: ["kahve", "filtre", "latte", "espresso", "americano"],
-                response: "☕ **Kahve Molası!** Basit bir Latte tarifi: <br>1. Bir shot espresso hazırla. <br>2. Sütü 65°C'ye kadar ısıt ve köpürt. <br>3. Sütü yavaşça kahvenin üzerine dök. Afiyet olsun!"
+                keywords: ["sponsor", "destekçi", "platin", "gold", "silver", "bronze", "marka"],
+                response: "🤝 **Sponsorluk Yapısı:**\nGıTalks sponsorları 4 ana kategoride (Platinum, Gold, Silver, Bronze) yer almaktadır. Markanızla yer almak isterseniz bizimle iletişime geçebilirsiniz."
             },
             {
-                keywords: ["türk kahvesi", "türk kahve"],
-                response: "☕ **Bol Köpüklü Türk Kahvesi:** <br>Cezveye kişi başı 1 fincan su, 1 tatlı kaşığı kahve ve isteğe göre şeker koy. Karıştırıp ocağa al. Kabarmaya başlayınca köpüğünü al, bir taşım daha kaynatıp servis et. Yanına suyu unutma! 😉"
-            },
-            {
-                keywords: ["yemek", "ne yesem", "açım", "tarif", "makarna"],
-                response: "🍝 **Hızlı Makarna:** <br>Makarnayı haşla. Ayrı bir tavada zeytinyağı, sarımsak ve domatesleri sotele. Makarnayla karıştır, üzerine fesleğen ve parmesan ekle. Bitti bile! 😋"
+                keywords: ["iletişim", "mail", "adres", "telefon", "ulaş", "dosya", "sponsor olmak"],
+                response: "📩 Bizimle iletişime geçmek veya sponsorluk dosyasını talep etmek için: **gitalks.official@gmail.com** adresine mail atabilirsin."
             },
 
-            // --- EĞLENCE & CURIOSITY ---
+            // --- GENEL KÜLTÜR & BİLGİ (YENİ EKLENDİ) ---
+            {
+                keywords: ["başkent", "şehir", "nüfus"],
+                response: "🌍 **Coğrafya Bilgisi:** Türkiye'nin başkenti Ankara'dır. Fransa'nınki Paris, İtalya'nınki Roma'dır. Başka bir ülkeyi merak ediyorsan sorabilirsin!"
+            },
+            {
+                keywords: ["atatürk", "mustafa kemal", "kurucu"],
+                response: "🇹🇷 **Mustafa Kemal Atatürk**, Türkiye Cumhuriyeti'nin kurucusu ve ilk cumhurbaşkanıdır. 'İstikbal göklerdedir' sözü, vizyonunu en güzel anlatan sözlerden biridir."
+            },
+            {
+                keywords: ["uzay", "evren", "mars", "gezegen"],
+                response: "🪐 **Uzay:** Mars'a 'Kızıl Gezegen' denir. Güneş sistemimizdeki en büyük gezegen Jüpiter'dir. Işık hızı saniyede yaklaşık 300.000 km'dir."
+            },
+            {
+                keywords: ["bilim", "fizik", "kimya", "su", "element"],
+                response: "🔬 **Bilim:** Suyun formülü H2O'dur. Dünyanın en sert doğal maddesi elmastır. DNA, canlıların genetik kodunu taşır."
+            },
+            {
+                keywords: ["tarih", "savaş", "istanbul", "fetih"],
+                response: "📜 **Tarih:** İstanbul 1453 yılında Fatih Sultan Mehmet tarafından fethedilmiştir. Bu olay Orta Çağ'ı kapatıp Yeni Çağ'ı başlatmıştır."
+            },
+            {
+                keywords: ["bilgi ver", "rastgele", "kültür", "şaşırt"],
+                response: "💡 **Bunları biliyor muydun?**\n- Zürafaların ses telleri yoktur.\n- Bal bozulmayan tek gıdadır.\n- Ahtapotların üç kalbi vardır.\n- İnsan DNA'sı %50 oranında muz DNA'sı ile aynıdır!"
+            },
+            {
+                keywords: ["kgtü", "üniversite", "kampüs"],
+                response: "🎓 **KGTÜ (Konya Gıda ve Tarım Üniversitesi):** Türkiye'nin tarım ve gıda odaklı ilk ihtisas üniversitesidir. Kampüsümüz Konya Meram'da yer almaktadır."
+            },
+
+            // --- EĞLENCE & TARİFLER ---
+            {
+                keywords: ["kahve", "latte", "espresso"],
+                response: "☕ **Basit Latte Tarifi:** <br>1. Bir shot espresso hazırla. <br>2. Sütü 65°C'ye kadar ısıt ve köpürt. <br>3. Sütü yavaşça kahvenin üzerine dök. Afiyet olsun!"
+            },
+            {
+                keywords: ["yemek", "ne yesem", "açım", "tarif"],
+                response: "🍝 **Öğrenci Dostu Makarna:** <br>Makarnayı haşla. Ayrı bir tavada zeytinyağı, sarımsak ve salçayı kavur. Makarnayla karıştır, üzerine kekik ve peynir ekle. Bitti bile! 😋"
+            },
             {
                 keywords: ["şaka", "komik", "güldür"],
                 response: "😄 Bir yazılımcı diğerine ne demiş? <br>- 'Hadi gidip biraz hava alalım.' <br>- 'Olmaz, o kütüphaneyi henüz import etmedim!' 🤓"
-            },
-            {
-                keywords: ["kurucu", "kim yaptı", "geliştirici", "sahibi"],
-                response: "👨‍💻 GıTalks, KGTÜ İletişim ve Tanıtım Topluluğu bünyesindeki vizyoner öğrenciler tarafından geliştirilmekte ve organize edilmektedir."
-            },
-            {
-                keywords: ["kvkk", "gizlilik", "veri", "güvenlik"],
-                response: "🔒 Sitemiz GitHub Pages altyapısını kullanır. Kişisel veri kaydı tutmuyoruz (form, üyelik yok). Sadece teknik çerezler çalışır."
             }
         ];
 
         // 2. YEREL ZEKA FONKSİYONLARI
         function findAnswer(userText) {
             const cleanText = userText.toLowerCase();
-            // Basit kelime eşleşmesi yerine biraz daha akıllı bir skorlama (İleride geliştirilebilir)
             let bestMatch = null;
             
             for (let item of knowledgeBase) {
                 if (item.keywords.some(keyword => cleanText.includes(keyword))) {
                     bestMatch = item.response;
-                    break; // İlk eşleşmede çık
+                    break; 
                 }
             }
             
             if (bestMatch) return bestMatch;
             
-            return "🤔 Hımm, bu konuda henüz veritabanımda bilgi yok. Ama sana kahve tarifi verebilirim, zirve tarihi hakkında konuşabiliriz veya sponsorluk süreçlerini anlatabilirim! 😊";
+            return "🤔 Hımm, bu konuda henüz veritabanımda bilgi yok. Ama sana genel kültür bilgisi verebilirim, zirve tarihi hakkında konuşabiliriz veya 'neler yapabiliyorsun' diye sorarsan yeteneklerimi sayabilirim! 😊";
         }
 
         function toggleChat() {
