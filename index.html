@@ -697,6 +697,10 @@
         <div id="ai-btn-trigger" onclick="toggleChat()">🤖</div>
     </div>
 
+    <button id="installAppBtn" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 10000; background: #D4AF37; color: #000; border: none; padding: 12px 24px; border-radius: 50px; font-weight: bold; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); cursor: pointer; font-family: 'Montserrat', sans-serif;">
+        📲 UYGULAMAYI YÜKLE
+    </button>
+
     <script>
         // --- GITALKS YEREL YAPAY ZEKA MOTORU (GELİŞMİŞ SÜRÜM 2.0 - EĞİTİLMİŞ) ---
         
@@ -872,13 +876,15 @@
             const sidebar = document.getElementById("mySidebar");
             const overlay = document.getElementById("menuOverlay");
             
-            document.getElementById("openNavBtn").addEventListener("click", function() {
-                if(window.innerWidth <= 600) { sidebar.style.width = "80%"; } else { sidebar.style.width = "320px"; }
-                overlay.style.display = "block";
-            });
+            if(document.getElementById("openNavBtn")) {
+                document.getElementById("openNavBtn").addEventListener("click", function() {
+                    if(window.innerWidth <= 600) { sidebar.style.width = "80%"; } else { sidebar.style.width = "320px"; }
+                    overlay.style.display = "block";
+                });
+            }
 
             function closeNav() { sidebar.style.width = "0"; overlay.style.display = "none"; }
-            document.getElementById("closeNavBtn").addEventListener("click", closeNav);
+            if(document.getElementById("closeNavBtn")) document.getElementById("closeNavBtn").addEventListener("click", closeNav);
             overlay.addEventListener("click", closeNav);
 
             const navLinks = document.querySelectorAll('.nav-link');
@@ -890,7 +896,8 @@
                     link.classList.remove('active');
                     if(link.getAttribute('data-tab') === targetId) link.classList.add('active');
                 });
-                document.getElementById(targetId).style.display = 'block';
+                const target = document.getElementById(targetId);
+                if(target) target.style.display = 'block';
                 window.scrollTo(0, 0);
                 closeNav(); 
             }
@@ -902,65 +909,7 @@
                 });
             });
 
-            const mainLogo = document.getElementById("mainLogo");
-            if (mainLogo) {
-                mainLogo.addEventListener("click", function() { switchTab('home-tab'); });
-            }
-
-            document.getElementById("tech-title-btn").addEventListener("click", function() {
-                switchTab('conferences-tab');
-                setTimeout(function(){
-                    const targetCard = document.getElementById("target-tech-card");
-                    if(targetCard) {
-                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 100);
-            });
-
-            document.querySelectorAll('.footer-links .modal-link[data-tab]').forEach(link => {
-                link.addEventListener('click', function(e) { e.preventDefault(); switchTab(this.getAttribute('data-tab')); });
-            });
-
-            // Cookie Linkleri için Event Listener
-            document.querySelectorAll('.cookie-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = this.getAttribute('data-target');
-                    switchTab(target);
-                });
-            });
-
-            // Accordion
-            const acc = document.getElementsByClassName("accordion-btn");
-            for (let i = 0; i < acc.length; i++) {
-                acc[i].addEventListener("click", function() {
-                    this.classList.toggle("active-acc");
-                    const panel = this.nextElementSibling;
-                    if (panel.style.maxHeight) {
-                        panel.style.maxHeight = null;
-                        panel.classList.remove('open');
-                    } else {
-                        panel.style.maxHeight = (panel.scrollHeight + 40) + "px";
-                        panel.classList.add('open');
-                    }
-                });
-            }
-
-            // Cookie
-            const cookieBanner = document.getElementById("cookieBanner");
-            if (localStorage.getItem("cookieConsent") !== "accepted") {
-                cookieBanner.style.display = "block";
-            }
-            document.getElementById('btnAccept').addEventListener('click', function() {
-                localStorage.setItem("cookieConsent", "accepted");
-                cookieBanner.style.display = "none";
-            });
-            document.getElementById('btnReject').addEventListener('click', function() {
-                localStorage.removeItem("cookieConsent"); 
-                cookieBanner.style.display = "none";
-            });
-
-            // Countdown
+            // Geri Sayım (Countdown)
             const countDownDate = new Date("Feb 16, 2026 09:00:00").getTime();
             function updateCountdowns() {
                 const now = new Date().getTime();
@@ -989,7 +938,29 @@
                 }
             }
             setInterval(updateCountdowns, 1000);
-            updateCountdowns(); 
+            updateCountdowns();
+
+            // --- PWA YÜKLEME BUTONU MANTIĞI (SONDAN EKLENDİ) ---
+            let deferredPrompt;
+            const installBtn = document.getElementById('installAppBtn');
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                if(installBtn) installBtn.style.display = 'block';
+            });
+
+            if(installBtn) {
+                installBtn.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        console.log(`Kullanıcı seçimi: ${outcome}`);
+                        deferredPrompt = null;
+                        installBtn.style.display = 'none';
+                    }
+                });
+            }
         });
     </script>
 </body>
