@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="manifest" href="manifest.json">
-    
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" href="./logo.png">
+    <link rel="apple-touch-icon" href="./logo.png">
 
     <script>
       if ('serviceWorker' in navigator) {
-        // Sayfa yüklendiğinde Service Worker'ı kaydet
-        window.addEventListener('load', () => {
+        window.addEventListener('load', function() {
           navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('Service Worker kayıt başarılı:', reg.scope))
-            .catch(err => console.log('Service Worker kayıt hatası:', err));
+            .then(function(registration) {
+              console.log('ServiceWorker başarıyla kaydedildi: ', registration.scope);
+            }, function(err) {
+              console.log('ServiceWorker kaydı başarısız: ', err);
+            });
         });
       }
     </script>
@@ -952,27 +953,42 @@
             setInterval(updateCountdowns, 1000);
             updateCountdowns();
 
-            // --- PWA YÜKLEME BUTONU MANTIĞI (SONDAN EKLENDİ) ---
+            // --- PWA YÜKLEME BUTONU MANTIĞI ---
             let deferredPrompt;
             const installBtn = document.getElementById('installAppBtn');
 
+            // Tarayıcı "Yüklenebilir" dediğinde bu olay tetiklenir
             window.addEventListener('beforeinstallprompt', (e) => {
+                // Tarayıcının otomatik uyarısını engelle
                 e.preventDefault();
+                // Olayı daha sonra kullanmak üzere sakla
                 deferredPrompt = e;
+                console.log("PWA: Yükleme olayı yakalandı! Buton gösteriliyor.");
+                // Butonu göster
                 if(installBtn) installBtn.style.display = 'block';
             });
 
             if(installBtn) {
                 installBtn.addEventListener('click', async () => {
                     if (deferredPrompt) {
+                        // Yükleme penceresini aç
                         deferredPrompt.prompt();
+                        // Kullanıcının ne seçtiğini bekle
                         const { outcome } = await deferredPrompt.userChoice;
                         console.log(`Kullanıcı seçimi: ${outcome}`);
+                        // Olayı sıfırla (bir daha kullanılamaz)
                         deferredPrompt = null;
+                        // Butonu gizle
                         installBtn.style.display = 'none';
                     }
                 });
             }
+
+            // Uygulama zaten yüklüyse butonu gizle
+            window.addEventListener('appinstalled', (evt) => {
+                console.log('PWA: Uygulama başarıyla yüklendi.');
+                if(installBtn) installBtn.style.display = 'none';
+            });
         });
     </script>
 </body>
