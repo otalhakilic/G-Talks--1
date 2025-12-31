@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gitalks-app-v3';
+const CACHE_NAME = 'gitalks-pwa-v4';
 const urlsToCache = [
   './',
   './index.html',
@@ -6,35 +6,36 @@ const urlsToCache = [
   './logo.png'
 ];
 
-// Yükleme (Install)
+// Kurulum
 self.addEventListener('install', (event) => {
+  self.skipWaiting(); // Yeni sürümü hemen zorla
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('Dosyalar önbelleğe alındı');
+        console.log('[Service Worker] Dosyalar önbelleğe alınıyor...');
         return cache.addAll(urlsToCache);
       })
   );
-  self.skipWaiting(); // Yeni versiyonu hemen aktif et
 });
 
-// Aktifleştirme (Activate) - Eski cache'leri temizle
+// Aktifleştirme ve Eski Cache Temizliği
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
+            console.log('[Service Worker] Eski önbellek silindi:', cache);
             return caches.delete(cache);
           }
         })
       );
     })
   );
-  self.clients.claim();
+  return self.clients.claim();
 });
 
-// Getirme (Fetch)
+// Fetch (İnternet Yoksa Cache'den Ver)
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
