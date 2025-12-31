@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <link rel="manifest" href="manifest.json">
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js');
+      }
+    </script>
     <meta name="description" content="GıTalks | Teknoloji, tarım, akademi ve sosyal sorumluluk alanlarında konferans ve etkinlik platformu.">
     <meta name="keywords" content="Teknoloji Konferansı, GıTalks, Tarım Teknolojileri, Yapay Zeka, KGTÜ, Konya, Zirve">
     <meta name="author" content="GıTalks Organization">
