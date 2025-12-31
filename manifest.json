@@ -1,10 +1,10 @@
 {
-  "name": "Benim Uygulamam",
-  "short_name": "Uygulama",
+  "name": "GıTalks",
+  "short_name": "GıTalks",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#000000",
+  "theme_color": "#D4AF37",
   "icons": [
     {
       "src": "icon.png",
