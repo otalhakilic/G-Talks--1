@@ -22,12 +22,18 @@
     <style>
         /* --- 1. PREMIUM DEĞİŞKENLER --- */
         :root {
-            /* --- ALTIN SKALASI --- */
+            /* --- ALTIN SKALASI (Marka Rengi) --- */
             --gold-primary: #D4AF37;
             --gold-light: #F2E2A6;
             --gold-dark: #8E7020;
             --gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
             
+            /* --- YENİ EKLENEN: KAN KIRMIZISI (BLOOD RED) --- */
+            --red-primary: #8a0303; /* Asil Koyu Kırmızı */
+            --red-bright: #b30000;  /* Parlak Kırmızı */
+            --red-glow: rgba(138, 3, 3, 0.6);
+            --red-gradient: linear-gradient(135deg, #4a0000 0%, #8a0303 50%, #b30000 100%);
+
             /* Sponsor Renkleri */
             --platinum-gradient: linear-gradient(135deg, #e0e0e0 0%, #ffffff 50%, #a0a0a0 100%);
             --silver-gradient: linear-gradient(135deg, #8c8c8c 0%, #d6d6d6 50%, #757575 100%);
@@ -39,7 +45,6 @@
             --glass-blur: blur(20px);
             --text-main: #ffffff;
             --text-muted: #a0a0a0;
-            --glow-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
         }
 
         * { box-sizing: border-box; }
@@ -52,7 +57,7 @@
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, var(--gold-dark), var(--gold-primary)); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, var(--red-primary), var(--gold-primary)); border-radius: 10px; }
 
         body {
             background-color: var(--bg-dark);
@@ -68,87 +73,12 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* --- NETFLIX TARZI INTRO STYLES (DÜZELTİLMİŞ) --- */
-        #intro-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000000;
-            z-index: 9999999; /* En üst katman */
-            display: flex; /* JS ile kontrol edilecek ama varsayılan flex */
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .intro-text {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 5rem;
-            font-weight: 900;
-            color: transparent; /* İçi boş */
-            -webkit-text-stroke: 2px var(--gold-primary); /* Sadece kenarlık */
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            opacity: 0;
-            transform: scale(1);
-            animation: netflixZoom 4s cubic-bezier(0.6, 0.04, 0.98, 0.335) forwards;
-            position: relative;
-        }
-
-        /* Dolu hali animasyonla gelecek */
-        .intro-text::before {
-            content: 'GıTalks';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            color: var(--gold-primary);
-            opacity: 0;
-            animation: fillText 2s ease-in-out 0.5s forwards;
-        }
-
-        @keyframes fillText {
-            0% { opacity: 0; }
-            100% { opacity: 1; text-shadow: 0 0 50px rgba(212, 175, 55, 0.8); }
-        }
-
-        @keyframes netflixZoom {
-            0% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            10% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            80% {
-                opacity: 1;
-                transform: scale(1.2);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(20); /* Ekranın içinden geçer */
-            }
-        }
-
-        /* Sayfa açıldığında body scroll olmasın */
-        body.intro-active {
-            overflow: hidden;
-        }
-
-        @media (max-width: 600px) {
-            .intro-text { font-size: 2.5rem; }
-        }
-        /* --- INTRO STYLES BITIS --- */
-
         /* --- NAVBAR --- */
         .navbar {
             position: fixed; top: 0; width: 100%; height: 80px;
-            background: rgba(3, 3, 3, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center;
+            background: rgba(3, 3, 3, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(138, 3, 3, 0.3); /* Kırmızı çizgi */
+            display: flex; align-items: center;
             justify-content: space-between; padding: 0 40px; z-index: 1000; transition: all 0.3s ease;
         }
 
@@ -156,7 +86,7 @@
             display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;
             border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 50%; cursor: pointer; transition: all 0.4s ease; z-index: 1002;
         }
-        .hamburger-container:hover { border-color: var(--gold-primary); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.05); transform: rotate(90deg); }
+        .hamburger-container:hover { border-color: var(--red-primary); box-shadow: 0 0 15px var(--red-glow); background: rgba(138, 3, 3, 0.1); transform: rotate(90deg); }
         .hamburger-btn { background: none; border: none; color: var(--gold-primary); font-size: 1.2rem; cursor: pointer; padding: 0; }
 
         .navbar-logo {
@@ -171,22 +101,22 @@
         .sidebar {
             height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; left: 0;
             background-color: #050505; overflow-x: hidden; transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            padding-top: 100px; border-right: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 100px; border-right: 1px solid var(--red-primary);
         }
         .sidebar a {
             padding: 20px 40px; text-decoration: none; font-size: 1rem; color: var(--text-muted); display: block;
             transition: 0.4s; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.03); font-weight: 500;
         }
         .sidebar a:hover, .sidebar a.active {
-            color: var(--gold-primary); padding-left: 50px;
-            background: linear-gradient(90deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%);
-            border-left: 3px solid var(--gold-primary);
+            color: #fff; padding-left: 50px;
+            background: linear-gradient(90deg, rgba(138, 3, 3, 0.2) 0%, transparent 100%);
+            border-left: 4px solid var(--red-primary);
         }
         .sidebar .closebtn {
             position: absolute; top: 25px; right: 25px; font-size: 35px; border: none; background: none;
-            color: var(--gold-primary); opacity: 0.8; transition: 0.3s; cursor: pointer; z-index: 2001;
+            color: var(--red-primary); opacity: 0.8; transition: 0.3s; cursor: pointer; z-index: 2001;
         }
-        .sidebar .closebtn:hover { opacity: 1; transform: rotate(90deg); text-shadow: 0 0 15px var(--gold-primary); }
+        .sidebar .closebtn:hover { opacity: 1; transform: rotate(90deg); text-shadow: 0 0 15px var(--red-primary); }
 
         #menuOverlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -216,23 +146,76 @@
         }
         h3 { color: #fff; font-size: 1.4rem; letter-spacing: 1px; margin-top:0; font-weight: 600; }
 
-        /* --- ACCORDION --- */
+        /* --- YENİLENMİŞ AKORDİYON (BLOOD RED TEMA) --- */
         .accordion-btn {
-            background: var(--glass-bg); backdrop-filter: blur(10px); color: var(--gold-light); cursor: pointer; padding: 25px; width: 100%; text-align: left;
-            border: 1px solid var(--glass-border); border-radius: 8px; outline: none; transition: all 0.4s ease; font-size: 1rem; font-weight: 600; margin-top: 20px;
-            display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; letter-spacing: 1px;
+            background: rgba(255, 255, 255, 0.02); 
+            backdrop-filter: blur(10px); 
+            color: #e0e0e0; 
+            cursor: pointer; 
+            padding: 25px 30px; 
+            width: 100%; 
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            border-left: 3px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px; 
+            outline: none; 
+            transition: all 0.4s ease; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            margin-top: 15px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
         }
-        .accordion-btn:hover, .accordion-btn.active-acc { background: rgba(212, 175, 55, 0.05); border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .accordion-btn span { font-size: 0.8rem; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        
+        /* Hover ve Aktif Durumu - KAN KIRMIZISI */
+        .accordion-btn:hover, .accordion-btn.active-acc { 
+            background: linear-gradient(90deg, rgba(138, 3, 3, 0.15) 0%, transparent 100%);
+            border-color: var(--red-primary);
+            border-left-color: var(--red-bright);
+            box-shadow: 0 0 25px rgba(138, 3, 3, 0.2); 
+            color: #fff;
+            padding-left: 35px; /* Hafif kayma efekti */
+        }
+
+        .accordion-btn span { font-size: 0.9rem; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: var(--red-primary); }
         .accordion-btn.active-acc span { transform: rotate(180deg); color: #fff; }
         
         .accordion-panel {
-            padding: 0 25px; background-color: rgba(0, 0, 0, 0.4); max-height: 0; overflow: hidden; transition: max-height 0.5s ease, padding 0.4s ease;
-            border-radius: 0 0 8px 8px; border: 1px solid transparent; border-top: none; text-align: left;
+            padding: 0 30px; 
+            background-color: rgba(10, 10, 10, 0.6); 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.5s ease, padding 0.4s ease, opacity 0.4s ease;
+            border-left: 1px solid var(--red-primary); /* Sol tarafa ince kırmızı çizgi */
+            opacity: 0;
+            text-align: left;
             overflow-wrap: break-word;
-            word-wrap: break-word;
         }
-        .accordion-panel.open { padding: 30px 25px; border-color: var(--glass-border); }
+        .accordion-panel.open { 
+            padding: 30px 30px; 
+            opacity: 1;
+            margin-bottom: 20px;
+        }
+
+        /* --- MOBİL İÇİN AKORDİYON AYARLARI --- */
+        @media (max-width: 600px) {
+            .accordion-btn {
+                padding: 20px 20px; /* Mobilde daha rahat dokunma alanı */
+                font-size: 0.95rem; /* Fontu biraz küçült ama okunur tut */
+                border-left-width: 4px; /* Sol çizgiyi belirginleştir */
+            }
+            .accordion-btn:hover, .accordion-btn.active-acc {
+                padding-left: 25px; /* Mobilde kayma efektini azalt */
+            }
+            .accordion-panel.open {
+                padding: 20px 15px; /* İçeriği daraltma */
+            }
+        }
 
         /* --- COMPONENTS --- */
         .countdown-container { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 40px auto; flex-wrap: nowrap; }
@@ -240,7 +223,7 @@
             background: rgba(10, 10, 10, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--gold-primary); padding: 20px 15px; border-radius: 12px; width: 90px; min-width: 70px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(5px); transition: transform 0.3s, border-color 0.3s;
         }
-        .time-box:hover { border-color: rgba(212, 175, 55, 0.3); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.7); }
+        .time-box:hover { border-color: var(--red-primary); transform: translateY(-5px); box-shadow: 0 15px 40px var(--red-glow); }
         .time-box span { display: block; font-size: 2.5rem; font-weight: 700; line-height: 1; margin-bottom: 5px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .time-box label { font-size: 0.65rem; color: #777; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
 
@@ -248,10 +231,10 @@
             background: rgba(20, 20, 20, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); padding: 60px;
             border-radius: 20px; margin: 40px auto; width: 100%; box-sizing: border-box; box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative; overflow: hidden;
         }
-        .info-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent); }
+        .info-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--red-primary), transparent); }
 
         .clickable-title { cursor: pointer; transition: all 0.4s; display: inline-block; font-size: 1.6rem; color: #fff; padding-bottom: 5px; border-bottom: 1px solid transparent; }
-        .clickable-title:hover { color: var(--gold-primary); text-shadow: 0 0 20px rgba(212, 175, 55, 0.4); border-bottom: 1px solid var(--gold-primary); }
+        .clickable-title:hover { color: var(--red-primary); text-shadow: 0 0 20px var(--red-primary); border-bottom: 1px solid var(--red-primary); }
 
         .conf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; text-align: left; margin-top: 30px; }
         .conf-card {
@@ -259,15 +242,15 @@
             position: relative; overflow: hidden; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: space-between; height: 100%;
         }
         .conf-card:hover {
-            transform: translateY(-10px) scale(1.02); border-color: rgba(212, 175, 55, 0.3); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.05);
+            transform: translateY(-10px) scale(1.02); border-color: var(--red-primary); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(138, 3, 3, 0.2);
             background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
         }
         .conf-card::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent); transform: skewX(-25deg); transition: 0.7s; }
         .conf-card:hover::after { left: 150%; }
 
         .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-        .card-icon { width: 10px; height: 10px; background: var(--gold-primary); border-radius: 50%; box-shadow: 0 0 10px var(--gold-primary); }
-        .conf-date-badge { background: rgba(212, 175, 55, 0.1); color: var(--gold-primary); padding: 8px 16px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(212, 175, 55, 0.3); text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 10px rgba(212, 175, 55, 0.1); }
+        .card-icon { width: 10px; height: 10px; background: var(--red-primary); border-radius: 50%; box-shadow: 0 0 10px var(--red-primary); }
+        .conf-date-badge { background: rgba(138, 3, 3, 0.15); color: #ff4d4d; padding: 8px 16px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(138, 3, 3, 0.4); text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 10px rgba(138, 3, 3, 0.1); }
         .conf-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #fff; font-weight: 700; transition: 0.3s; }
         .conf-card:hover h3 { color: var(--gold-primary); text-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
         .conf-card p { color: #b0b0b0; font-size: 1rem; line-height: 1.7; margin-bottom: 25px; flex-grow: 1; }
@@ -308,7 +291,7 @@
             padding: 40px; text-align: center; transition: 0.3s; position: relative; overflow: hidden;
             display: flex; align-items: center; justify-content: center; flex-direction: column;
         }
-        .sponsor-box-new:hover { background: rgba(255,255,255,0.04); transform: translateY(-5px); }
+        .sponsor-box-new:hover { background: rgba(255,255,255,0.04); transform: translateY(-5px); border-color: var(--gold-primary); }
         
         .box-platinum { height: 250px; border-color: rgba(255,255,255,0.15); box-shadow: 0 0 30px rgba(255,255,255,0.05); }
         .box-gold { height: 180px; border-color: rgba(212,175,55,0.15); box-shadow: 0 0 20px rgba(212,175,55,0.05); }
@@ -321,6 +304,8 @@
         .text-content-box { text-align: left; line-height: 1.8; color: #ccc; font-size: 1.05rem; }
         .text-content-box strong { color: #fff; }
         .text-content-box h3 { color: var(--gold-primary); font-size: 1.3rem; margin-top: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+        .text-content-box ul { list-style-type: none; padding-left: 10px; }
+        .text-content-box li::before { content: "• "; color: var(--red-primary); font-weight: bold; }
         
         /* --- AI STYLES --- */
         #gitalks-ai-container { position: fixed; bottom: 30px; right: 30px; z-index: 20000; font-family: 'Roboto', 'Inter', sans-serif; display: flex; flex-direction: column; align-items: flex-end; }
@@ -364,8 +349,6 @@
             .time-box span { font-size: 1.5rem; }
             .time-box label { font-size: 0.6rem; }
             .info-box { padding: 30px 20px; }
-            .accordion-panel.open { padding: 20px 15px; }
-            .accordion-btn { padding: 20px 15px; font-size: 0.9rem; }
         }
 
         /* --- PWA YÜKLEME BARI --- */
@@ -393,11 +376,7 @@
         .btn-pwa-close:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
     </style>
 </head>
-<body class="intro-active">
-
-    <div id="intro-overlay">
-        <div class="intro-text">GıTalks</div>
-    </div>
+<body>
 
     <div class="noise-overlay"></div>
 
@@ -556,20 +535,114 @@
     <div id="privacy-tab" class="tab-content">
         <h2>GİZLİLİK POLİTİKASI & KVKK AYDINLATMA METNİ</h2>
         <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
-            <button class="accordion-btn">GİZLİLİK POLİTİKASI VE KVKK TAM METNİ <span>&#9660;</span></button>
+            
+            <button class="accordion-btn">1. Toplanan Veriler <span>&#9660;</span></button>
             <div class="accordion-panel">
-                <h3>Veri Sorumlusu</h3>
-                <p>KVKK uyarınca kişisel verileriniz, veri sorumlusu sıfatıyla GıTalks Organizasyonu tarafından işlenmektedir.</p>
-                </div>
+                <p>GıTalks, kullanıcılarından doğrudan kişisel veri talep etmez.</p>
+                <p>Ancak site ve PWA kullanımı sırasında aşağıdaki veriler otomatik olarak toplanabilir:</p>
+                <ul>
+                    <li>Cihaz türü ve işletim sistemi bilgisi</li>
+                    <li>Tarayıcı türü</li>
+                    <li>IP adresi (anonimleştirilmiş şekilde)</li>
+                    <li>Ziyaret tarihi ve sayfa görüntüleme bilgileri</li>
+                    <li>PWA kullanım istatistikleri (yüklenme, açılma vb.)</li>
+                </ul>
+                <p><strong>Bu veriler kimlik tespiti amacıyla kullanılmaz.</strong></p>
+            </div>
+
+            <button class="accordion-btn">2. PWA (Progressive Web App) Kullanımı <span>&#9660;</span></button>
+            <div class="accordion-panel">
+                <p>Sitemiz PWA teknolojisi kullanmaktadır. Bu kapsamda:</p>
+                <ul>
+                    <li>Uygulama cihazınıza yüklenebilir</li>
+                    <li>Offline (çevrimdışı) çalışma için cache (önbellek) kullanılabilir</li>
+                    <li>Bildirim (push notification) şu an gönderilmemektedir</li>
+                </ul>
+                <p><strong>PWA kapsamında:</strong> Rehberinize, Kameranıza, Mikrofonunuza veya Konum bilgilerinize <strong>erişim sağlanmaz.</strong></p>
+            </div>
+
+            <button class="accordion-btn">3. Çerezler (Cookies) <span>&#9660;</span></button>
+            <div class="accordion-panel">
+                <p>GıTalks, yalnızca zorunlu ve teknik çerezler kullanır. Bu çerezler:</p>
+                <ul>
+                    <li>Site performansını artırmak</li>
+                    <li>PWA’nın düzgün çalışmasını sağlamak amacıyla kullanılır.</li>
+                </ul>
+                <p>❌ Reklam çerezi kullanılmaz.<br>❌ Üçüncü taraf takip çerezi kullanılmaz.</p>
+            </div>
+
+            <button class="accordion-btn">4. Üçüncü Taraf Hizmetler <span>&#9660;</span></button>
+            <div class="accordion-panel">
+                <p>Site aşağıdaki altyapılar üzerinden çalışmaktadır:</p>
+                <ul>
+                    <li>GitHub Pages (barındırma)</li>
+                    <li>GitHub (versiyon kontrolü)</li>
+                </ul>
+                <p>Bu hizmetler kendi gizlilik politikalarına tabidir. GıTalks, bu hizmetler dışında üçüncü taraflarla kişisel veri paylaşımı yapmaz.</p>
+            </div>
+
+            <button class="accordion-btn">5. KVKK Kapsamında Haklarınız <span>&#9660;</span></button>
+            <div class="accordion-panel">
+                <p>6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında kullanıcılar:</p>
+                <ul>
+                    <li>Hakkınızda veri işlenip işlenmediğini öğrenme</li>
+                    <li>İşlenmişse buna ilişkin bilgi talep etme</li>
+                    <li>Yanlış veya eksik verilerin düzeltilmesini isteme</li>
+                    <li>Verilerin silinmesini talep etme</li>
+                </ul>
+                <p>haklarına sahiptir. Bu haklar için bizimle iletişime geçebilirsiniz.</p>
+            </div>
+
+            <button class="accordion-btn">İletişim <span>&#9660;</span></button>
+            <div class="accordion-panel">
+                <p>Her türlü soru ve talepleriniz için:<br>
+                📧 E-posta: <a href="mailto:gitalks@gmail.com" style="color:var(--gold-primary)">gitalks@gmail.com</a><br>
+                🌐 Web: https://g-talks.github.io</p>
+                <p style="font-size:0.8rem; opacity:0.7;">Son güncelleme: Ocak 2026</p>
+            </div>
         </div>
     </div>
 
     <div id="consent-tab" class="tab-content">
-        <h2>AÇIK RIZA METNİ</h2>
+        <h2>ÇEREZ (COOKIE) POLİTİKASI</h2>
         <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
-            <button class="accordion-btn">AÇIK RIZA BEYANINI GÖRÜNTÜLE <span>&#9660;</span></button>
+            
+            <button class="accordion-btn">1. Çerez Nedir? <span>&#9660;</span></button>
             <div class="accordion-panel">
-                <p>GıTalks tarafından yürütülen internet sitesini ziyaret etmem kapsamında bilgilendirildim.</p>
+                <p>Çerezler (cookies), bir web sitesi ziyaret edildiğinde kullanıcının cihazında saklanan küçük metin dosyalarıdır. Çerezler, sitenin düzgün çalışmasını ve kullanıcı deneyiminin iyileştirilmesini sağlar.</p>
+            </div>
+
+            <button class="accordion-btn">2. Kullanılan Çerez Türleri <span>&#9660;</span></button>
+            <div class="accordion-panel">
+                <p>GıTalks yalnızca <strong>zorunlu ve teknik çerezler</strong> kullanmaktadır.</p>
+                <h3>✅ Zorunlu Çerezler</h3>
+                <p>Bu çerezler sitenin çalışması için gereklidir:</p>
+                <ul>
+                    <li>Sayfa gezinme işlevleri</li>
+                    <li>Güvenli bağlantı (HTTPS)</li>
+                    <li>PWA önbellekleme (offline kullanım)</li>
+                    <li>Site performansının sağlanması</li>
+                </ul>
+                <p><em>Bu çerezler kapatılamaz.</em></p>
+                
+                <h3>❌ Kullanılmayan Çerez Türleri</h3>
+                <p>GıTalks aşağıdaki çerezleri kullanmaz:</p>
+                <ul>
+                    <li>Reklam çerezleri</li>
+                    <li>Pazarlama / hedefleme çerezleri</li>
+                    <li>Üçüncü taraf takip çerezleri</li>
+                </ul>
+            </div>
+
+            <button class="accordion-btn">3. PWA ve Çerezler <span>&#9660;</span></button>
+            <div class="accordion-panel">
+                <p>Sitemiz PWA teknolojisi kullanmaktadır. Bu kapsamda Service Worker üzerinden önbellekleme (cache) yapılabilir. Bu önbellek, çerez değildir ancak teknik olarak benzer işlev görür.</p>
+                <p><strong>Amaç:</strong> Yalnızca siteyi hızlı ve çevrimdışı kullanılabilir hale getirmektir.</p>
+            </div>
+
+            <button class="accordion-btn">4. Çerezlerin Kontrolü <span>&#9660;</span></button>
+            <div class="accordion-panel">
+                <p>Kullanıcılar, tarayıcı ayarları üzerinden çerezleri kontrol edebilir veya silebilir. Ancak zorunlu çerezlerin devre dışı bırakılması durumunda sitenin bazı bölümleri düzgün çalışmayabilir.</p>
             </div>
         </div>
     </div>
@@ -580,7 +653,7 @@
         </div>
         <div class="footer-links" style="text-align: center; margin-bottom: 30px;">
             <a href="#" class="modal-link" data-tab="privacy-tab">Gizlilik Politikası ve KVKK</a> | 
-            <a href="#" class="modal-link" data-tab="consent-tab">Açık Rıza Metni</a>
+            <a href="#" class="modal-link" data-tab="consent-tab">Çerez Politikası</a>
         </div>
         <p style="text-align: center; color: #555; font-size: 0.8rem;">&copy; 2026 GıTalks Organization. All rights reserved.</p>
     </footer>
@@ -619,37 +692,46 @@
 
     <script>
         // --- GITALKS YEREL YAPAY ZEKA MOTORU ---
-        // (Buraya yukarıdaki JS kodlarının aynısı gelecek, özet geçiyorum)
         const knowledgeBase = [
             { keywords: ["merhaba"], response: "Merhaba! 👋 Ben Gı-Asistan." },
-            // ... Diğer tüm datalar ...
+            { keywords: ["kvkk", "gizlilik", "çerez"], response: "Gizlilik ve Çerez politikalarımız güncellendi. İlgili menülerden detayları okuyabilirsin. PWA kullandığımız için verilerin güvende! 🔒" }
         ];
-        function findAnswer(userText) { return "Cevap yoksa genel bilgi vereyim."; }
+        
+        function findAnswer(userText) { 
+            const cleanText = userText.toLowerCase();
+            for (let item of knowledgeBase) {
+                if (item.keywords.some(keyword => cleanText.includes(keyword))) return item.response;
+            }
+            return "Şu an için buna cevabım yok ama yakında öğreneceğim! 😊"; 
+        }
+
         function toggleChat() { 
             const ui = document.getElementById("ai-chat-interface");
             ui.style.display = ui.style.display === "flex" ? "none" : "flex"; 
         }
         function checkEnter(e) { if(e.key === "Enter") sendMessage(); }
-        async function sendMessage() { /* Mesaj gönderme kodu */ }
-        function addBubble(txt, cls) { /* Balon ekleme kodu */ }
+        async function sendMessage() { 
+            const input = document.getElementById("chat-input");
+            const area = document.getElementById("messages-area");
+            const text = input.value.trim();
+            if(!text) return;
+            
+            addBubble(text, "bubble-user");
+            input.value = "";
+            setTimeout(() => { addBubble(findAnswer(text), "bubble-bot"); }, 500);
+        }
+        function addBubble(txt, cls) { 
+            const area = document.getElementById("messages-area");
+            const d = document.createElement("div");
+            d.className = `bubble ${cls}`;
+            d.innerHTML = txt;
+            area.appendChild(d);
+            area.scrollTop = area.scrollHeight;
+        }
 
         // --- SİTE GENEL JS ---
         document.addEventListener("DOMContentLoaded", function () {
             
-            // --- INTRO MANTIĞI (DÜZELTİLDİ) ---
-            const intro = document.getElementById('intro-overlay');
-            if(intro) {
-                // 4 saniye sonra intro elementini DOM'dan kaldır ve scroll'u aç
-                setTimeout(() => {
-                    intro.style.transition = "opacity 0.5s";
-                    intro.style.opacity = "0";
-                    setTimeout(() => {
-                        intro.style.display = 'none'; // Tamamen gizle
-                        document.body.classList.remove('intro-active'); // Scroll'u geri getir
-                    }, 500);
-                }, 4000);
-            }
-
             // --- TAB, NAVBAR ve DİĞER FONKSİYONLAR ---
             const sidebar = document.getElementById("mySidebar");
             const overlay = document.getElementById("menuOverlay");
@@ -682,7 +764,7 @@
             const mainLogo = document.getElementById('mainLogo');
             if (mainLogo) mainLogo.addEventListener('click', function() { switchTab('home-tab'); });
 
-            // Accordion
+            // YENİLENEN AKORDİYON JS
             const acc = document.getElementsByClassName("accordion-btn");
             for (let i = 0; i < acc.length; i++) {
                 acc[i].addEventListener("click", function() {
@@ -700,14 +782,16 @@
                 const distance = countDownDate - now;
                 if(document.getElementById("days")) {
                     document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    // Diğer zaman birimleri...
+                    document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
                 }
             }, 1000);
 
-            // Cookie Banner (Intro bitince açılır)
+            // Cookie Banner
             const cookieBanner = document.getElementById('cookieBanner');
             if (!localStorage.getItem('cookieConsent')) {
-                setTimeout(() => { cookieBanner.style.display = 'block'; }, 4500);
+                setTimeout(() => { cookieBanner.style.display = 'block'; }, 2000);
             }
             if(document.getElementById('btnAccept')) document.getElementById('btnAccept').addEventListener('click', () => { localStorage.setItem('cookieConsent', 'true'); cookieBanner.style.display = 'none'; });
             if(document.getElementById('btnReject')) document.getElementById('btnReject').addEventListener('click', () => { cookieBanner.style.display = 'none'; });
@@ -718,7 +802,7 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            setTimeout(() => { document.getElementById('pwaInstallToast').style.display = 'flex'; }, 5000);
+            setTimeout(() => { document.getElementById('pwaInstallToast').style.display = 'flex'; }, 3000);
         });
     </script>
 </body>
