@@ -40,7 +40,6 @@
 
         * { box-sizing: border-box; }
 
-        /* Arka Plan Dokusu */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.04;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
@@ -68,7 +67,7 @@
         .navbar {
             position: fixed; top: 0; width: 100%; height: 80px;
             background: rgba(3, 3, 3, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2); /* Altın çizgi */
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             display: flex; align-items: center;
             justify-content: space-between; padding: 0 40px; z-index: 1000; transition: all 0.3s ease;
         }
@@ -137,7 +136,7 @@
         }
         h3 { color: #fff; font-size: 1.4rem; letter-spacing: 1px; margin-top:0; font-weight: 600; }
 
-        /* --- YENİLENMİŞ AKORDİYON (PREMIUM GOLD) --- */
+        /* --- YENİLENMİŞ AKORDİYON (DÜZELTİLMİŞ TEXT) --- */
         .accordion-btn {
             background: rgba(255, 255, 255, 0.02); 
             backdrop-filter: blur(10px); 
@@ -154,13 +153,20 @@
             font-size: 1.1rem; 
             font-weight: 600; 
             margin-top: 15px;
+            
+            /* -- YAZI DÜZENLEMESİ -- */
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             text-transform: uppercase; 
             letter-spacing: 1px;
             position: relative;
-            overflow: hidden;
+            
+            /* Metin kaydırma ayarları */
+            white-space: normal; /* Alt satıra geçmesine izin ver */
+            word-break: break-word; /* Uzun kelimeleri gerekirse böl */
+            line-height: 1.4; /* Satır aralığını rahatlat */
+            min-height: 70px; /* Minimum yükseklik ver ki sıkışmasın */
         }
         
         .accordion-btn:hover, .accordion-btn.active-acc { 
@@ -172,7 +178,14 @@
             padding-left: 35px;
         }
 
-        .accordion-btn span { font-size: 0.9rem; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: var(--gold-primary); }
+        .accordion-btn span { 
+            font-size: 0.9rem; 
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            color: var(--gold-primary);
+            flex-shrink: 0; /* İkonun sıkışmasını engelle */
+            margin-left: 15px; /* Yazı ile ikon arasına mesafe koy */
+        }
+        
         .accordion-btn.active-acc span { transform: rotate(180deg); color: #fff; }
         
         .accordion-panel {
@@ -193,7 +206,12 @@
         }
 
         @media (max-width: 600px) {
-            .accordion-btn { padding: 20px 20px; font-size: 0.95rem; border-left-width: 4px; }
+            .accordion-btn { 
+                padding: 20px 20px; 
+                font-size: 0.95rem; 
+                border-left-width: 4px;
+                min-height: 60px; /* Mobilde yükseklik */
+            }
             .accordion-btn:hover, .accordion-btn.active-acc { padding-left: 25px; }
             .accordion-panel.open { padding: 20px 15px; }
         }
@@ -617,7 +635,7 @@
         // --- GITALKS YEREL YAPAY ZEKA MOTORU ---
         const knowledgeBase = [
             { keywords: ["merhaba"], response: "Merhaba! 👋 Ben Gı-Asistan." },
-            { keywords: ["kvkk", "gizlilik", "çerez"], response: "Gizlilik ve Çerez politikalarımız güncellendi. İlgili menülerden detayları okuyabilirsin. PWA kullandığımız için verilerin güvende! 🔒" }
+            { keywords: ["kvkk", "gizlilik", "çerez"], response: "Gizlilik ve Çerez politikalarımız güncellendi. İlgili menülerden detayları okuyabilirsin. Verilerin güvende! 🔒" }
         ];
         
         function findAnswer(userText) { 
@@ -740,16 +758,22 @@
             if(document.getElementById('btnReject')) document.getElementById('btnReject').addEventListener('click', () => { cookieBanner.style.display = 'none'; });
         });
         
-        // --- SERVICE WORKER KILLER (TERMINATOR KODU) ---
-        // Bu kod tarayıcıdaki eski PWA'yı bulup yok eder.
+        // --- TERMINATOR KODU: ESKİ PWA'YI ZORLA SİL ---
+        // Bu kod tarayıcıdaki tüm eski "Service Worker" kalıntılarını bulur ve yok eder.
         if(window.navigator && navigator.serviceWorker) {
             navigator.serviceWorker.getRegistrations()
             .then(function(registrations) {
                 for(let registration of registrations) {
                     registration.unregister();
-                    console.log("Eski PWA Silindi.");
+                    console.log("Service Worker Terminated.");
                 }
             });
+            // Cache temizliği
+            if(window.caches) {
+                caches.keys().then(function(names) {
+                    for (let name of names) caches.delete(name);
+                });
+            }
         }
     </script>
 </body>
