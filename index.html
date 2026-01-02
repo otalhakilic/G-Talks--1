@@ -75,6 +75,64 @@
             font-family: 'Montserrat', sans-serif;
         }
 
+        /* --- NETFLIX TARZI INTRO STYLES (YENİ EKLENDİ) --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            z-index: 999999; /* En üstte durması için */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            animation: fadeOutIntro 0.5s ease-out 3.5s forwards;
+        }
+
+        .intro-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--gold-primary); /* Marka rengin Gold olduğu için Gold yaptım */
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: scale(1);
+            animation: netflixZoom 3.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) forwards;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+
+        @keyframes netflixZoom {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+            15% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            70% {
+                opacity: 1;
+                text-shadow: 0 0 50px rgba(212, 175, 55, 0.8);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(30); /* İyice büyüyüp ekranın içinden geçiyor */
+            }
+        }
+
+        @keyframes fadeOutIntro {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        @media (max-width: 600px) {
+            .intro-text { font-size: 2.5rem; }
+        }
+        /* --- INTRO STYLES BITIS --- */
+
         /* --- NAVBAR --- */
         .navbar {
             position: fixed; top: 0; width: 100%; height: 80px;
@@ -373,6 +431,9 @@
 </head>
 <body>
 
+    <div id="intro-overlay">
+        <div class="intro-text">GıTalks</div>
+    </div>
     <div class="noise-overlay"></div>
 
     <div id="pwaInstallToast" class="pwa-install-toast">
@@ -603,7 +664,7 @@
             
             <button class="accordion-btn">GITALKS NEDİR? <span>&#9660;</span></button>
             <div class="accordion-panel">
-                <p><strong>GıTalks</strong>, tarım teknolojileri, yardım ve akademi ekseninde; teknoloji, inovasyon ve toplumsal faydayı bir araya getiren bir konferans ve etkinlik platformudur.</p>
+                <p><strong>GıTalks</strong>, tarım teknolojileri, yardım ve akademi ekseninde; teknoloji, inovasyon ve toplumsal faydayı bir araya getiren bir konferans ve etkinlik platformu.</p>
                 <p>Akademisyenler, sektör temsilcileri, girişimciler ve öğrencileri aynı çatı altında buluşturan GıTalks; güncel teknolojik gelişmelerin tarım ve toplumsal destek alanlarındaki etkilerini ele almayı amaçlar.</p>
             </div>
             
@@ -976,6 +1037,12 @@
         // --- 3. SİTE GENEL JS (NAVBAR, TAB, COUNTDOWN, ACCORDION) ---
         document.addEventListener("DOMContentLoaded", function () {
             
+            // --- YENİ EKLENEN: Intro temizleme (Güvenlik amaçlı) ---
+            setTimeout(() => {
+                const intro = document.getElementById('intro-overlay');
+                if(intro) intro.style.display = 'none';
+            }, 4000); // Animasyondan biraz sonra DOM'dan kaldır
+            
             // --- Menü ve Tab İşlemleri ---
             const sidebar = document.getElementById("mySidebar");
             const overlay = document.getElementById("menuOverlay");
@@ -1075,7 +1142,7 @@
                 // Eğer true değilse (yoksa veya false ise), banner'ı GÖSTER
                 setTimeout(() => {
                     cookieBanner.style.display = 'block';
-                }, 1000); // 1 saniye sonra nazikçe çıkar
+                }, 4500); // INTRO BİTTİKTEN SONRA ÇIKSIN DİYE SÜREYİ ARTIRDIM
             }
 
             // 2. Kabul Et Butonu
@@ -1150,7 +1217,10 @@
             // 2. Olayı daha sonra kullanmak üzere sakla
             deferredPrompt = e;
             // 3. Kendi özel tasarımımızı göster
-            if (pwaToast) pwaToast.style.display = 'flex';
+            // INTRO BİTTİKTEN SONRA ÇIKSIN (4.5sn)
+            setTimeout(() => {
+                if (pwaToast) pwaToast.style.display = 'flex';
+            }, 4500);
         });
 
         if(installBtn) {
