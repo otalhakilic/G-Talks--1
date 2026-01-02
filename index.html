@@ -18,7 +18,6 @@
     <style>
         /* --- 1. PREMIUM GOLD TEMASI --- */
         :root {
-            /* --- SADECE ALTIN SKALASI --- */
             --gold-primary: #D4AF37;
             --gold-light: #F2E2A6;
             --gold-dark: #8E7020;
@@ -136,13 +135,13 @@
         }
         h3 { color: #fff; font-size: 1.4rem; letter-spacing: 1px; margin-top:0; font-weight: 600; }
 
-        /* --- YENİLENMİŞ AKORDİYON (DÜZELTİLMİŞ TEXT) --- */
+        /* --- YENİLENMİŞ ESNEK AKORDİYON (TEXT WRAPPING FIX) --- */
         .accordion-btn {
             background: rgba(255, 255, 255, 0.02); 
             backdrop-filter: blur(10px); 
             color: var(--gold-light); 
             cursor: pointer; 
-            padding: 25px 30px; 
+            padding: 20px 25px; 
             width: 100%; 
             text-align: left;
             border: 1px solid rgba(212, 175, 55, 0.2); 
@@ -150,23 +149,22 @@
             border-radius: 4px; 
             outline: none; 
             transition: all 0.4s ease; 
-            font-size: 1.1rem; 
+            font-size: 1.05rem; 
             font-weight: 600; 
             margin-top: 15px;
             
-            /* -- YAZI DÜZENLEMESİ -- */
+            /* DÜZENLEME: Esnek Yapı */
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             text-transform: uppercase; 
             letter-spacing: 1px;
-            position: relative;
             
-            /* Metin kaydırma ayarları */
-            white-space: normal; /* Alt satıra geçmesine izin ver */
-            word-break: break-word; /* Uzun kelimeleri gerekirse böl */
-            line-height: 1.4; /* Satır aralığını rahatlat */
-            min-height: 70px; /* Minimum yükseklik ver ki sıkışmasın */
+            /* Metin Kaydırma Ayarları */
+            height: auto; /* Yükseklik içeriğe göre değişsin */
+            min-height: 60px; 
+            white-space: normal; /* Alt satıra geçiş serbest */
+            line-height: 1.5;
         }
         
         .accordion-btn:hover, .accordion-btn.active-acc { 
@@ -175,18 +173,24 @@
             border-left-color: var(--gold-primary);
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.15); 
             color: #fff;
-            padding-left: 35px;
+            padding-left: 30px;
         }
 
-        .accordion-btn span { 
+        /* Başlık metni için özel kapsayıcı */
+        .acc-text {
+            flex: 1; /* Mevcut boşluğu doldur */
+            padding-right: 15px; /* İkon ile araya mesafe */
+        }
+
+        /* İkon */
+        .acc-icon {
             font-size: 0.9rem; 
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             color: var(--gold-primary);
-            flex-shrink: 0; /* İkonun sıkışmasını engelle */
-            margin-left: 15px; /* Yazı ile ikon arasına mesafe koy */
+            flex-shrink: 0; /* Asla küçülme/ezilme */
         }
         
-        .accordion-btn.active-acc span { transform: rotate(180deg); color: #fff; }
+        .accordion-btn.active-acc .acc-icon { transform: rotate(180deg); color: #fff; }
         
         .accordion-panel {
             padding: 0 30px; 
@@ -207,12 +211,11 @@
 
         @media (max-width: 600px) {
             .accordion-btn { 
-                padding: 20px 20px; 
-                font-size: 0.95rem; 
+                padding: 18px 20px; 
+                font-size: 0.9rem; 
                 border-left-width: 4px;
-                min-height: 60px; /* Mobilde yükseklik */
             }
-            .accordion-btn:hover, .accordion-btn.active-acc { padding-left: 25px; }
+            .accordion-btn:hover, .accordion-btn.active-acc { padding-left: 20px; }
             .accordion-panel.open { padding: 20px 15px; }
         }
 
@@ -421,7 +424,7 @@
                 </div>
             </div>
         </div>
-        <button class="accordion-btn">Planlanan Diğer Etkinlikler <span>&#9660;</span></button>
+        <button class="accordion-btn"><span class="acc-text">Planlanan Diğer Etkinlikler</span> <span class="acc-icon">&#9660;</span></button>
         <div class="accordion-panel">
             <div class="conf-grid">
                 <div class="conf-card">
@@ -478,15 +481,15 @@
     <div id="about-tab" class="tab-content">
         <h2>Hakkımızda | GıTalks</h2>
         <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
-            <button class="accordion-btn">GITALKS NEDİR? <span>&#9660;</span></button>
+            <button class="accordion-btn"><span class="acc-text">GITALKS NEDİR?</span> <span class="acc-icon">&#9660;</span></button>
             <div class="accordion-panel">
                 <p><strong>GıTalks</strong>, tarım teknolojileri, yardım ve akademi ekseninde; teknoloji, inovasyon ve toplumsal faydayı bir araya getiren bir konferans ve etkinlik platformu.</p>
             </div>
-            <button class="accordion-btn">VİZYONUMUZ <span>&#9660;</span></button>
+            <button class="accordion-btn"><span class="acc-text">VİZYONUMUZ</span> <span class="acc-icon">&#9660;</span></button>
             <div class="accordion-panel">
                 <p>GıTalks; teknoloji, akademi, tarım, ekonomi ve sosyal etki alanlarında geleceği şekillendiren fikirlerin buluştuğu platformdur.</p>
             </div>
-            <button class="accordion-btn">MİSYONUMUZ <span>&#9660;</span></button>
+            <button class="accordion-btn"><span class="acc-text">MİSYONUMUZ</span> <span class="acc-icon">&#9660;</span></button>
             <div class="accordion-panel">
                 <p>GıTalks’un misyonu; güncel konuları ele almak, akademi-sektör iş birliği ve toplumsal faydayı desteklemektir.</p>
             </div>
@@ -497,7 +500,7 @@
         <h2>GİZLİLİK POLİTİKASI & KVKK AYDINLATMA METNİ</h2>
         <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
             
-            <button class="accordion-btn">1. Toplanan Veriler <span>&#9660;</span></button>
+            <button class="accordion-btn"><span class="acc-text">1. Toplanan Veriler</span> <span class="acc-icon">&#9660;</span></button>
             <div class="accordion-panel">
                 <p>GıTalks, kullanıcılarından doğrudan kişisel veri talep etmez.</p>
                 <p>Ancak site kullanımı sırasında aşağıdaki veriler otomatik olarak toplanabilir:</p>
@@ -510,7 +513,7 @@
                 <p><strong>Bu veriler kimlik tespiti amacıyla kullanılmaz.</strong></p>
             </div>
 
-            <button class="accordion-btn">2. Çerezler (Cookies) <span>&#9660;</span></button>
+            <button class="accordion-btn"><span class="acc-text">2. Çerezler (Cookies)</span> <span class="acc-icon">&#9660;</span></button>
             <div class="accordion-panel">
                 <p>GıTalks, yalnızca zorunlu ve teknik çerezler kullanır. Bu çerezler:</p>
                 <ul>
@@ -519,7 +522,7 @@
                 <p>❌ Reklam çerezi kullanılmaz.<br>❌ Üçüncü taraf takip çerezi kullanılmaz.</p>
             </div>
 
-            <button class="accordion-btn">3. Üçüncü Taraf Hizmetler <span>&#9660;</span></button>
+            <button class="accordion-btn"><span class="acc-text">3. Üçüncü Taraf Hizmetler</span> <span class="acc-icon">&#9660;</span></button>
             <div class="accordion-panel">
                 <p>Site aşağıdaki altyapılar üzerinden çalışmaktadır:</p>
                 <ul>
@@ -529,7 +532,7 @@
                 <p>Bu hizmetler kendi gizlilik politikalarına tabidir. GıTalks, bu hizmetler dışında üçüncü taraflarla kişisel veri paylaşımı yapmaz.</p>
             </div>
 
-            <button class="accordion-btn">4. KVKK Kapsamında Haklarınız <span>&#9660;</span></button>
+            <button class="accordion-btn"><span class="acc-text">4. KVKK Kapsamında Haklarınız</span> <span class="acc-icon">&#9660;</span></button>
             <div class="accordion-panel">
                 <p>6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında kullanıcılar:</p>
                 <ul>
@@ -541,7 +544,7 @@
                 <p>haklarına sahiptir. Bu haklar için bizimle iletişime geçebilirsiniz.</p>
             </div>
 
-            <button class="accordion-btn">İletişim <span>&#9660;</span></button>
+            <button class="accordion-btn"><span class="acc-text">İletişim</span> <span class="acc-icon">&#9660;</span></button>
             <div class="accordion-panel">
                 <p>Her türlü soru ve talepleriniz için:<br>
                 📧 E-posta: <a href="mailto:gitalks@gmail.com" style="color:var(--gold-primary)">gitalks@gmail.com</a><br>
@@ -555,12 +558,12 @@
         <h2>ÇEREZ (COOKIE) POLİTİKASI</h2>
         <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
             
-            <button class="accordion-btn">1. Çerez Nedir? <span>&#9660;</span></button>
+            <button class="accordion-btn"><span class="acc-text">1. Çerez Nedir?</span> <span class="acc-icon">&#9660;</span></button>
             <div class="accordion-panel">
                 <p>Çerezler (cookies), bir web sitesi ziyaret edildiğinde kullanıcının cihazında saklanan küçük metin dosyalarıdır. Çerezler, sitenin düzgün çalışmasını ve kullanıcı deneyiminin iyileştirilmesini sağlar.</p>
             </div>
 
-            <button class="accordion-btn">2. Kullanılan Çerez Türleri <span>&#9660;</span></button>
+            <button class="accordion-btn"><span class="acc-text">2. Kullanılan Çerez Türleri</span> <span class="acc-icon">&#9660;</span></button>
             <div class="accordion-panel">
                 <p>GıTalks yalnızca <strong>zorunlu ve teknik çerezler</strong> kullanmaktadır.</p>
                 <h3>✅ Zorunlu Çerezler</h3>
@@ -581,7 +584,7 @@
                 </ul>
             </div>
 
-            <button class="accordion-btn">3. Çerezlerin Kontrolü <span>&#9660;</span></button>
+            <button class="accordion-btn"><span class="acc-text">3. Çerezlerin Kontrolü</span> <span class="acc-icon">&#9660;</span></button>
             <div class="accordion-panel">
                 <p>Kullanıcılar, tarayıcı ayarları üzerinden çerezleri kontrol edebilir veya silebilir. Ancak zorunlu çerezlerin devre dışı bırakılması durumunda sitenin bazı bölümleri düzgün çalışmayabilir.</p>
             </div>
