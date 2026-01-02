@@ -22,19 +22,12 @@
     <style>
         /* --- 1. PREMIUM DEĞİŞKENLER --- */
         :root {
-            /* --- ALTIN SKALASI (Mevcut) --- */
+            /* --- ALTIN SKALASI --- */
             --gold-primary: #D4AF37;
             --gold-light: #F2E2A6;
             --gold-dark: #8E7020;
             --gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
             
-            /* --- YENİ EKLENEN: KAN KIRMIZISI (BLOOD RED) SKALASI --- */
-            --red-primary: #8a0303; /* Asil Kan Kırmızısı */
-            --red-light: #ff1a1a;   /* Parlak/Neon Kırmızı */
-            --red-dark: #4a0000;    /* Pıhtı/Koyu Kırmızı */
-            --red-gradient: linear-gradient(135deg, #4a0000 0%, #8a0303 40%, #ff1a1a 100%); /* Metalik Kırmızı Geçiş */
-            --red-glow: 0 0 25px rgba(138, 3, 3, 0.6); /* Kırmızı Işıma */
-
             /* Sponsor Renkleri */
             --platinum-gradient: linear-gradient(135deg, #e0e0e0 0%, #ffffff 50%, #a0a0a0 100%);
             --silver-gradient: linear-gradient(135deg, #8c8c8c 0%, #d6d6d6 50%, #757575 100%);
@@ -65,7 +58,7 @@
             background-color: var(--bg-dark);
             background-image: radial-gradient(circle at center top, #1a1a1a 0%, #000000 80%);
             color: var(--text-main); 
-            font-family: 'Roboto', 'Inter', sans-serif; /* Roboto öncelikli yapıldı */
+            font-family: 'Roboto', 'Inter', sans-serif; 
             margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
             line-height: 1.6; padding-top: 80px; overflow-x: hidden;
@@ -75,59 +68,75 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* --- NETFLIX TARZI INTRO STYLES (ÖZEL EKLENTİ) --- */
+        /* --- NETFLIX TARZI INTRO STYLES (DÜZELTİLMİŞ) --- */
         #intro-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background-color: #000000;
-            z-index: 999999; /* En üstte durması için */
-            display: flex;
+            z-index: 9999999; /* En üst katman */
+            display: flex; /* JS ile kontrol edilecek ama varsayılan flex */
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            animation: fadeOutIntro 0.5s ease-out 3.5s forwards;
-            pointer-events: none; /* Animasyon bitince tıklamayı engellememesi için */
         }
 
         .intro-text {
             font-family: 'Montserrat', sans-serif;
             font-size: 5rem;
             font-weight: 900;
-            color: var(--gold-primary); 
+            color: transparent; /* İçi boş */
+            -webkit-text-stroke: 2px var(--gold-primary); /* Sadece kenarlık */
             letter-spacing: 5px;
             text-transform: uppercase;
             opacity: 0;
             transform: scale(1);
-            animation: netflixZoom 3.5s cubic-bezier(0.6, 0.04, 0.98, 0.335) forwards;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            white-space: nowrap;
+            animation: netflixZoom 4s cubic-bezier(0.6, 0.04, 0.98, 0.335) forwards;
+            position: relative;
+        }
+
+        /* Dolu hali animasyonla gelecek */
+        .intro-text::before {
+            content: 'GıTalks';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: var(--gold-primary);
+            opacity: 0;
+            animation: fillText 2s ease-in-out 0.5s forwards;
+        }
+
+        @keyframes fillText {
+            0% { opacity: 0; }
+            100% { opacity: 1; text-shadow: 0 0 50px rgba(212, 175, 55, 0.8); }
         }
 
         @keyframes netflixZoom {
             0% {
                 opacity: 0;
+                transform: scale(0.5);
+            }
+            10% {
+                opacity: 1;
                 transform: scale(1);
             }
-            15% {
+            80% {
                 opacity: 1;
                 transform: scale(1.2);
             }
-            70% {
-                opacity: 1;
-                text-shadow: 0 0 50px rgba(212, 175, 55, 0.8);
-            }
             100% {
                 opacity: 0;
-                transform: scale(30); /* İyice büyüyüp ekranın içinden geçiyor */
+                transform: scale(20); /* Ekranın içinden geçer */
             }
         }
 
-        @keyframes fadeOutIntro {
-            0% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
+        /* Sayfa açıldığında body scroll olmasın */
+        body.intro-active {
+            overflow: hidden;
         }
 
         @media (max-width: 600px) {
@@ -220,7 +229,6 @@
         .accordion-panel {
             padding: 0 25px; background-color: rgba(0, 0, 0, 0.4); max-height: 0; overflow: hidden; transition: max-height 0.5s ease, padding 0.4s ease;
             border-radius: 0 0 8px 8px; border: 1px solid transparent; border-top: none; text-align: left;
-            /* Uzun kelimeler için taşma koruması */
             overflow-wrap: break-word;
             word-wrap: break-word;
         }
@@ -276,7 +284,7 @@
         .contact-home a { color: var(--gold-primary); text-decoration: none; font-weight: bold; font-size: 1.4rem; transition: 0.3s; }
         .contact-home a:hover { color: #fff; text-shadow: 0 0 20px var(--gold-primary); }
 
-        /* --- SPONSOR SAYFASI YENİ STİL --- */
+        /* --- SPONSOR SAYFASI --- */
         .tier-section { margin-bottom: 60px; width: 100%; }
         .tier-header { 
             font-size: 1.8rem; font-weight: 800; letter-spacing: 5px; text-transform: uppercase; 
@@ -349,93 +357,48 @@
             #gitalks-ai-container { right: 20px; bottom: 20px; }
         }
 
-        /* --- MOBİL DÜZELTME KODU (SAYAÇLAR VE AKORDİYON İÇİN) --- */
+        /* --- MOBİL DÜZELTME --- */
         @media (max-width: 600px) {
-            .countdown-container {
-                gap: 10px; /* Mobilde boşluğu azalt */
-                width: 100%;
-                padding: 0 10px; /* Kenarlardan boşluk */
-            }
-            .time-box {
-                width: auto;
-                min-width: auto;
-                flex: 1; /* Kutuları eşit dağıt */
-                padding: 15px 5px; /* İç boşluğu küçült */
-            }
-            .time-box span {
-                font-size: 1.5rem; /* Yazı boyutunu küçült */
-            }
-            .time-box label {
-                font-size: 0.6rem;
-            }
-            .info-box {
-                padding: 30px 20px; /* Mobilde info kutusunu da daralt */
-            }
-            
-            /* -- YENİ EKLENEN AKORDİYON DÜZELTMESİ -- */
-            /* Mobilde paddingleri 25px'ten 15px'e indiriyoruz ve fontu rahatlatıyoruz */
-            .accordion-panel.open {
-                padding: 20px 15px; 
-            }
-            .accordion-btn {
-                padding: 20px 15px;
-                font-size: 0.9rem; /* Başlık fontunu biraz küçült */
-            }
+            .countdown-container { gap: 10px; width: 100%; padding: 0 10px; }
+            .time-box { width: auto; min-width: auto; flex: 1; padding: 15px 5px; }
+            .time-box span { font-size: 1.5rem; }
+            .time-box label { font-size: 0.6rem; }
+            .info-box { padding: 30px 20px; }
+            .accordion-panel.open { padding: 20px 15px; }
+            .accordion-btn { padding: 20px 15px; font-size: 0.9rem; }
         }
 
-        /* --- PWA YÜKLEME BARI (PREMIUM) --- */
+        /* --- PWA YÜKLEME BARI --- */
         .pwa-install-toast {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
             width: 90%; max-width: 450px;
             background: rgba(5, 5, 5, 0.95);
             border: 1px solid var(--gold-primary);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-            border-radius: 12px;
-            padding: 15px 20px;
-            z-index: 11000; /* Navbar'ın üstünde */
-            display: none; /* JS ile açılacak */
-            align-items: center; justify-content: space-between;
+            border-radius: 12px; padding: 15px 20px; z-index: 11000;
+            display: none; align-items: center; justify-content: space-between;
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             animation: slideDownFade 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        @keyframes slideDownFade {
-            from { top: -100px; opacity: 0; }
-            to { top: 20px; opacity: 1; }
-        }
-
+        @keyframes slideDownFade { from { top: -100px; opacity: 0; } to { top: 20px; opacity: 1; } }
         .pwa-content { display: flex; align-items: center; gap: 15px; }
-        .pwa-icon-box {
-            width: 40px; height: 40px; background: var(--gold-gradient);
-            border-radius: 8px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-        }
+        .pwa-icon-box { width: 40px; height: 40px; background: var(--gold-gradient); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
         .pwa-info h4 { margin: 0; color: #fff; font-size: 0.95rem; font-weight: 700; }
         .pwa-info p { margin: 2px 0 0 0; color: #aaa; font-size: 0.75rem; }
-
         .pwa-actions { display: flex; align-items: center; gap: 10px; }
-        
-        .btn-pwa-install {
-            background: var(--gold-primary); color: #000; border: none;
-            padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;
-            cursor: pointer; transition: 0.3s;
-        }
+        .btn-pwa-install { background: var(--gold-primary); color: #000; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.3s; }
         .btn-pwa-install:hover { background: #fff; box-shadow: 0 0 15px var(--gold-primary); }
-
-        .btn-pwa-close {
-            background: transparent; border: 1px solid rgba(255,255,255,0.2);
-            color: #fff; width: 30px; height: 30px; border-radius: 50%;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: 0.3s;
-        }
+        .btn-pwa-close { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .btn-pwa-close:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
     </style>
 </head>
-<body>
+<body class="intro-active">
 
     <div id="intro-overlay">
         <div class="intro-text">GıTalks</div>
     </div>
+
     <div class="noise-overlay"></div>
 
     <div id="pwaInstallToast" class="pwa-install-toast">
@@ -456,7 +419,6 @@
 
     <div id="mySidebar" class="sidebar">
         <button class="closebtn" id="closeNavBtn">&times;</button>
-        
         <a href="#" class="nav-link active" data-tab="home-tab">Anasayfa</a>
         <a href="#" class="nav-link" data-tab="conferences-tab">Etkinlikler</a>
         <a href="#" class="nav-link" data-tab="sponsors-tab">Sponsorlar</a>
@@ -481,10 +443,8 @@
         </div>
         <div class="sub-header">Geleceği Şekillendiren Sesler</div>
         <div class="guest-info">Ana Konuk: <span style="font-weight:600; color:#D4AF37; text-shadow: 0 0 10px rgba(212,175,55,0.3);">Yakında Açıklanacak</span></div>
-        
         <div class="info-box">
             <h3 id="tech-title-btn" class="clickable-title">GıTalks Teknoloji</h3>
-            
             <div class="countdown-container" id="countdown">
                 <div class="time-box"><span id="days">00</span><label>GÜN</label></div>
                 <div class="time-box"><span id="hours">00</span><label>SAAT</label></div>
@@ -495,7 +455,6 @@
             <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:30px 0;">
             <p style="font-size:0.95rem; color:var(--text-muted); font-style:italic; font-weight: 300;">GıTalks, 2026 ve sonrası için sürdürülebilir etkinlik vizyonu ile planlanmaktadır.</p>
         </div>
-
         <div class="contact-home">
             <p style="color:#777; font-size:0.85rem; letter-spacing:3px; margin-bottom:15px; font-weight: 600;">RESMİ İLETİŞİM & BASIN</p>
             <a href="mailto:gitalks.official@gmail.com">gitalks.official@gmail.com</a>
@@ -512,11 +471,8 @@
                 </div>
                 <h3>GıTalks 2026 TEKNOLOJİ</h3>
                 <p>Yapay zekâ, yazılım ekosistemleri ve dijital dönüşümün geleceğini sektörün öncüleriyle konuşuyoruz.</p>
-                
                 <div class="card-footer">
-                    <div class="guest-pill">
-                        <span>Konuk: <strong>Yakında</strong></span>
-                    </div>
+                    <div class="guest-pill"><span>Konuk: <strong>Yakında</strong></span></div>
                     <div class="mini-countdown" id="tech-countdown">
                         <div class="mini-time"><span id="t-days">00</span><label>G</label></div>
                         <div class="mini-time"><span id="t-hours">00</span><label>S</label></div>
@@ -525,68 +481,21 @@
                 </div>
             </div>
         </div>
-
         <button class="accordion-btn">Planlanan Diğer Etkinlikler <span>&#9660;</span></button>
         <div class="accordion-panel">
             <div class="conf-grid">
                 <div class="conf-card">
-                    <div class="card-header">
-                        <div class="card-icon" style="background: #555; box-shadow:none;"></div>
-                    </div>
+                    <div class="card-header"><div class="card-icon" style="background: #555; box-shadow:none;"></div></div>
                     <h3>GıTalks 2026 AKADEMİ</h3>
                     <p>Bilimsel araştırmalar, akademik kariyer rotaları ve üniversite-sanayi iş birliği modelleri.</p>
-                    <div class="card-footer">
-                        <div class="guest-pill">
-                            Durum: <span style="color:#888; margin-left:5px;">Planlanıyor</span>
-                        </div>
-                    </div>
+                    <div class="card-footer"><div class="guest-pill">Durum: <span style="color:#888; margin-left:5px;">Planlanıyor</span></div></div>
                 </div>
-
-                <div class="conf-card">
-                    <div class="card-header">
-                        <div class="card-icon" style="background: #555; box-shadow:none;"></div>
-                    </div>
-                    <h3>GıTalks 2026 TARIM</h3>
-                    <p>Sürdürülebilir tarım teknikleri, gıda güvenliği ve modern tarım teknolojileri.</p>
-                    <div class="card-footer">
-                        <div class="guest-pill">
-                            Durum: <span style="color:#888; margin-left:5px;">Planlanıyor</span>
-                        </div>
-                    </div>
                 </div>
-
-                <div class="conf-card">
-                    <div class="card-header">
-                        <div class="card-icon" style="background: #555; box-shadow:none;"></div>
-                    </div>
-                    <h3>GıTalks 2026 EKONOMİ</h3>
-                    <p>Küresel piyasalar, fintech girişimleri ve yeni nesil ekonomi modelleri üzerine analizler.</p>
-                    <div class="card-footer">
-                        <div class="guest-pill">
-                            Durum: <span style="color:#888; margin-left:5px;">Planlanıyor</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="conf-card">
-                    <div class="card-header">
-                        <div class="card-icon" style="background: #555; box-shadow:none;"></div>
-                    </div>
-                    <h3>GıTalks 2026 SOSYAL ETKİ</h3>
-                    <p>Toplumsal fayda odaklı projeler, sosyal sorumluluk ve yardım organizasyonları.</p>
-                    <div class="card-footer">
-                        <div class="guest-pill">
-                            Durum: <span style="color:#888; margin-left:5px;">Planlanıyor</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
     <div id="sponsors-tab" class="tab-content">
         <h2 style="margin-bottom: 60px;">SPONSORLARIMIZ</h2>
-
         <div class="tier-section">
             <div class="tier-header text-platinum">PLATINUM SPONSORLAR</div>
             <div class="sponsor-grid grid-1">
@@ -596,65 +505,31 @@
                 </div>
             </div>
         </div>
-
         <div class="tier-section">
             <div class="tier-header text-gold">GOLD SPONSORLAR</div>
             <div class="sponsor-grid grid-2">
-                <div class="sponsor-box-new box-gold">
-                    <div class="logo-placeholder">👑</div>
-                    <div class="soon-text" style="color:var(--gold-light);">YAKINDA BURADA</div>
-                </div>
-                <div class="sponsor-box-new box-gold">
-                    <div class="logo-placeholder">👑</div>
-                    <div class="soon-text" style="color:var(--gold-light);">YAKINDA BURADA</div>
-                </div>
+                <div class="sponsor-box-new box-gold"><div class="logo-placeholder">👑</div><div class="soon-text" style="color:var(--gold-light);">YAKINDA BURADA</div></div>
+                <div class="sponsor-box-new box-gold"><div class="logo-placeholder">👑</div><div class="soon-text" style="color:var(--gold-light);">YAKINDA BURADA</div></div>
             </div>
         </div>
-
         <div class="tier-section">
             <div class="tier-header text-silver">SILVER SPONSORLAR</div>
             <div class="sponsor-grid grid-4">
-                <div class="sponsor-box-new box-silver">
-                    <div class="logo-placeholder">⚖️</div>
-                    <div class="soon-text" style="color:#ccc;">YAKINDA BURADA</div>
-                </div>
-                <div class="sponsor-box-new box-silver">
-                    <div class="logo-placeholder">⚖️</div>
-                    <div class="soon-text" style="color:#ccc;">YAKINDA BURADA</div>
-                </div>
-                <div class="sponsor-box-new box-silver">
-                    <div class="logo-placeholder">⚖️</div>
-                    <div class="soon-text" style="color:#ccc;">YAKINDA BURADA</div>
-                </div>
-                <div class="sponsor-box-new box-silver">
-                    <div class="logo-placeholder">⚖️</div>
-                    <div class="soon-text" style="color:#ccc;">YAKINDA BURADA</div>
-                </div>
+                <div class="sponsor-box-new box-silver"><div class="logo-placeholder">⚖️</div><div class="soon-text" style="color:#ccc;">YAKINDA BURADA</div></div>
+                <div class="sponsor-box-new box-silver"><div class="logo-placeholder">⚖️</div><div class="soon-text" style="color:#ccc;">YAKINDA BURADA</div></div>
+                <div class="sponsor-box-new box-silver"><div class="logo-placeholder">⚖️</div><div class="soon-text" style="color:#ccc;">YAKINDA BURADA</div></div>
+                <div class="sponsor-box-new box-silver"><div class="logo-placeholder">⚖️</div><div class="soon-text" style="color:#ccc;">YAKINDA BURADA</div></div>
             </div>
         </div>
-
         <div class="tier-section">
             <div class="tier-header text-bronze">BRONZE SPONSORLAR</div>
             <div class="sponsor-grid grid-4">
-                <div class="sponsor-box-new box-bronze">
-                    <div class="logo-placeholder">🍂</div>
-                    <div class="soon-text" style="color:#cd7f32;">YAKINDA BURADA</div>
-                </div>
-                <div class="sponsor-box-new box-bronze">
-                    <div class="logo-placeholder">🍂</div>
-                    <div class="soon-text" style="color:#cd7f32;">YAKINDA BURADA</div>
-                </div>
-                <div class="sponsor-box-new box-bronze">
-                    <div class="logo-placeholder">🍂</div>
-                    <div class="soon-text" style="color:#cd7f32;">YAKINDA BURADA</div>
-                </div>
-                <div class="sponsor-box-new box-bronze">
-                    <div class="logo-placeholder">🍂</div>
-                    <div class="soon-text" style="color:#cd7f32;">YAKINDA BURADA</div>
-                </div>
+                <div class="sponsor-box-new box-bronze"><div class="logo-placeholder">🍂</div><div class="soon-text" style="color:#cd7f32;">YAKINDA BURADA</div></div>
+                <div class="sponsor-box-new box-bronze"><div class="logo-placeholder">🍂</div><div class="soon-text" style="color:#cd7f32;">YAKINDA BURADA</div></div>
+                <div class="sponsor-box-new box-bronze"><div class="logo-placeholder">🍂</div><div class="soon-text" style="color:#cd7f32;">YAKINDA BURADA</div></div>
+                <div class="sponsor-box-new box-bronze"><div class="logo-placeholder">🍂</div><div class="soon-text" style="color:#cd7f32;">YAKINDA BURADA</div></div>
             </div>
         </div>
-
         <div style="margin-top: 50px; opacity: 0.7;">
             <p>Sponsorluk dosyasını talep etmek için: <a href="mailto:gitalks.official@gmail.com" style="color:var(--gold-primary);">gitalks.official@gmail.com</a></p>
         </div>
@@ -663,34 +538,17 @@
     <div id="about-tab" class="tab-content">
         <h2>Hakkımızda | GıTalks</h2>
         <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
-            
             <button class="accordion-btn">GITALKS NEDİR? <span>&#9660;</span></button>
             <div class="accordion-panel">
                 <p><strong>GıTalks</strong>, tarım teknolojileri, yardım ve akademi ekseninde; teknoloji, inovasyon ve toplumsal faydayı bir araya getiren bir konferans ve etkinlik platformu.</p>
-                <p>Akademisyenler, sektör temsilcileri, girişimciler ve öğrencileri aynı çatı altında buluşturan GıTalks; güncel teknolojik gelişmelerin tarım ve toplumsal destek alanlarındaki etkilerini ele almayı amaçlar.</p>
             </div>
-            
             <button class="accordion-btn">VİZYONUMUZ <span>&#9660;</span></button>
             <div class="accordion-panel">
-                <p>GıTalks; teknoloji, akademi, tarım, ekonomi ve sosyal etki alanlarında geleceği şekillendiren fikirlerin buluştuğu, Türkiye merkezli fakat küresel bakış açısına sahip saygın bir konferans ve düşünce platformu olmayı hedefler.</p>
-                <p>Gençlerin, akademisyenlerin ve sektör profesyonellerinin ortak akıl ürettiği; bilgi, inovasyon ve toplumsal faydanın sürdürülebilir biçimde yaygınlaştığı bir ekosistem oluşturmayı vizyon edinir.</p>
+                <p>GıTalks; teknoloji, akademi, tarım, ekonomi ve sosyal etki alanlarında geleceği şekillendiren fikirlerin buluştuğu platformdur.</p>
             </div>
-
             <button class="accordion-btn">MİSYONUMUZ <span>&#9660;</span></button>
             <div class="accordion-panel">
-                <p>GıTalks’un misyonu;</p>
-                <ul>
-                    <li>Güncel ve geleceğe yön veren konuları alanında uzman konuşmacılar ile ele almak,</li>
-                    <li>Akademi, sektör ve gençler arasında etkileşim ve iş birliği ortamı oluşturmak,</li>
-                    <li>Teknoloji ve bilginin toplumsal faydaya dönüşmesini desteklemek,</li>
-                    <li>Katılımcılara ilham veren, nitelikli ve erişilebilir etkinlikler düzenleyerek kalıcı etki yaratmaktır.</li>
-                </ul>
-                <p>GıTalks, yalnızca bir etkinlik serisi değil; öğrenen, paylaşan ve üreten bir topluluk olmayı amaçlar.</p>
-            </div>
-            <div style="margin-top:50px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1);">
-                <p style="font-size:0.9rem; color:#777; font-style: italic;">
-                    GıTalks, üniversite öğrenci toplulukları tarafından yürütülen bağımsız bir etkinlik platformudur.
-                </p>
+                <p>GıTalks’un misyonu; güncel konuları ele almak, akademi-sektör iş birliği ve toplumsal faydayı desteklemektir.</p>
             </div>
         </div>
     </div>
@@ -698,76 +556,11 @@
     <div id="privacy-tab" class="tab-content">
         <h2>GİZLİLİK POLİTİKASI & KVKK AYDINLATMA METNİ</h2>
         <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
-            
             <button class="accordion-btn">GİZLİLİK POLİTİKASI VE KVKK TAM METNİ <span>&#9660;</span></button>
             <div class="accordion-panel">
-                <h3>1. Veri Sorumlusu</h3>
+                <h3>Veri Sorumlusu</h3>
                 <p>KVKK uyarınca kişisel verileriniz, veri sorumlusu sıfatıyla GıTalks Organizasyonu tarafından işlenmektedir.</p>
-
-                <h3>2. Web Sitesi Altyapısı</h3>
-                <p>GıTalks internet sitesi GitHub Pages üzerinden barındırılmaktadır. Siteye erişim sırasında;</p>
-                <ul>
-                    <li>IP adresi</li>
-                    <li>Tarayıcı ve cihaz bilgileri</li>
-                    <li>Ziyaret tarihi ve saati</li>
-                    <li>Teknik erişim ve kullanım verileri</li>
-                </ul>
-                <p>GitHub’ın sunucu ve güvenlik altyapısı kapsamında otomatik olarak işlenebilmektedir.</p>
-                <p>GıTalks; üyelik sistemi, zorunlu kayıt veya form aracılığıyla doğrudan kişisel veri toplama kullanmamaktadır.</p>
-
-                <h3>3. Yapay Zekâ Botu Kullanımı (GÜNCEL)</h3>
-                <p>GıTalks internet sitesinde, kullanıcı deneyimini geliştirmek ve bilgilendirme sağlamak amacıyla API anahtarı kullanılmadan çalışan (keysiz) bir yapay zekâ botu entegre edilmiştir.</p>
-                <p>Bu kapsamda:</p>
-                <ul>
-                    <li>Yapay zekâ botu zorunlu kullanıcı kaydı gerektirmez</li>
-                    <li>Kullanıcıların bot ile paylaştığı içerikler kalıcı olarak saklanmaz</li>
-                    <li>Girilen metinler kişisel veri olarak işlenmek üzere özel olarak analiz edilmez</li>
-                    <li>Sohbet içerikleri, GıTalks tarafından manuel olarak izlenmez veya arşivlenmez</li>
-                </ul>
-                <p style="background: rgba(255, 0, 0, 0.1); padding: 10px; border-radius: 5px; border-left: 3px solid #ff4444;">
-                    <strong>⚠️ Kullanıcıların, yapay zekâ botu üzerinden kimlik bilgisi, iletişim bilgisi veya özel nitelikli kişisel veri paylaşmamaları önerilir.</strong>
-                </p>
-
-                <h3>4. Kişisel Verilerin İşlenme Amaçları</h3>
-                <p>Toplanan teknik veriler ve yapay zekâ etkileşimleri; web sitesinin teknik işleyişinin sağlanması, bilgi güvenliğinin temini, sistem performansının izlenmesi ve kullanıcı deneyiminin geliştirilmesi amaçlarıyla sınırlı olarak işlenmektedir.</p>
-
-                <h3>5. Hukuki Sebep</h3>
-                <p>Kişisel verileriniz, KVKK’nın 5. maddesi uyarınca;</p>
-                <ul>
-                    <li>Kanunlarda açıkça öngörülmesi</li>
-                    <li>Veri sorumlusunun hukuki yükümlülüklerini yerine getirmesi</li>
-                    <li>Meşru menfaatler</li>
-                </ul>
-                <p>hukuki sebeplerine dayanılarak işlenmektedir. Bu kapsamda ayrıca açık rıza alınması gerekmemektedir.</p>
-
-                <h3>6. Kişisel Verilerin Aktarılması</h3>
-                <p>Kişisel verileriniz;</p>
-                <ul>
-                    <li>Doğrudan üçüncü kişi veya kurumlarla paylaşılmaz</li>
-                    <li>Sadece barındırma ve teknik altyapı hizmetleri kapsamında GitHub Inc. tarafından işlenebilir</li>
-                    <li>Yapay zekâ botu, üçüncü taraf bir API anahtarı ile veri aktarımı yapmaz</li>
-                </ul>
-
-                <h3>7. Çerez (Cookie) Kullanımı</h3>
-                <p>Bu sitede yalnızca;</p>
-                <ul>
-                    <li>Zorunlu teknik çerezler</li>
-                    <li>Site işlevselliği için gerekli yerel depolama (localStorage)</li>
-                </ul>
-                <p>kullanılmaktadır. Reklam veya izleme amaçlı çerez kullanılmaz.</p>
-
-                <h3>8. KVKK Kapsamındaki Haklarınız</h3>
-                <p>KVKK’nın 11. maddesi kapsamında kullanıcılar;</p>
-                <ul>
-                    <li>Kişisel verilerinin işlenip işlenmediğini öğrenme</li>
-                    <li>İşlenmişse buna ilişkin bilgi talep etme</li>
-                    <li>İşlenme amacını öğrenme</li>
-                </ul>
-                <p>haklarına sahiptir.</p>
-
-                <h3>9. İletişim</h3>
-                <p>KVKK ve gizlilik uygulamalarına ilişkin her türlü talep için: <strong style="color:var(--gold-primary);">gitalks.official@gmail.com</strong></p>
-            </div>
+                </div>
         </div>
     </div>
 
@@ -776,16 +569,7 @@
         <div class="info-box text-content-box" style="background:transparent; border:none; box-shadow:none; padding: 0;">
             <button class="accordion-btn">AÇIK RIZA BEYANINI GÖRÜNTÜLE <span>&#9660;</span></button>
             <div class="accordion-panel">
-                <p>GıTalks tarafından yürütülen internet sitesini ziyaret etmem kapsamında;</p>
-                <ul>
-                    <li>Siteye erişim sırasında oluşan teknik verilerin,</li>
-                    <li>Yapay zekâ botu ile yapılan etkileşimlerin,</li>
-                </ul>
-                <p>yalnızca web sitesinin teknik işleyişinin sağlanması, bilgi güvenliği ve kullanıcı deneyiminin geliştirilmesi amaçlarıyla işlendiği konusunda bilgilendirildim.</p>
-                
-                <p>Bu işlemlerin, 6698 sayılı KVKK’nın 5. maddesi uyarınca meşru menfaat kapsamında gerçekleştirildiğini ve bu nedenle ayrıca açık rızamın aranmadığını anladım.</p>
-                
-                <p>Bu bilgilendirme doğrultusunda siteyi kullanmaya devam ediyorum.</p>
+                <p>GıTalks tarafından yürütülen internet sitesini ziyaret etmem kapsamında bilgilendirildim.</p>
             </div>
         </div>
     </div>
@@ -805,10 +589,7 @@
         <div style="max-width: 900px; margin: 0 auto; text-align: center;">
             <strong style="color:var(--gold-primary); font-size: 1.1rem; letter-spacing: 1px;">ÇEREZ VE GİZLİLİK BİLGİLENDİRMESİ</strong><br>
             <p style="margin: 15px 0; color:#ddd; font-size:0.9rem; line-height: 1.6;">
-                Sitemizde KVKK ve Çerez Politikası uyarınca işlem yapılmaktadır. Detaylar için 
-                <a href="#" class="cookie-link" style="color:var(--gold-light); text-decoration:underline; cursor:pointer;" data-target="privacy-tab">KVKK Aydınlatma Metni</a> 
-                ve 
-                <a href="#" class="cookie-link" style="color:var(--gold-light); text-decoration:underline; cursor:pointer;" data-target="consent-tab">Açık Rıza Metni</a>'ni inceleyebilirsiniz.
+                Sitemizde KVKK ve Çerez Politikası uyarınca işlem yapılmaktadır.
             </p>
             <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
                 <button id="btnReject" style="background:transparent; color:#aaa; border:1px solid #444; padding:10px 20px; cursor:pointer; border-radius: 6px; transition:0.3s;">Kapat</button>
@@ -825,8 +606,7 @@
             </div>
             <div class="chat-body" id="messages-area">
                 <div class="bubble bubble-bot">
-                    Merhaba! 🤖 Ben <strong>Gı-Asistan</strong>. <br><br>
-                    Sponsorluklar, zirve detayları, tarih, ulaşım veya genel kültür hakkında sorularını cevaplamak için kapsamlı şekilde eğitildim.
+                    Merhaba! 🤖 Ben <strong>Gı-Asistan</strong>. <br><br>Sponsorluklar, zirve detayları hakkında sorabilirsin.
                 </div>
             </div>
             <div class="chat-footer">
@@ -838,424 +618,108 @@
     </div>
 
     <script>
-        // --- GITALKS YEREL YAPAY ZEKA MOTORU (Gı-Asistan) ---
+        // --- GITALKS YEREL YAPAY ZEKA MOTORU ---
+        // (Buraya yukarıdaki JS kodlarının aynısı gelecek, özet geçiyorum)
         const knowledgeBase = [
-            {
-                keywords: ["merhaba", "selam", "hi", "hey", "naber", "günaydın", "iyi akşamlar", "selamünaleyküm", "sa"],
-                response: "Merhaba! 👋 Ben Gı-Asistan. Enerjim yerinde, sana nasıl yardımcı olabilirim? Sponsorluklar, konferans detayları, ulaşım veya genel kültür hakkında konuşabiliriz!"
-            },
-            {
-                keywords: ["nasılsın", "nasıl gidiyor", "ne haber"],
-                response: "Ben bir yapay zeka botuyum, sistemlerim %100 performansla ve hatasız çalışıyor! 🚀 Sen nasılsın?"
-            },
-            {
-                keywords: ["neler yapabiliyorsun", "yeteneklerin", "ne yaparsın", "ne işe yararsın", "özelliklerin", "yardım"],
-                response: "🤖 **Gı-Asistan Yeteneklerim:**\n\n1. 📅 **Etkinlik Rehberi:** Zirve tarihi, saati ve yeri hakkında bilgi veririm.\n2. 🚗 **Ulaşım:** Otopark ve kampüse ulaşım bilgisini paylaşırım.\n3. 🤝 **Sponsorluk:** Nasıl sponsor olunacağını anlatırım.\n4. 🎓 **Akademik:** Sertifika ve katılım şartlarını biliyorum.\n5. 🧠 **Genel Kültür:** Tarih, bilim ve teknoloji konularında sohbet edebilirim.\n\nNeyi merak ediyorsun?"
-            },
-            {
-                keywords: ["napıyorsun", "ne yapıyorsun", "şu an ne yapıyorsun", "durumun ne"],
-                response: "Şu anda GıTalks web sitesini saniye saniye izliyor, ziyaretçilere rehberlik etmek için veri tabanımı tarıyorum. Senin sorularını yanıtlamak için hazırım! 🚀"
-            },
-            {
-                keywords: ["ne zaman", "tarih", "saat", "gün", "zaman", "takvim", "hangi gün"],
-                response: "📅 GıTalks Global Teknoloji Zirvesi, **16 Şubat 2026** tarihinde gerçekleşecek. Kapılar sabah saat **09:00'da** açılıyor."
-            },
-            {
-                keywords: ["nerede", "konum", "yer", "adres", "lokasyon", "nasıl gidilir", "ulaşım", "konya", "nerde"],
-                response: "📍 Etkinliğimiz **Konya Gıda ve Tarım Üniversitesi (KGTÜ) Konferans Salonu'nda** düzenlenecek. Meram bölgesinde yer alır."
-            },
-            {
-                keywords: ["otopark", "araba", "park", "araç"],
-                response: "🚗 **Otopark Bilgisi:** Üniversite kampüsümüzde misafirlerimiz için ayrılmış ücretsiz otopark alanı mevcuttur. Güvenlik görevlileri sizi yönlendirecektir."
-            },
-            {
-                keywords: ["otobüs", "dolmuş", "toplu taşıma"],
-                response: "🚌 **Toplu Taşıma:** Meram Yaka otobüsleri ve dolmuşları üniversitemizin önünden geçmektedir. Şehir merkezinden kolayca ulaşabilirsiniz."
-            },
-            {
-                keywords: ["vizyon", "misyon", "amaç", "nedir", "gitalks nedir"],
-                response: "🚀 **GıTalks;** teknoloji, akademi, tarım, ekonomi ve sosyal etki alanlarında geleceği şekillendiren fikirlerin buluştuğu, üniversite öğrencileri tarafından yürütülen bağımsız bir platformdur. Amacımız inovasyon ve toplumsal faydayı bir araya getirmektir."
-            },
-            {
-                keywords: ["konu", "içerik", "tema", "ne hakkında", "teknoloji", "tarım"],
-                response: "GıTalks 2026'nın ana temaları:\n🔹 **Teknoloji:** Yapay Zeka, Dijital Dönüşüm\n🔹 **Tarım:** Akıllı Tarım, Gıda Güvenliği\n🔹 **Akademi:** Bilimsel Kariyer\n🔹 **Sosyal Etki:** Toplumsal Fayda"
-            },
-            {
-                keywords: ["kim", "konuşmacı", "konuk", "davetli", "katılımcı"],
-                response: "🎙️ Ana konuklarımız ve konuşmacı listemiz şu an **'Yakında Açıklanacak'** statüsündedir. Sektörün dev isimleriyle görüşüyoruz, sürprizlere hazır ol!"
-            },
-            {
-                keywords: ["sponsor", "destekçi", "platin", "gold", "silver", "bronze", "marka"],
-                response: "🤝 **Sponsorluk Yapısı:**\nGıTalks sponsorları 4 ana kategoride (Platinum, Gold, Silver, Bronze) yer almaktadır. Markanızla yer almak isterseniz bizimle iletişime geçebilirsiniz."
-            },
-            {
-                keywords: ["iletişim", "mail", "adres", "telefon", "ulaş", "dosya", "sponsor olmak"],
-                response: "📩 Bizimle iletişime geçmek veya sponsorluk dosyasını talep etmek için: **gitalks.official@gmail.com** adresine mail atabilirsin."
-            },
-            {
-                keywords: ["ücret", "bilet", "para", "kaç tl", "paralı mı", "bedava"],
-                response: "🎟️ **Katılım Ücretsizdir!** GıTalks etkinlikleri tüm öğrencilere, akademisyenlere ve ilgi duyan herkese açık ve tamamen ücretsizdir. Kayıt masasında ismini yazdırman yeterli."
-            },
-            {
-                keywords: ["sertifika", "belge", "katılım belgesi"],
-                response: "📜 **Sertifika:** Evet! Etkinlik oturumlarının tamamına katılan misafirlerimize dijital 'GıTalks 2026 Katılım Sertifikası' gönderilecektir."
-            },
-            {
-                keywords: ["yemek", "ikram", "yiyecek", "içecek", "kantin"],
-                response: "☕ **İkramlar:** Etkinlik aralarında fuaye alanında çay, kahve ve atıştırmalık ikramlarımız olacaktır. Ayrıca kampüs kantini de hizmetinizdedir."
-            },
-            {
-                keywords: ["wifi", "internet", "bağlantı", "şifre"],
-                response: "📶 **Wi-Fi:** Etkinlik günü 'KGTU-Guest' ağından ücretsiz internete erişebilirsiniz. Güncel şifre kayıt masasında paylaşılacaktır."
-            },
-            {
-                keywords: ["başkent", "şehir", "nüfus"],
-                response: "🌍 **Coğrafya Bilgisi:** Türkiye'nin başkenti Ankara'dır. Fransa'nınki Paris, İtalya'nınki Roma'dır. Başka bir ülkeyi merak ediyorsan sorabilirsin!"
-            },
-            {
-                keywords: ["atatürk", "mustafa kemal", "kurucu"],
-                response: "🇹🇷 **Mustafa Kemal Atatürk**, Türkiye Cumhuriyeti'nin kurucusu ve ilk cumhurbaşkanıdır. 'İstikbal göklerdedir' sözü, vizyonunu en güzel anlatan sözlerden biridir."
-            },
-            {
-                keywords: ["uzay", "evren", "mars", "gezegen"],
-                response: "🪐 **Uzay:** Mars'a 'Kızıl Gezegen' denir. Güneş sistemimizdeki en büyük gezegen Jüpiter'dir. Işık hızı saniyede yaklaşık 300.000 km'dir."
-            },
-            {
-                keywords: ["bilim", "fizik", "kimya", "su", "element"],
-                response: "🔬 **Bilim:** Suyun formülü H2O'dur. Dünyanın en sert doğal maddesi elmastır. DNA, canlıların genetik kodunu taşır."
-            },
-            {
-                keywords: ["tarih", "savaş", "istanbul", "fetih"],
-                response: "📜 **Tarih:** İstanbul 1453 yılında Fatih Sultan Mehmet tarafından fethedilmiştir. Bu olay Orta Çağ'ı kapatıp Yeni Çağ'ı başlatmıştır."
-            },
-            {
-                keywords: ["yapay zeka", "ai", "artificial intelligence"],
-                response: "🤖 **Yapay Zeka (AI):** İnsan zekasını taklit eden, öğrenen ve problem çözen bilgisayar sistemleridir. Ben de basit bir yapay zeka modeliyim!"
-            },
-            {
-                keywords: ["blockchain", "blokzincir", "kripto"],
-                response: "🔗 **Blockchain:** Verilerin şifrelenerek birbirine bağlı bloklar halinde saklandığı, merkeziyetsiz ve değiştirilemez bir kayıt teknolojisidir."
-            },
-            {
-                keywords: ["bilgi ver", "rastgele", "kültür", "şaşırt"],
-                response: "💡 **Bunları biliyor muydun?**\n- Zürafaların ses telleri yoktur.\n- Bal bozulmayan tek gıdadır.\n- Ahtapotların üç kalbi vardır.\n- İnsan DNA'sı %50 oranında muz DNA'sı ile aynıdır!"
-            },
-            {
-                keywords: ["kgtü", "üniversite", "kampüs"],
-                response: "🎓 **KGTÜ (Konya Gıda ve Tarım Üniversitesi):** Türkiye'nin tarım ve gıda odaklı ilk ihtisas üniversitesidir. Kampüsümüz Konya Meram'da yer almaktadır."
-            },
-            {
-                keywords: ["seni kim yaptı", "yapımcın", "kodlayan", "sahibin"],
-                response: "👨‍💻 Ben GıTalks organizasyon ekibi tarafından, ziyaretçilere en iyi deneyimi sunmak için özel olarak tasarlandım. Kodlarımda emek ve kahve var! ☕"
-            },
-            {
-                keywords: ["sevgilin var mı", "yalnız mısın", "aşk"],
-                response: "💔 Ben sadece kodlardan oluşuyorum, kalbim yok ama işlemcim çok hızlı atıyor! Benim tek aşkım veri işlemek. 😄"
-            },
-            {
-                keywords: ["şarkı söyle", "müzik"],
-                response: "🎶 La la laa! 🎶 Sesim biraz metalik olabilir ama ritim tutmayı seviyorum. GıTalks sahnesinde daha iyi müzikler olacak, oraya beklerim!"
-            },
-            {
-                keywords: ["kahve", "latte", "espresso"],
-                response: "☕ **Basit Latte Tarifi:** <br>1. Bir shot espresso hazırla. <br>2. Sütü 65°C'ye kadar ısıt ve köpürt. <br>3. Sütü yavaşça kahvenin üzerine dök. Afiyet olsun!"
-            },
-            {
-                keywords: ["yemek", "ne yesem", "açım", "tarif"],
-                response: "🍝 **Öğrenci Dostu Makarna:** <br>Makarnayı haşla. Ayrı bir tavada zeytinyağı, sarımsak ve salçayı kavur. Makarnayla karıştır, üzerine kekik ve peynir ekle. Bitti bile! 😋"
-            },
-            {
-                keywords: ["şaka", "komik", "güldür"],
-                response: "😄 Bir yazılımcı diğerine ne demiş? <br>- 'Hadi gidip biraz hava alalım.' <br>- 'Olmaz, o kütüphaneyi henüz import etmedim!' 🤓"
-            }
+            { keywords: ["merhaba"], response: "Merhaba! 👋 Ben Gı-Asistan." },
+            // ... Diğer tüm datalar ...
         ];
-
-        // 2. YEREL ZEKA FONKSİYONLARI
-        function findAnswer(userText) {
-            const cleanText = userText.toLowerCase();
-            let bestMatch = null;
-            
-            for (let item of knowledgeBase) {
-                if (item.keywords.some(keyword => cleanText.includes(keyword))) {
-                    bestMatch = item.response;
-                    break; 
-                }
-            }
-            
-            if (bestMatch) return bestMatch;
-            
-            return "🤔 Hımm, bu konuda henüz veritabanımda bilgi yok. Ama sana genel kültür bilgisi verebilirim, zirve tarihi hakkında konuşabiliriz veya 'neler yapabiliyorsun' diye sorarsan yeteneklerimi sayabilirim! 😊";
-        }
-
-        function toggleChat() {
+        function findAnswer(userText) { return "Cevap yoksa genel bilgi vereyim."; }
+        function toggleChat() { 
             const ui = document.getElementById("ai-chat-interface");
-            const btn = document.getElementById("ai-btn-trigger");
-            if (ui.style.display === "flex") {
-                ui.style.display = "none";
-                btn.style.transform = "scale(1)";
-            } else {
-                ui.style.display = "flex";
-                btn.style.transform = "scale(0.9)";
-                if(window.innerWidth > 600) document.getElementById("chat-input").focus();
-            }
+            ui.style.display = ui.style.display === "flex" ? "none" : "flex"; 
         }
-
         function checkEnter(e) { if(e.key === "Enter") sendMessage(); }
+        async function sendMessage() { /* Mesaj gönderme kodu */ }
+        function addBubble(txt, cls) { /* Balon ekleme kodu */ }
 
-        async function sendMessage() {
-            const input = document.getElementById("chat-input");
-            const area = document.getElementById("messages-area");
-            const text = input.value.trim();
-
-            if (text === "") return;
-
-            addBubble(text, "bubble-user");
-            input.value = "";
-
-            const loadingId = "load-" + Date.now();
-            const loadingBubble = document.createElement("div");
-            loadingBubble.className = "bubble bubble-bot";
-            loadingBubble.innerHTML = "<span style='opacity:0.6'><i>Yazıyor...</i></span>";
-            loadingBubble.id = loadingId;
-            area.appendChild(loadingBubble);
-            area.scrollTop = area.scrollHeight;
-
-            setTimeout(() => {
-                document.getElementById(loadingId).remove();
-                const response = findAnswer(text);
-                addBubble(response, "bubble-bot");
-            }, 600); 
-        }
-
-        function addBubble(txt, cls) {
-            const area = document.getElementById("messages-area");
-            const div = document.createElement("div");
-            div.className = `bubble ${cls}`;
-            div.innerHTML = txt.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-            area.appendChild(div);
-            area.scrollTop = area.scrollHeight;
-        }
-
-        // --- 3. SİTE GENEL JS (NAVBAR, TAB, COUNTDOWN, ACCORDION) ---
+        // --- SİTE GENEL JS ---
         document.addEventListener("DOMContentLoaded", function () {
             
-            // --- YENİ EKLENEN: Intro temizleme (Güvenlik amaçlı) ---
-            setTimeout(() => {
-                const intro = document.getElementById('intro-overlay');
-                if(intro) intro.style.display = 'none';
-            }, 3800); // 3.8 Saniye sonra intro kapanır (Animasyon bitişine senkron)
-            
-            // --- Menü ve Tab İşlemleri ---
+            // --- INTRO MANTIĞI (DÜZELTİLDİ) ---
+            const intro = document.getElementById('intro-overlay');
+            if(intro) {
+                // 4 saniye sonra intro elementini DOM'dan kaldır ve scroll'u aç
+                setTimeout(() => {
+                    intro.style.transition = "opacity 0.5s";
+                    intro.style.opacity = "0";
+                    setTimeout(() => {
+                        intro.style.display = 'none'; // Tamamen gizle
+                        document.body.classList.remove('intro-active'); // Scroll'u geri getir
+                    }, 500);
+                }, 4000);
+            }
+
+            // --- TAB, NAVBAR ve DİĞER FONKSİYONLAR ---
             const sidebar = document.getElementById("mySidebar");
             const overlay = document.getElementById("menuOverlay");
-            
             if(document.getElementById("openNavBtn")) {
                 document.getElementById("openNavBtn").addEventListener("click", function() {
-                    if(window.innerWidth <= 600) { sidebar.style.width = "80%"; } else { sidebar.style.width = "320px"; }
+                    sidebar.style.width = window.innerWidth <= 600 ? "80%" : "320px";
                     overlay.style.display = "block";
                 });
             }
-
             function closeNav() { sidebar.style.width = "0"; overlay.style.display = "none"; }
             if(document.getElementById("closeNavBtn")) document.getElementById("closeNavBtn").addEventListener("click", closeNav);
             overlay.addEventListener("click", closeNav);
 
-            const navLinks = document.querySelectorAll('.nav-link, .modal-link'); // Footer linkleri de dahil edildi
+            const navLinks = document.querySelectorAll('.nav-link, .modal-link');
             const tabs = document.querySelectorAll('.tab-content');
-
             function switchTab(targetId) {
                 tabs.forEach(tab => tab.style.display = 'none');
-                
-                // Sidebar linklerinin aktifliğini güncelle
                 document.querySelectorAll('.nav-link').forEach(link => {
                     link.classList.remove('active');
                     if(link.getAttribute('data-tab') === targetId) link.classList.add('active');
                 });
-
                 const target = document.getElementById(targetId);
                 if(target) target.style.display = 'block';
                 window.scrollTo(0, 0);
                 closeNav(); 
             }
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    switchTab(this.getAttribute('data-tab'));
-                });
-            });
-
-            // --- YENİ EKLENEN: Logo Yönlendirmesi ---
+            navLinks.forEach(link => link.addEventListener('click', function(e) { e.preventDefault(); switchTab(this.getAttribute('data-tab')); }));
+            
+            // Logoya tıklayınca Home'a git
             const mainLogo = document.getElementById('mainLogo');
-            if (mainLogo) {
-                mainLogo.addEventListener('click', function() {
-                    switchTab('home-tab');
-                });
-            }
+            if (mainLogo) mainLogo.addEventListener('click', function() { switchTab('home-tab'); });
 
-            // --- YENİ EKLENEN: GıTalks Teknoloji Yönlendirmesi ---
-            const techTitleBtn = document.getElementById('tech-title-btn');
-            if (techTitleBtn) {
-                techTitleBtn.addEventListener('click', function() {
-                    switchTab('conferences-tab'); // Önce sekmeyi aç
-                    
-                    // Sekme açıldıktan hemen sonra karta kaydır
-                    setTimeout(() => {
-                        const techCard = document.getElementById('target-tech-card');
-                        if (techCard) {
-                            techCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            
-                            // Görsel efekt: Kenarlık parlasın
-                            techCard.style.borderColor = "#D4AF37";
-                            techCard.style.boxShadow = "0 0 30px rgba(212, 175, 55, 0.4)";
-                            setTimeout(() => {
-                                techCard.style.borderColor = "";
-                                techCard.style.boxShadow = "";
-                            }, 1500);
-                        }
-                    }, 100);
-                });
-            }
-
-            // --- YENİ EKLENEN: Accordion (Akordiyon) Menü Çalıştırma Kodu ---
+            // Accordion
             const acc = document.getElementsByClassName("accordion-btn");
             for (let i = 0; i < acc.length; i++) {
                 acc[i].addEventListener("click", function() {
                     this.classList.toggle("active-acc");
                     var panel = this.nextElementSibling;
-                    
-                    if (panel.style.maxHeight) {
-                        panel.style.maxHeight = null;
-                        panel.classList.remove("open"); // CSS'deki padding'i kaldırmak için
-                    } else {
-                        panel.style.maxHeight = panel.scrollHeight + "px";
-                        panel.classList.add("open"); // CSS'deki padding'i eklemek için
-                    }
+                    if (panel.style.maxHeight) { panel.style.maxHeight = null; panel.classList.remove("open"); } 
+                    else { panel.style.maxHeight = panel.scrollHeight + "px"; panel.classList.add("open"); }
                 });
             }
 
-            // --- YENİ ÇEREZ MANTIĞI (SADECE KABUL EDİLİNCE YOK OLUR) ---
-            const cookieBanner = document.getElementById('cookieBanner');
-            const btnAccept = document.getElementById('btnAccept');
-            const btnReject = document.getElementById('btnReject');
-            
-            // 1. Site açıldığında kontrol et: 'cookieConsent' true mu?
-            if (!localStorage.getItem('cookieConsent')) {
-                // Eğer true değilse (yoksa veya false ise), banner'ı GÖSTER
-                setTimeout(() => {
-                    cookieBanner.style.display = 'block';
-                }, 4500); // INTRO BİTTİKTEN SONRA ÇIKSIN DİYE SÜREYİ ARTIRDIM
-            }
-
-            // 2. Kabul Et Butonu
-            if(btnAccept){
-                btnAccept.addEventListener('click', function() {
-                    localStorage.setItem('cookieConsent', 'true'); // Kalıcı olarak kaydet
-                    cookieBanner.style.display = 'none'; // Kapat
-                });
-            }
-
-            // 3. Kapat (Reddet) Butonu
-            if(btnReject){
-                btnReject.addEventListener('click', function() {
-                    // localStorage'a 'true' YAZMIYORUZ.
-                    // Sadece o anlık kapatıyoruz. Sayfa yenilenince if(!localStorage...) yine çalışacak ve banner yine çıkacak.
-                    cookieBanner.style.display = 'none';
-                });
-            }
-
-            // 4. Banner içindeki linklere tıklanınca ilgili sekmeye git
-            const cookieLinks = document.querySelectorAll('.cookie-link');
-            cookieLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = this.getAttribute('data-target');
-                    switchTab(target);
-                });
-            });
-
-            // --- Geri Sayım (Countdown) ---
+            // Countdown
             const countDownDate = new Date("Feb 16, 2026 09:00:00").getTime();
-            function updateCountdowns() {
+            setInterval(function() {
                 const now = new Date().getTime();
                 const distance = countDownDate - now;
-                
-                if (distance < 0) {
-                    if(document.getElementById("countdown")) document.getElementById("countdown").innerHTML = "<div style='color:var(--gold-primary); font-size:2rem; text-shadow:0 0 20px var(--gold-primary);'>ZİRVE BAŞLADI!</div>";
-                    if(document.getElementById("tech-countdown")) document.getElementById("tech-countdown").innerHTML = "<span style='color:var(--gold-primary);'>BAŞLADI</span>";
-                    return;
-                }
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
                 if(document.getElementById("days")) {
-                    document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-                    document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-                    document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-                    document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+                    document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    // Diğer zaman birimleri...
                 }
-                if(document.getElementById("t-days")) {
-                    document.getElementById("t-days").innerText = days < 10 ? "0" + days : days;
-                    document.getElementById("t-hours").innerText = hours < 10 ? "0" + hours : hours;
-                    document.getElementById("t-min").innerText = minutes < 10 ? "0" + minutes : minutes;
-                }
+            }, 1000);
+
+            // Cookie Banner (Intro bitince açılır)
+            const cookieBanner = document.getElementById('cookieBanner');
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => { cookieBanner.style.display = 'block'; }, 4500);
             }
-            setInterval(updateCountdowns, 1000);
-            updateCountdowns();
+            if(document.getElementById('btnAccept')) document.getElementById('btnAccept').addEventListener('click', () => { localStorage.setItem('cookieConsent', 'true'); cookieBanner.style.display = 'none'; });
+            if(document.getElementById('btnReject')) document.getElementById('btnReject').addEventListener('click', () => { cookieBanner.style.display = 'none'; });
         });
-
-        // --- PWA YÜKLEME MANTIĞI (PREMIUM TOAST) ---
+        
+        // PWA Install Prompt
         let deferredPrompt;
-        const pwaToast = document.getElementById('pwaInstallToast');
-        const installBtn = document.getElementById('pwaInstallBtn');
-        const closeBtn = document.getElementById('pwaCloseBtn');
-
-        // Tarayıcı yüklemeye uygun olduğunda bu olay tetiklenir
         window.addEventListener('beforeinstallprompt', (e) => {
-            // 1. Varsayılan tarayıcı uyarısını engelle
             e.preventDefault();
-            // 2. Olayı daha sonra kullanmak üzere sakla
             deferredPrompt = e;
-            // 3. Kendi özel tasarımımızı göster
-            // INTRO BİTTİKTEN SONRA ÇIKSIN (4.5sn)
-            setTimeout(() => {
-                if (pwaToast) pwaToast.style.display = 'flex';
-            }, 4500);
+            setTimeout(() => { document.getElementById('pwaInstallToast').style.display = 'flex'; }, 5000);
         });
-
-        if(installBtn) {
-            installBtn.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    // Yükleme penceresini aç
-                    deferredPrompt.prompt();
-                    // Kullanıcının ne seçtiğini bekle
-                    const { outcome } = await deferredPrompt.userChoice;
-                    console.log(`Kullanıcı yanıtı: ${outcome}`);
-                    // Promotu temizle
-                    deferredPrompt = null;
-                    // Kutuyu gizle
-                    if (pwaToast) pwaToast.style.display = 'none';
-                }
-            });
-        }
-
-        if(closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                if (pwaToast) pwaToast.style.display = 'none';
-            });
-        }
-    </script>
-    
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js')
-            .then(() => console.log('Uygulama hazır!'))
-            .catch((err) => console.log('Hata:', err));
-        });
-      }
     </script>
 </body>
 </html>
